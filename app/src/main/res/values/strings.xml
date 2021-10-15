@@ -23,4 +23,5 @@
     <string name="first_name">First name</string>
     <string name="remember_email_address">Remember email address</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="short_thing">Short thing</string>
 </resources>
