@@ -10,7 +10,8 @@
         android:id="@+id/newsfeed_fragment_ctn"
         android:name="vn.edu.usth.flickr.NewsfeedFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:contentDescription="@string/todo" />
 
 
 </RelativeLayout>

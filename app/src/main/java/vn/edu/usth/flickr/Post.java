@@ -18,6 +18,15 @@ public class Post {
         this.avatarImage = avatarImage;
     }
 
+    public Post(ArrayList<Like> likeList, ArrayList<Comment> commentList, String ownerName, String description, Drawable image, Drawable avatarImage) {
+        this.likeList = likeList;
+        this.commentList = commentList;
+        this.ownerName = ownerName;
+        this.description = description;
+        this.image = image;
+        this.avatarImage = avatarImage;
+    }
+
     public Post(ArrayList<Like> likeList, ArrayList<Comment> commentList, String ownerName, String description, Date dateTime, Drawable image, Drawable avatarImage) {
         this.likeList = likeList;
         this.commentList = commentList;
@@ -28,14 +37,6 @@ public class Post {
         this.avatarImage = avatarImage;
     }
 
-    public Post(ArrayList<Like> likeList, ArrayList<Comment> commentList, String ownerName, String description, Date dateTime, Drawable image) {
-        this.likeList = likeList;
-        this.commentList = commentList;
-        this.ownerName = ownerName;
-        this.description = description;
-        this.dateTime = dateTime;
-        this.image = image;
-    }
 
     public Drawable getAvatarImage() {
         return avatarImage;
@@ -93,15 +94,82 @@ public class Post {
         this.image = image;
     }
 
+    /**
+     *
+     */
     public static class Comment {
         private User user;
         private String comment;
         private Date dateTime;
+
+        public Comment(User user, String comment, Date dateTime) {
+            this.user = user;
+            this.comment = comment;
+            this.dateTime = dateTime;
+        }
+
+        public Comment(User user, String comment) {
+            this.user = user;
+            this.comment = comment;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+        }
+
+        public Date getDateTime() {
+            return dateTime;
+        }
+
+        public void setDateTime(Date dateTime) {
+            this.dateTime = dateTime;
+        }
     }
 
+
+    /**
+     *
+     */
     public static class Like {
         private User user;
         private Date dateTime;
+
+        public Like(User user, Date dateTime) {
+            this.user = user;
+            this.dateTime = dateTime;
+        }
+
+        public Like(User user) {
+            this.user = user;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public Date getDateTime() {
+            return dateTime;
+        }
+
+        public void setDateTime(Date dateTime) {
+            this.dateTime = dateTime;
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package vn.edu.usth.flickr;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,7 @@ public class NewsfeedFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // TODO: Rename and change types of parameter
     private String mParam1;
     private String mParam2;
 
@@ -97,14 +98,24 @@ public class NewsfeedFragment extends Fragment {
     }
 
     private void setUpPostList(View view) {
-        Post post = new Post(AppCompatResources.getDrawable(activityContext, R.drawable.bird),
-                AppCompatResources.getDrawable(activityContext, R.drawable.user_ava));
+        Drawable bird = AppCompatResources.getDrawable(activityContext, R.drawable.bird);
+        Drawable flowers = AppCompatResources.getDrawable(activityContext, R.drawable.flowers);
+        Drawable latAvatar = AppCompatResources.getDrawable(activityContext, R.drawable.user_ava);
+
+        ArrayList<Post.Like> likeList = new ArrayList<>();
+        likeList.add(new Post.Like(new User("Do Thi Ngoc An")));
+        likeList.add(new Post.Like(new User("Le Duy")));
+        likeList.add(new Post.Like(new User("Tuan Thanh")));
+
+        ArrayList<Post.Comment> commentList = new ArrayList<>();
+        commentList.add(new Post.Comment(new User("Do Thi Ngoc An"), "Nice!"));
+        commentList.add(new Post.Comment(new User("Tuan Thanh"), "Great!"));
+
+        Post post = new Post(likeList, commentList, "Le Anh Tu", "Studio Workshop 2022", bird, latAvatar);
         postList.add(post);
 
-        Post post1 = new Post(AppCompatResources.getDrawable(activityContext, R.drawable.img),
-                AppCompatResources.getDrawable(activityContext, R.drawable.user_ava));
+        Post post1 = new Post(likeList, commentList, "Le Anh Tu", "Puerta de Alcala Madrid", flowers, latAvatar);
         postList.add(post1);
-
     }
 
 }
@@ -129,41 +140,71 @@ class RvAdapter extends RecyclerView.Adapter<RvAdapter.NewsFeedViewHolder> {
     @Override
     public NewsFeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newsfeed_post, parent, false);
-        NewsFeedViewHolder holder = new NewsFeedViewHolder(view);
-        return holder;
+        return new NewsFeedViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NewsFeedViewHolder holder, int position) {
         holder.mainImage.setImageDrawable(postList.get(position).getImage());
         holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
-//        holder.likeQuantity.setText(postList.get(position).);
-//        holder.commentQuantity.setText(postList.get(position).);
+        holder.postOwnerName.setText(postList.get(position).getOwnerName());
+        holder.postDescription.setText(postList.get(position).getDescription());
+        holder.likeQuantity.setText(String.valueOf(postList.get(position).getLikeList().size()));
+        holder.commentQuantity.setText(String.valueOf(postList.get(position).getCommentList().size()));
+        holder.textListOfLike.setText(getTextListOfLike(position));
+
+        //
+        setUpCommentInNewsfeed(holder, position);
+    }
+
+    private void setUpCommentInNewsfeed(@NonNull NewsFeedViewHolder holder, int position) {
+        int size = postList.get(position).getCommentList().size();
+        if (size != 0) {
+            holder.userNameComment.setText(postList.get(position).getCommentList().get(size - 1).getUser().getName());
+            holder.commentContent.setText(postList.get(position).getCommentList().get(size - 1).getComment());
+        }
     }
 
     @Override
     public int getItemCount() {
+        //
         return postList.size();
     }
+
+    private String getTextListOfLike(int position) {
+        String res = "";
+        for (int i = 0; i < postList.get(position).getLikeList().size(); i++) {
+            res += postList.get(position).getLikeList().get(i).getUser().getName();
+            if (i != postList.get(position).getLikeList().size() -1 ) {
+                res += ", ";
+            }
+        }
+        return res;
+    }
+
 
     /**
      *
      */
     public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mainImage, avaImage, star, comment, share;
-        private TextView likeQuantity, commentQuantity;
+        private final ImageView mainImage, avaImage;
+        private final TextView likeQuantity, commentQuantity, postOwnerName, postDescription, textListOfLike, userNameComment, commentContent;
 
         public NewsFeedViewHolder(@NonNull View itemView) {
             super(itemView);
             mainImage = itemView.findViewById(R.id.imagePost);
             avaImage = itemView.findViewById(R.id.avaImage);
-            star = itemView.findViewById(R.id.starIcon);
-            comment = itemView.findViewById(R.id.commentIcon);
-            share = itemView.findViewById(R.id.shareIcon);
             likeQuantity = itemView.findViewById(R.id.likeOfPost);
             commentQuantity = itemView.findViewById(R.id.commentOfPost);
+            postOwnerName = itemView.findViewById(R.id.userName_newsfeed);
+            postDescription = itemView.findViewById(R.id.description);
+            textListOfLike = itemView.findViewById(R.id.listOfLike);
+            userNameComment = itemView.findViewById(R.id.userName_comment_nf);
+            commentContent = itemView.findViewById(R.id.commentContent_newsfeed);
         }
+
     }
+
 }
 
 
