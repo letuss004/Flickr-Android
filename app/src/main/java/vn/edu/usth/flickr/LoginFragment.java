@@ -97,7 +97,7 @@ public class LoginFragment extends Fragment {
                 setVisible(view);
                 button.setText(getResources().getText(R.string.login));
             } else {
-                Intent intent = new Intent(view.getContext(), NewsFeedActivity.class);
+                Intent intent = new Intent(view.getContext(), NewsfeedActivity.class);
                 startActivity(intent);
             }
         });
