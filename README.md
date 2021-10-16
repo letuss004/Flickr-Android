@@ -26,16 +26,7 @@ Students Infomation
 
 App structure
 =======================
-1. Home Page
-2. Login and sign up
-3. Dashboard
-    * Normal employees
-    * Medical employees
-    * Help
-        * Information,...
-    * Setting
-        * Web setting
-        * Account setting
+
 
 
 App features
