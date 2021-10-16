@@ -24,4 +24,7 @@
     <string name="remember_email_address">Remember email address</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="short_thing">Short thing</string>
+    <string name="something_long_will_be_here">Something long will be here</string>
+    <string name="value">Value</string>
+    <string name="_0h">0h</string>
 </resources>

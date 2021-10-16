@@ -11,4 +11,6 @@
     <color name="appbar_login">#FF1B1B1C</color>
     <color name="appbar_newsfeed">#111111</color>
     <color name="newsfeed_bg_black">#1A1A1A</color>
+    <color name="grey">#808080</color>
+
 </resources>
