@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SignUpFragment#newInstance} factory method to
@@ -91,7 +93,7 @@ public class SignUpFragment extends Fragment {
         ClickableSpan loginHereClickable = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment, new LoginFragment()).commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment, new LoginFragment()).commit();
             }
 
             @Override

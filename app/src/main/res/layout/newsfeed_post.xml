@@ -107,8 +107,9 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:contentDescription="@string/todo"
-            tools:src="@drawable/ic_baseline_insert_comment_24"
-            app:tint="@color/grey" />
+            app:tint="@color/grey"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:src="@drawable/ic_baseline_insert_comment_24" />
 
         <TextView
             android:id="@+id/commentOfPost"
@@ -125,11 +126,12 @@
             style="@style/Widget.AppCompat.ActionButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:tint="@color/grey"
             android:layout_gravity="center"
             android:layout_marginEnd="15dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/todo"
+            app:tint="@color/grey"
+            tools:ignore="TouchTargetSizeCheck"
             tools:src="@drawable/ic_baseline_share_24" />
 
     </LinearLayout>
