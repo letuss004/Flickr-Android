@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,7 +64,6 @@ public class NewsfeedFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
 
@@ -79,10 +79,8 @@ public class NewsfeedFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_newsfeed, container, false);
-        activityContext = view.getContext();
-
-        setUpPostList(view);
         setUpRecyclerView(view);
+        setUpPostList(view);
 
         return view;
     }
@@ -90,11 +88,14 @@ public class NewsfeedFragment extends Fragment {
     private void setUpRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.rv_newsfeed);
 
+        activityContext = view.getContext();
+
         recViewLM = new LinearLayoutManager(activityContext);
         recyclerView.setLayoutManager(recViewLM);
 
-        adapter = new RvAdapter(postList, view.getContext());
+        adapter = new NewsfeedAdapterRV(postList, getContext(), this);
         recyclerView.setAdapter(adapter);
+
     }
 
     private void setUpPostList(View view) {
@@ -123,18 +124,26 @@ public class NewsfeedFragment extends Fragment {
 /**
  *
  */
-class RvAdapter extends RecyclerView.Adapter<RvAdapter.NewsFeedViewHolder> {
+class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.NewsFeedViewHolder> {
     private ArrayList<Post> postList;
     private Context context;
+    private NewsfeedFragment newsfeedFragment;
 
-    public RvAdapter(ArrayList<Post> postList, Context context) {
+    public NewsfeedAdapterRV(ArrayList<Post> postList, Context context) {
         this.postList = postList;
         this.context = context;
     }
 
-    public RvAdapter(ArrayList<Post> postList) {
-        this.postList = postList;
+    public NewsfeedAdapterRV(ArrayList<Post> postList, View view) {
+        context = view.getContext();
     }
+
+    public NewsfeedAdapterRV(ArrayList<Post> postList, Context context, NewsfeedFragment newsfeedFragment) {
+        this.postList = postList;
+        this.context = context;
+        this.newsfeedFragment = newsfeedFragment;
+    }
+
 
     @NonNull
     @Override
@@ -145,6 +154,11 @@ class RvAdapter extends RecyclerView.Adapter<RvAdapter.NewsFeedViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NewsFeedViewHolder holder, int position) {
+        extracted(holder, position);
+    }
+
+    // Don't touch this
+    private void extracted(@NonNull NewsFeedViewHolder holder, int position) {
         holder.mainImage.setImageDrawable(postList.get(position).getImage());
         holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
         holder.postOwnerName.setText(postList.get(position).getOwnerName());
@@ -155,6 +169,16 @@ class RvAdapter extends RecyclerView.Adapter<RvAdapter.NewsFeedViewHolder> {
 
         //
         setUpCommentInNewsfeed(holder, position);
+
+
+        // onclick
+        holder.commentButton.setOnClickListener(v -> {
+            newsfeedFragment.getFragmentManager().beginTransaction()
+                    .addToBackStack("Replace newsfeed by comment")
+                    .replace(R.id.newsfeed_fragment_ctn, new CommentFragment())
+                    .commit();
+        });
+
     }
 
     private void setUpCommentInNewsfeed(@NonNull NewsFeedViewHolder holder, int position) {
@@ -175,7 +199,7 @@ class RvAdapter extends RecyclerView.Adapter<RvAdapter.NewsFeedViewHolder> {
         String res = "";
         for (int i = 0; i < postList.get(position).getLikeList().size(); i++) {
             res += postList.get(position).getLikeList().get(i).getUser().getName();
-            if (i != postList.get(position).getLikeList().size() -1 ) {
+            if (i != postList.get(position).getLikeList().size() - 1) {
                 res += ", ";
             }
         }
@@ -187,7 +211,7 @@ class RvAdapter extends RecyclerView.Adapter<RvAdapter.NewsFeedViewHolder> {
      *
      */
     public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView mainImage, avaImage;
+        private final ImageView mainImage, avaImage, likeButton, commentButton, shareButton;
         private final TextView likeQuantity, commentQuantity, postOwnerName, postDescription, textListOfLike, userNameComment, commentContent;
 
         public NewsFeedViewHolder(@NonNull View itemView) {
@@ -201,6 +225,11 @@ class RvAdapter extends RecyclerView.Adapter<RvAdapter.NewsFeedViewHolder> {
             textListOfLike = itemView.findViewById(R.id.listOfLike);
             userNameComment = itemView.findViewById(R.id.userName_comment_nf);
             commentContent = itemView.findViewById(R.id.commentContent_newsfeed);
+
+            likeButton = itemView.findViewById(R.id.likeButton_nf);
+            commentButton = itemView.findViewById(R.id.commentButton_nf);
+            shareButton = itemView.findViewById(R.id.shareButton_nf);
+
         }
 
     }

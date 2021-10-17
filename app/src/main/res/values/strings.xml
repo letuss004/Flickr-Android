@@ -28,4 +28,6 @@
     <string name="value">Value</string>
     <string name="_0h">0h</string>
     <string name="something_really_long">Something really long gggggggggggggggggggggggggggggggggggggggggggg</string>
+    <string name="comments">Comments</string>
+    <string name="reply">Reply</string>
 </resources>

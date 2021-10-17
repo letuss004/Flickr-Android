@@ -81,7 +81,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/starIcon"
+            android:id="@+id/likeButton_nf"
             style="@style/Widget.AppCompat.ActionButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -104,7 +104,7 @@
             tools:ignore="RtlSymmetry" />
 
         <ImageButton
-            android:id="@+id/commentIcon"
+            android:id="@+id/commentButton_nf"
             style="@style/Widget.AppCompat.ActionButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -127,7 +127,7 @@
             tools:ignore="RtlSymmetry" />
 
         <ImageButton
-            android:id="@+id/shareIcon"
+            android:id="@+id/shareButton_nf"
             style="@style/Widget.AppCompat.ActionButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
