@@ -147,7 +147,7 @@
                 tools:ignore="RelativeOverlap">
 
                 <TextView
-                    android:id="@+id/tv_help"
+                    android:id="@+id/tv_help_signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity=""
@@ -156,7 +156,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/tv_privacy"
+                    android:id="@+id/tv_privacy_signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -165,7 +165,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/tv_term"
+                    android:id="@+id/tv_term_signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"

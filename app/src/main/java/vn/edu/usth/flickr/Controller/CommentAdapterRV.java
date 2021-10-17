@@ -30,7 +30,7 @@ public class CommentAdapterRV extends RecyclerView.Adapter<CommentAdapterRV.Comm
     @NonNull
     @Override
     public CommentAdapterRV.CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_row, parent, false);
         return new CommentAdapterRV.CommentViewHolder(view);
     }
 
@@ -39,6 +39,8 @@ public class CommentAdapterRV extends RecyclerView.Adapter<CommentAdapterRV.Comm
         holder.avaUserComment.setImageDrawable(commentArrayList.get(position).getAvatar());
         holder.userName.setText(commentArrayList.get(position).getUserName());
         holder.userComment.setText(commentArrayList.get(position).getComment());
+
+
 
     }
 

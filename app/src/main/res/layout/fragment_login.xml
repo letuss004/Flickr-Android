@@ -31,8 +31,8 @@
         android:hint="@string/email_address">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
             android:id="@+id/et_email_login"
+            android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,9 +47,9 @@
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_pass_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/ed_pass_login"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,18 +72,18 @@
         android:text="@string/next" />
 
     <TextView
+        android:id="@+id/tv_forgot_pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_forgot_pass"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:textColor="@color/hyper_text"
         android:text="@string/forgot_password"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/hyper_text" />
 
     <View
-        android:layout_width="380dp"
         android:id="@+id/line"
+        android:layout_width="380dp"
         android:layout_height="1dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
@@ -107,6 +107,8 @@
             android:id="@+id/sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:linksClickable="true"
             android:text="@string/sign_up_here"
             android:textColor="@color/hyper_text"
             tools:ignore="TouchTargetSizeCheck" />
@@ -133,7 +135,9 @@
             tools:ignore="RelativeOverlap">
 
             <TextView
-                android:id="@+id/tv_help"
+                android:id="@+id/tv_help_login"
+                android:autoLink="web"
+                android:linksClickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity=""
@@ -142,7 +146,9 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tv_privacy"
+                android:id="@+id/tv_privacy_login"
+                android:autoLink="web"
+                android:linksClickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
@@ -150,7 +156,9 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tv_term"
+                android:id="@+id/tv_term_login"
+                android:autoLink="web"
+                android:linksClickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"

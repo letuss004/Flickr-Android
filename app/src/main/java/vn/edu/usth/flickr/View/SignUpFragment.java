@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.SpannedString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -70,8 +72,27 @@ public class SignUpFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         setSpanHyperText(view);
+        setHyperLink(view);
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void setHyperLink(View view) {
+        TextView help, privacy, term;
+        help = view.findViewById(R.id.tv_help_signup);
+        privacy = view.findViewById(R.id.tv_privacy_signup);
+        term = view.findViewById(R.id.tv_term_signup);
+
+        String helpLink = "<a href='https://www.flickrhelp.com/hc/en-us'>Help</a>";
+        String privacyLink = "<a href='https://www.flickr.com/help/privacy'>Privacy</a>";
+        String termLink = "<a href='https://www.flickr.com/help/terms'>Term</a>";
+
+        help.setText(Html.fromHtml(helpLink));
+        privacy.setText(Html.fromHtml(privacyLink));
+        term.setText(Html.fromHtml(termLink));
+        help.setMovementMethod(LinkMovementMethod.getInstance());
+        privacy.setMovementMethod(LinkMovementMethod.getInstance());
+        term.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setSpanHyperText(View view) {
@@ -79,16 +100,17 @@ public class SignUpFragment extends Fragment {
         signingUp = view.findViewById(R.id.by_sign_up);
         loginHere = view.findViewById(R.id.login_here);
 
-        String bySigningUp = "By signing up, you agree with Flick's Term of\nService and Privacy Policy.";
-        SpannableString ssSigningUp = new SpannableString(bySigningUp);
+        String bySigningUp = "By signing up, you agree with Flick's <a href='https://www.flickrhelp.com/hc/en-us'>Term of\nService</a> and <a href='https://www.flickrhelp.com/hc/en-us'>Privacy Policy</a>.";
+        SpannableString ssSigningUp = (SpannableString) Html.fromHtml(bySigningUp);
         ForegroundColorSpan hyper_text = new ForegroundColorSpan(getResources().getColor(R.color.hyper_text));
         ForegroundColorSpan hyper_text1 = new ForegroundColorSpan(getResources().getColor(R.color.hyper_text));
+
         ssSigningUp.setSpan(hyper_text, 38, 53, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssSigningUp.setSpan(hyper_text1, 58, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
         String loginHereString = "Already a Flickr member? Log in here.";
         SpannableString ssLoginHere = new SpannableString(loginHereString);
+
+
         ClickableSpan loginHereClickable = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {

@@ -18,50 +18,60 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/newsfeed_icon"
+                style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_format_align_left_24" />
+                android:src="@drawable/ic_baseline_format_align_left_24" />
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/search_icon"
+                style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-
+                android:src="@drawable/ic_search_black_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_search_black_24dp"
                 tools:layout_editor_absoluteX="75dp" />
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/profile_icon"
+                style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
+                android:src="@drawable/ic_baseline_perm_identity_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_perm_identity_24"
                 tools:layout_editor_absoluteX="172dp" />
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/notification_icon"
+
+                style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
 
+                android:src="@drawable/ic_baseline_notifications_none_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_notifications_none_24"
                 tools:layout_editor_absoluteX="266dp" />
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/addImage_icon"
+
+                style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+
                 android:layout_weight="1"
+                android:src="@drawable/ic_baseline_insert_photo_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_insert_photo_24"
                 tools:layout_editor_absoluteX="339dp" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>

@@ -1,6 +1,7 @@
 package vn.edu.usth.flickr.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -81,11 +84,43 @@ public class NewsfeedFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_newsfeed, container, false);
         activityContext = view.getContext();
-
         setUpRecyclerView(view);
         setUpPostList(view);
+        setUpNavItemOnClick(view);
+
 
         return view;
+    }
+
+    private void setUpNavItemOnClick(View view) {
+        ImageButton newsfeed, search, addImage, notification, profile;
+        newsfeed = view.findViewById(R.id.newsfeed_icon);
+        search = view.findViewById(R.id.search_icon);
+        addImage = view.findViewById(R.id.addImage_icon);
+        notification = view.findViewById(R.id.notification_icon);
+        profile = view.findViewById(R.id.profile_icon);
+
+        newsfeed.setOnClickListener(v -> {
+            Intent intent = new Intent(activityContext, NewsfeedActivity.class);
+            startActivity(intent);
+        });
+
+        search.setOnClickListener(v -> {
+            Intent intent = new Intent(activityContext, SearchActivity.class);
+            startActivity(intent);
+        });
+
+        addImage.setOnClickListener(v -> {
+
+        });
+
+        notification.setOnClickListener(v -> {
+
+        });
+
+        profile.setOnClickListener(v -> {
+
+        });
     }
 
     //

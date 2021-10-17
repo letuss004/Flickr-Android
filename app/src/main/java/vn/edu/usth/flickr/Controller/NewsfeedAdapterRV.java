@@ -44,7 +44,7 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
     @NonNull
     @Override
     public NewsfeedAdapterRV.NewsFeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newsfeed_post, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newsfeed_post_row, parent, false);
         return new NewsfeedAdapterRV.NewsFeedViewHolder(view);
     }
 
@@ -76,6 +76,8 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
         });
 
     }
+
+
 
     private void setUpCommentInNewsfeed(@NonNull NewsfeedAdapterRV.NewsFeedViewHolder holder, int position) {
         int size = postList.get(position).getCommentList().size();
@@ -121,7 +123,6 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
             textListOfLike = itemView.findViewById(R.id.listOfLike);
             userNameComment = itemView.findViewById(R.id.userName_comment_nf);
             commentContent = itemView.findViewById(R.id.commentContent_newsfeed);
-
             likeButton = itemView.findViewById(R.id.likeButton_nf);
             commentButton = itemView.findViewById(R.id.commentButton_nf);
             shareButton = itemView.findViewById(R.id.shareButton_nf);
