@@ -1,5 +1,8 @@
-package vn.edu.usth.flickr.View;
+package vn.edu.usth.flickr.view;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,15 +11,19 @@ import androidx.fragment.app.Fragment;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.SpannedString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.klinker.android.link_builder.Link;
+import com.klinker.android.link_builder.LinkBuilder;
+import com.klinker.android.link_builder.TouchableMovementMethod;
 
 import vn.edu.usth.flickr.R;
 
@@ -83,16 +90,19 @@ public class SignUpFragment extends Fragment {
         privacy = view.findViewById(R.id.tv_privacy_signup);
         term = view.findViewById(R.id.tv_term_signup);
 
-        String helpLink = "<a href='https://www.flickrhelp.com/hc/en-us'>Help</a>";
-        String privacyLink = "<a href='https://www.flickr.com/help/privacy'>Privacy</a>";
-        String termLink = "<a href='https://www.flickr.com/help/terms'>Term</a>";
+        Link helpLink = new Link("Help")
+                .setTextColor(Color.GRAY)
+                .setUnderlined(false)
+                .setBold(false)
+                .setOnClickListener(clickedText -> {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                    startActivity(browserIntent);
+                });
 
-        help.setText(Html.fromHtml(helpLink));
-        privacy.setText(Html.fromHtml(privacyLink));
-        term.setText(Html.fromHtml(termLink));
-        help.setMovementMethod(LinkMovementMethod.getInstance());
-        privacy.setMovementMethod(LinkMovementMethod.getInstance());
-        term.setMovementMethod(LinkMovementMethod.getInstance());
+        // create the link builder object add the link rule
+        LinkBuilder.on(help)
+                .addLink(helpLink)
+                .build(); // create the clickable links
     }
 
     private void setSpanHyperText(View view) {
@@ -100,15 +110,13 @@ public class SignUpFragment extends Fragment {
         signingUp = view.findViewById(R.id.by_sign_up);
         loginHere = view.findViewById(R.id.login_here);
 
-        String bySigningUp = "By signing up, you agree with Flick's <a href='https://www.flickrhelp.com/hc/en-us'>Term of\nService</a> and <a href='https://www.flickrhelp.com/hc/en-us'>Privacy Policy</a>.";
-        SpannableString ssSigningUp = (SpannableString) Html.fromHtml(bySigningUp);
-        ForegroundColorSpan hyper_text = new ForegroundColorSpan(getResources().getColor(R.color.hyper_text));
-        ForegroundColorSpan hyper_text1 = new ForegroundColorSpan(getResources().getColor(R.color.hyper_text));
-
-        ssSigningUp.setSpan(hyper_text, 38, 53, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ssSigningUp.setSpan(hyper_text1, 58, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        String bySigningUp = "By signing up, you agree with Flick's Term of\nService and Privacy Policy.";
+        SpannableString ssSigningUp = new SpannableString(bySigningUp);
         String loginHereString = "Already a Flickr member? Log in here.";
         SpannableString ssLoginHere = new SpannableString(loginHereString);
+
+        ForegroundColorSpan hyper_text = new ForegroundColorSpan(getResources().getColor(R.color.hyper_text));
+        ForegroundColorSpan hyper_text1 = new ForegroundColorSpan(getResources().getColor(R.color.hyper_text));
 
 
         ClickableSpan loginHereClickable = new ClickableSpan() {
@@ -124,12 +132,48 @@ public class SignUpFragment extends Fragment {
                 ds.setUnderlineText(false);
             }
         };
-//        ssLoginHere.setSpan(hyper_text, 25, 36, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ssLoginHere.setSpan(loginHereClickable, 25, 36, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        ClickableSpan signUpClickable = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(getResources().getColor(R.color.hyper_text));
+                ds.setUnderlineText(false);
+            }
+        };
+
+        ClickableSpan signUpClickable1 = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(getResources().getColor(R.color.hyper_text));
+                ds.setUnderlineText(false);
+            }
+        };
+
+        ssSigningUp.setSpan(new URLSpan("https://www.flickrhelp.com/hc/en-us"), 38, 53, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssSigningUp.setSpan(new URLSpan("https://www.flickrhelp.com/hc/en-us"), 58, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssSigningUp.setSpan(signUpClickable, 38, 53, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssSigningUp.setSpan(signUpClickable1, 58, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssSigningUp.setSpan(hyper_text, 38, 53, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssSigningUp.setSpan(hyper_text1, 58, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ssLoginHere.setSpan(loginHereClickable, 25, 36, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         signingUp.setText(ssSigningUp);
         loginHere.setText(ssLoginHere);
         loginHere.setMovementMethod(LinkMovementMethod.getInstance());
+        signingUp.setMovementMethod(LinkMovementMethod.getInstance());
+
     }
 }

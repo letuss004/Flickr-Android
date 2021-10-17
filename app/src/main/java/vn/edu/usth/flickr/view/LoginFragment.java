@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.View;
+package vn.edu.usth.flickr.view;
 
 import android.content.Intent;
 import android.os.Bundle;

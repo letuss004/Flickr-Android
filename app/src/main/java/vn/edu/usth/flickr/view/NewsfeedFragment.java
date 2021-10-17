@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.View;
+package vn.edu.usth.flickr.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.flickr.Controller.NewsfeedAdapterRV;
-import vn.edu.usth.flickr.Model.Post;
-import vn.edu.usth.flickr.Model.User;
+import vn.edu.usth.flickr.controller.NewsfeedAdapterRV;
+import vn.edu.usth.flickr.model.Post;
+import vn.edu.usth.flickr.model.User;
 import vn.edu.usth.flickr.R;
 
 /**

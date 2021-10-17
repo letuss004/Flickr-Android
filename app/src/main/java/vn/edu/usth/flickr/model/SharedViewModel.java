@@ -1,6 +1,5 @@
-package vn.edu.usth.flickr.Model;
+package vn.edu.usth.flickr.model;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class SharedViewModel extends ViewModel {

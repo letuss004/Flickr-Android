@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.Controller;
+package vn.edu.usth.flickr.controller;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.View.SearchFragment;
+import vn.edu.usth.flickr.view.SearchFragment;
 
 
 /**

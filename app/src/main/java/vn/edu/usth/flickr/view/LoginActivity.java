@@ -1,8 +1,6 @@
-package vn.edu.usth.flickr.View;
+package vn.edu.usth.flickr.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModel;
 
 import android.os.Bundle;
 

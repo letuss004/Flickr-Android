@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flickr">
         <activity
-            android:name=".View.SearchActivity"
+            android:name=".view.SearchActivity"
             android:exported="true" />
         <activity
-            android:name=".View.LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.NewsfeedActivity" />
+        <activity android:name=".view.NewsfeedActivity" />
     </application>
 
 </manifest>

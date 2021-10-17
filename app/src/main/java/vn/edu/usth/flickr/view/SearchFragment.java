@@ -1,6 +1,7 @@
-package vn.edu.usth.flickr.View;
+package vn.edu.usth.flickr.view;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,20 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.flickr.Controller.CommentAdapterRV;
-import vn.edu.usth.flickr.Model.Post;
+import vn.edu.usth.flickr.controller.SearchFragmentAdapter;
 import vn.edu.usth.flickr.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CommentFragment#newInstance} factory method to
+ * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CommentFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +33,7 @@ public class CommentFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public CommentFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
@@ -44,17 +43,24 @@ public class CommentFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CommentFragment.
+     * @return A new instance of fragment SearchFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CommentFragment newInstance(String param1, String param2) {
-        CommentFragment fragment = new CommentFragment();
+    public static SearchFragment newInstance(String param1, String param2) {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager recViewLM;
+    private ArrayList<Drawable> imageList = new ArrayList<>();
+    private ArrayList<String> imageLinkList = new ArrayList<>();
+    private Context activityContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,46 +71,36 @@ public class CommentFragment extends Fragment {
         }
     }
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Post.Comment> commentArrayList = new ArrayList<>();
-    private Context activityContext;
-
-    private ImageView backButton;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_comment, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
         activityContext = view.getContext();
 
-        backButton = view.findViewById(R.id.backButton_cmt);
-        backButton.setOnClickListener(v -> {
-            this.requireActivity().onBackPressed();
-        });
-
         setUpRecyclerView(view);
-
-        Post.Comment comment = new Post.Comment("Le Anh Tu", "Nice", getResources().getDrawable(R.drawable.user_ava));
-        commentArrayList.add(comment);
-
+        setUpImageList();
         return view;
     }
 
-    private void setUpRecyclerView(View view) {
-        if (recyclerView == null) {
-            recyclerView = view.findViewById(R.id.commentRV);
 
-            layoutManager = new LinearLayoutManager(activityContext);
-            recyclerView.setLayoutManager(layoutManager);
+    private void setUpImageList() {
+        imageLinkList.add("https://live.staticflickr.com/65535/51598697158_491af3e970_k.jpg");
+        imageLinkList.add("https://live.staticflickr.com/65535/51596910674_eec7be4967_k.jpg");
+        imageLinkList.add("https://live.staticflickr.com/65535/51584802722_250f1ca962_z.jpg");
+        imageLinkList.add("https://live.staticflickr.com/65535/51573212984_1b7d87cf34_z.jpg");
+        imageLinkList.add("https://live.staticflickr.com/65535/51464174186_e538c1c44c_h.jpg");
 
-            adapter = new CommentAdapterRV(commentArrayList, view.getContext());
-            recyclerView.setAdapter(adapter);
-        }
+
     }
 
+    private void setUpRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.searchRecyclerView);
+
+        recViewLM = new LinearLayoutManager(activityContext);
+        recyclerView.setLayoutManager(recViewLM);
+
+        adapter = new SearchFragmentAdapter(imageLinkList, this);
+        recyclerView.setAdapter(adapter);
+    }
 }
-
-

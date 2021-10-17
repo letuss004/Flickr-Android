@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.Controller;
+package vn.edu.usth.flickr.controller;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.flickr.View.CommentFragment;
-import vn.edu.usth.flickr.Model.Post;
-import vn.edu.usth.flickr.View.NewsfeedFragment;
+import vn.edu.usth.flickr.view.CommentFragment;
+import vn.edu.usth.flickr.model.Post;
+import vn.edu.usth.flickr.view.NewsfeedFragment;
 import vn.edu.usth.flickr.R;
 
 /**
