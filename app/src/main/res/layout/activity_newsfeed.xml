@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewsfeedActivity">
+    tools:context=".View.NewsfeedActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/newsfeed_fragment_ctn"
-        android:name="vn.edu.usth.flickr.NewsfeedFragment"
+        android:name="vn.edu.usth.flickr.View.NewsfeedFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/todo" />

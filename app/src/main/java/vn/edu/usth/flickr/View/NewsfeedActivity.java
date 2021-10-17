@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr;
+package vn.edu.usth.flickr.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import vn.edu.usth.flickr.R;
 
 public class NewsfeedActivity extends AppCompatActivity {
 

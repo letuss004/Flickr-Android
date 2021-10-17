@@ -1,9 +1,8 @@
-package vn.edu.usth.flickr;
+package vn.edu.usth.flickr.View;
 
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+import vn.edu.usth.flickr.Controller.CommentAdapterRV;
+import vn.edu.usth.flickr.Model.Post;
+import vn.edu.usth.flickr.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,9 +78,11 @@ public class CommentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_comment, container, false);
+        activityContext = view.getContext();
+
         backButton = view.findViewById(R.id.backButton_cmt);
         backButton.setOnClickListener(v -> {
-            this.requireActivity().onBackPressed();
+//            this.requireActivity().onBackPressed();
         });
 
         setUpRecyclerView(view);
@@ -91,65 +94,17 @@ public class CommentFragment extends Fragment {
     }
 
     private void setUpRecyclerView(View view) {
-        activityContext = view.getContext();
+        if (recyclerView == null) {
+            recyclerView = view.findViewById(R.id.commentRV);
 
-        recyclerView = view.findViewById(R.id.commentRV);
+            layoutManager = new LinearLayoutManager(activityContext);
+            recyclerView.setLayoutManager(layoutManager);
 
-        layoutManager = new LinearLayoutManager(activityContext);
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = new CommentAdapterRV(commentArrayList, view.getContext());
-        recyclerView.setAdapter(adapter);
-    }
-
-}
-
-
-/**
- *
- */
-class CommentAdapterRV extends RecyclerView.Adapter<CommentAdapterRV.CommentViewHolder> {
-    private ArrayList<Post.Comment> commentArrayList;
-    private Context context;
-
-    public CommentAdapterRV(ArrayList<Post.Comment> commentArrayList, Context context) {
-        this.commentArrayList = commentArrayList;
-        this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment, parent, false);
-        return new CommentViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
-        holder.avaUserComment.setImageDrawable(commentArrayList.get(position).getAvatar());
-        holder.userName.setText(commentArrayList.get(position).getUserName());
-        holder.userComment.setText(commentArrayList.get(position).getComment());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return commentArrayList.size();
-    }
-
-
-    /**
-     *
-     */
-    public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView avaUserComment;
-        private final TextView userName, userComment;
-
-        public CommentViewHolder(@NonNull View itemView) {
-            super(itemView);
-            avaUserComment = itemView.findViewById(R.id.avatarUserComment);
-            userName = itemView.findViewById(R.id.userNameComment_cmt);
-            userComment = itemView.findViewById(R.id.commentContent_cmt);
+            adapter = new CommentAdapterRV(commentArrayList, view.getContext());
+            recyclerView.setAdapter(adapter);
         }
     }
+
 }
+
+

@@ -1,10 +1,12 @@
-package vn.edu.usth.flickr;
+package vn.edu.usth.flickr.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModel;
 
 import android.os.Bundle;
+
+import vn.edu.usth.flickr.R;
 
 public class LoginActivity extends AppCompatActivity {
 

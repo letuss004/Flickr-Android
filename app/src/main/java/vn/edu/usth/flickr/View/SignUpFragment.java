@@ -1,6 +1,5 @@
-package vn.edu.usth.flickr;
+package vn.edu.usth.flickr.View;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Objects;
+import vn.edu.usth.flickr.R;
 
 /**
  * A simple {@link Fragment} subclass.

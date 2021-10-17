@@ -1,7 +1,6 @@
-package vn.edu.usth.flickr;
+package vn.edu.usth.flickr.Model;
 
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Date;

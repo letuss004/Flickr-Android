@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr;
+package vn.edu.usth.flickr.Model;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
