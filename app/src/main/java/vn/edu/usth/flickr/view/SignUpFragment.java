@@ -80,8 +80,13 @@ public class SignUpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         setSpanHyperText(view);
         setHyperLink(view);
+        register(view);
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void register(View view) {
+
     }
 
     private void setHyperLink(View view) {
@@ -105,6 +110,7 @@ public class SignUpFragment extends Fragment {
                 .build(); // create the clickable links
     }
 
+    // Hypertext but HyperLink also
     private void setSpanHyperText(View view) {
         TextView signingUp, loginHere;
         signingUp = view.findViewById(R.id.by_sign_up);

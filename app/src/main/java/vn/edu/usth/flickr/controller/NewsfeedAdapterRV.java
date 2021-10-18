@@ -50,7 +50,25 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
 
     @Override
     public void onBindViewHolder(@NonNull NewsfeedAdapterRV.NewsFeedViewHolder holder, int position) {
-        extracted(holder, position);
+        holder.mainImage.setImageDrawable(postList.get(position).getImage());
+        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
+        holder.postOwnerName.setText(postList.get(position).getOwnerName());
+        holder.postDescription.setText(postList.get(position).getDescription());
+        holder.likeQuantity.setText(String.valueOf(postList.get(position).getLikeQuantity()));
+        holder.commentQuantity.setText(String.valueOf(postList.get(position).getCommentQuantity()));
+        holder.textListOfLike.setText(postList.get(position).getTextLikeList());
+        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
+        holder.commentContent.setText(postList.get(position).getCommentContent());
+        holder.time.setText(postList.get(position).getTime());
+
+
+        holder.commentButton.setOnClickListener(v -> {
+            assert newsfeedFragment.getFragmentManager() != null;
+            newsfeedFragment.getFragmentManager().beginTransaction()
+                    .addToBackStack("Replace newsfeed by comment")
+                    .replace(R.id.newsfeed_fragment_ctn, new CommentFragment())
+                    .commit();
+        });
     }
 
     // Don't touch this
@@ -59,9 +77,13 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
         holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
         holder.postOwnerName.setText(postList.get(position).getOwnerName());
         holder.postDescription.setText(postList.get(position).getDescription());
-        holder.likeQuantity.setText(String.valueOf(postList.get(position).getLikeList().size()));
-        holder.commentQuantity.setText(String.valueOf(postList.get(position).getCommentList().size()));
-        holder.textListOfLike.setText(getTextListOfLike(position));
+        holder.likeQuantity.setText(postList.get(position).getLikeList().size());
+        holder.commentQuantity.setText(postList.get(position).getCommentList().size());
+        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
+        holder.commentContent.setText(postList.get(position).getCommentContent());
+        holder.time.setText(postList.get(position).getTime());
+
+//        holder.textListOfLike.setText(getTextListOfLike(position));
 
         //
         setUpCommentInNewsfeed(holder, position);
@@ -93,16 +115,16 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
         return postList.size();
     }
 
-    private String getTextListOfLike(int position) {
-        String res = "";
-        for (int i = 0; i < postList.get(position).getLikeList().size(); i++) {
-            res += postList.get(position).getLikeList().get(i).getUser().getName();
-            if (i != postList.get(position).getLikeList().size() - 1) {
-                res += ", ";
-            }
-        }
-        return res;
-    }
+//    private String getTextListOfLike(int position) {
+//        String res = "";
+//        for (int i = 0; i < postList.get(position).getLikeList().size(); i++) {
+//            res += postList.get(position).getLikeList().get(i).getUser().getName();
+//            if (i != postList.get(position).getLikeList().size() - 1) {
+//                res += ", ";
+//            }
+//        }
+//        return res;
+//    }
 
 
     /**
@@ -110,7 +132,7 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
      */
     public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
         private final ImageView mainImage, avaImage, likeButton, commentButton, shareButton;
-        private final TextView likeQuantity, commentQuantity, postOwnerName, postDescription, textListOfLike, userNameComment, commentContent;
+        private final TextView likeQuantity, commentQuantity, postOwnerName, postDescription, textListOfLike, userNameComment, commentContent, time;
 
         public NewsFeedViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -126,7 +148,7 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
             likeButton = itemView.findViewById(R.id.likeButton_nf);
             commentButton = itemView.findViewById(R.id.commentButton_nf);
             shareButton = itemView.findViewById(R.id.shareButton_nf);
-
+            time = itemView.findViewById(R.id.timeOfPost);
         }
 
     }

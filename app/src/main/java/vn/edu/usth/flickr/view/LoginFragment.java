@@ -3,6 +3,7 @@ package vn.edu.usth.flickr.view;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -70,18 +72,23 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         setInvisible(view);
         signUpOnClick(view);
         nextOnclick(view);
+        login(view);
         // Inflate the layout for this fragment
         return view;
     }
 
-    private void signUpOnClick(View view) {
+    private void login(View view) {
+
+    }
+
+    private void signUpOnClick(@NonNull View view) {
         TextView textView = view.findViewById(R.id.sign_up);
         textView.setOnClickListener(v -> {
             assert getActivity() != null;
@@ -91,7 +98,7 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void nextOnclick(View view) {
+    private void nextOnclick(@NonNull View view) {
         Button button = view.findViewById(R.id.nextButton);
         button.setOnClickListener(v -> {
             if (button.getText().equals(getResources().getString(R.string.next))) {
