@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view;
+package vn.edu.usth.flickr.view.fragments;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

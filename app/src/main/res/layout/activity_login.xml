@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.LoginActivity">
+    tools:context=".view.activities.LoginActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar_login"
@@ -37,7 +37,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/login_fragment"
-        android:name="vn.edu.usth.flickr.view.LoginFragment"
+        android:name="vn.edu.usth.flickr.view.fragments.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

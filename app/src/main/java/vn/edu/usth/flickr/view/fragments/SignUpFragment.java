@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view;
+package vn.edu.usth.flickr.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
-import com.klinker.android.link_builder.TouchableMovementMethod;
 
 import java.util.Objects;
 

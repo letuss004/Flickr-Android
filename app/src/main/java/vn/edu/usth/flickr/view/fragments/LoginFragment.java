@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view;
+package vn.edu.usth.flickr.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -19,6 +18,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.controller.Data;
 import vn.edu.usth.flickr.controller.DatabaseHelper;
+import vn.edu.usth.flickr.view.activities.NewsfeedActivity;
 
 /**
  * A simple {@link Fragment} subclass.

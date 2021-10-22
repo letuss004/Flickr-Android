@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vn.edu.usth.flickr">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,18 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flickr">
         <activity
-            android:name=".view.SearchActivity"
+            android:name=".view.activities.AddImageActivity"
             android:exported="true" />
         <activity
-            android:name=".view.LoginActivity"
-            android:exported="true">
+            android:name=".view.activities.ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activities.NotificationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activities.SearchActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activities.LoginActivity"
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.NewsfeedActivity" />
+        <activity android:name=".view.activities.NewsfeedActivity" />
     </application>
 
 </manifest>

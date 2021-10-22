@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.view.SearchFragment;
+import vn.edu.usth.flickr.view.fragments.SearchFragment;
 
 
 /**

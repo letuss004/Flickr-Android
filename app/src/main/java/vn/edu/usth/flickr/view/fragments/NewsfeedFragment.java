@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view;
+package vn.edu.usth.flickr.view.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,6 +22,8 @@ import vn.edu.usth.flickr.controller.NewsfeedAdapterRV;
 import vn.edu.usth.flickr.model.Post;
 import vn.edu.usth.flickr.model.User;
 import vn.edu.usth.flickr.R;
+import vn.edu.usth.flickr.view.activities.NewsfeedActivity;
+import vn.edu.usth.flickr.view.activities.SearchActivity;
 
 /**
  * A simple {@link Fragment} subclass.
