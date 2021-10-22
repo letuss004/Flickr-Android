@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import vn.edu.usth.flickr.R;
+import vn.edu.usth.flickr.controller.Data;
+import vn.edu.usth.flickr.controller.DatabaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,15 +100,29 @@ public class LoginFragment extends Fragment {
         });
     }
 
+    private TextInputEditText pass, email;
+
     private void nextOnclick(@NonNull View view) {
         Button button = view.findViewById(R.id.nextButton);
+        DatabaseHelper databaseHelper = new DatabaseHelper(view.getContext(), "name", null, 21);
+        pass = view.findViewById(R.id.ed_pass_login);
+        email = view.findViewById(R.id.et_email_login);
         button.setOnClickListener(v -> {
             if (button.getText().equals(getResources().getString(R.string.next))) {
                 setVisible(view);
                 button.setText(getResources().getText(R.string.login));
             } else {
-                Intent intent = new Intent(view.getContext(), NewsfeedActivity.class);
-                startActivity(intent);
+                String emailValue = email.getText().toString();
+                String passValue = pass.getText().toString();
+                boolean success = databaseHelper.loginUser(new Data(emailValue, passValue));
+                if (success && !emailValue.equals("") && !passValue.equals("")) {
+                    Intent intent = new Intent(view.getContext(), NewsfeedActivity.class);
+                    startActivity(intent);
+                } else {
+                    pass.setError("Something wrong");
+                    email.setError("Something wrong");
+                }
+
             }
         });
     }

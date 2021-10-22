@@ -44,7 +44,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:hint="@string/password"
-        app:endIconMode="password_toggle">
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_pass_login"

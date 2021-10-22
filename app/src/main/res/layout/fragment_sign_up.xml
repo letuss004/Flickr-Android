@@ -76,6 +76,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/emailSignUpEt"
                 android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,10 +90,13 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/passSignUpEt"
+
                 android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/signUpButton"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

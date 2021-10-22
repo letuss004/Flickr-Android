@@ -19,13 +19,19 @@ import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
 import com.klinker.android.link_builder.TouchableMovementMethod;
 
+import java.util.Objects;
+
 import vn.edu.usth.flickr.R;
+import vn.edu.usth.flickr.controller.Data;
+import vn.edu.usth.flickr.controller.DatabaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,9 +90,26 @@ public class SignUpFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+    private TextInputEditText email, pass;
 
     private void register(View view) {
+        Button button = view.findViewById(R.id.signUpButton);
+        DatabaseHelper databaseHelper = new DatabaseHelper(view.getContext(), "name", null, 21);
+        pass = view.findViewById(R.id.emailSignUpEt);
+        email = view.findViewById(R.id.passSignUpEt);
 
+        button.setOnClickListener(v -> {
+            String emailValue = Objects.requireNonNull(email.getText()).toString();
+            String passValue = Objects.requireNonNull(pass.getText()).toString();
+
+            boolean success = databaseHelper.registerUser(new Data(emailValue, passValue));
+            if (success && !emailValue.equals("") && !passValue.equals("")) {
+                getFragmentManager().beginTransaction().replace(R.id.login_fragment, LoginFragment.class, null);
+            } else {
+                pass.setError("Something wrong");
+                email.setError("Something wrong");
+            }
+        });
     }
 
     private void setHyperLink(View view) {

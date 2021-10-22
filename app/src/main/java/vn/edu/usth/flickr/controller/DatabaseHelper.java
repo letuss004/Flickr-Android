@@ -29,31 +29,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    private void registerUser(Data data) {
+    public boolean registerUser(Data data) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        boolean success = false;
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", data.getEmail());
         contentValues.put("password", data.getPassword());
         long user = sqLiteDatabase.insert("User", null, contentValues);
-        if (user != -1 ) {
+        if (user != -1) {
             Log.e(TAG, "registerUser: User Register successful");
+            success = true;
+
         } else {
             Log.e(TAG, "registerUser: error in registering user");
+            success = false;
+
         }
+        return success;
+
     }
 
-    public void loginUser(Data data) {
+    public boolean loginUser(Data data) {
+        boolean success = false;
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor  cursor = sqLiteDatabase.rawQuery("select * from User", null, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from User", null, null);
         while (cursor.moveToNext()) {
-            String email =  cursor.getString(1);
+            String email = cursor.getString(1);
             String password = cursor.getString(2);
             if (email.equals(data.getEmail()) && password.equals(data.getPassword())) {
                 Log.e(TAG, "Login successful");
+                success = true;
             } else {
                 Log.e(TAG, "Login Fail");
+                success = false;
             }
         }
+        return success;
     }
 }
