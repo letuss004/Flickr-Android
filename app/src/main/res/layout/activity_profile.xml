@@ -23,6 +23,15 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutProfile"
+        android:layout_width="match_parent"
+        app:tabInlineLabel="false"
+        app:tabMode="auto"
+        android:layout_height="wrap_content">
+
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/profileViewPager"
         android:layout_width="match_parent"

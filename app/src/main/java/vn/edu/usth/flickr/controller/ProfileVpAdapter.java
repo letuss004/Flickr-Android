@@ -1,5 +1,7 @@
 package vn.edu.usth.flickr.controller;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -14,22 +16,16 @@ import vn.edu.usth.flickr.view.fragments.ProfilePublicFragment;
 import vn.edu.usth.flickr.view.fragments.ProfileStatsFragment;
 
 public class ProfileVpAdapter extends FragmentStateAdapter {
-    private static final int NUM_PAGES = 4;
+    private static final int NUM_PAGES = 5;
 
     public ProfileVpAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
-    public ProfileVpAdapter(@NonNull Fragment fragment) {
-        super(fragment);
-    }
-
-    public ProfileVpAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
-        super(fragmentManager, lifecycle);
-    }
 
     @Override
     public Fragment createFragment(int position) {
+        Log.e("createFragment: ", "" + position);
         switch (position) {
             case 0:
                 return new ProfileCameraFragment();

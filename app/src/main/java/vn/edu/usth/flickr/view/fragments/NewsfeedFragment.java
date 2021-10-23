@@ -24,6 +24,7 @@ import vn.edu.usth.flickr.model.User;
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.view.activities.NewsfeedActivity;
 import vn.edu.usth.flickr.view.activities.NotificationActivity;
+import vn.edu.usth.flickr.view.activities.ProfileActivity;
 import vn.edu.usth.flickr.view.activities.SearchActivity;
 
 /**
@@ -192,7 +193,9 @@ public class NewsfeedFragment extends Fragment {
         });
 
         profile.setOnClickListener(v -> {
-
+            Intent intent = new Intent(activityContext, ProfileActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
         });
     }
 
