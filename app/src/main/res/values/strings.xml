@@ -31,5 +31,6 @@
     <string name="comments">Comments</string>
     <string name="reply">Reply</string>
     <string name="search_flickr">Search Flickr</string>
+    <string name="notification">Notification</string>
 
 </resources>

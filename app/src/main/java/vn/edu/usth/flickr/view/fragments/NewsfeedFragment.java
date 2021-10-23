@@ -23,6 +23,7 @@ import vn.edu.usth.flickr.model.Post;
 import vn.edu.usth.flickr.model.User;
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.view.activities.NewsfeedActivity;
+import vn.edu.usth.flickr.view.activities.NotificationActivity;
 import vn.edu.usth.flickr.view.activities.SearchActivity;
 
 /**
@@ -176,6 +177,7 @@ public class NewsfeedFragment extends Fragment {
 
         search.setOnClickListener(v -> {
             Intent intent = new Intent(activityContext, SearchActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
         });
 
@@ -184,7 +186,9 @@ public class NewsfeedFragment extends Fragment {
         });
 
         notification.setOnClickListener(v -> {
-
+            Intent intent = new Intent(activityContext, NotificationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
         });
 
         profile.setOnClickListener(v -> {

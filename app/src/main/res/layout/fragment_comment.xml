@@ -40,12 +40,11 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
         android:id="@+id/commentRV"
-        android:layout_weight="1"
-        android:layout_height="0dp" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
