@@ -18,7 +18,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.controller.Data;
 import vn.edu.usth.flickr.controller.DatabaseHelper;
-import vn.edu.usth.flickr.view.activities.NewsfeedActivity;
+import vn.edu.usth.flickr.view.activities.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -116,7 +116,7 @@ public class LoginFragment extends Fragment {
                 String passValue = pass.getText().toString();
                 boolean success = databaseHelper.loginUser(new Data(emailValue, passValue));
                 if (success && !emailValue.equals("") && !passValue.equals("")) {
-                    Intent intent = new Intent(view.getContext(), NewsfeedActivity.class);
+                    Intent intent = new Intent(view.getContext(), MainActivity.class);
                     startActivity(intent);
                 } else {
                     pass.setError("Something wrong");

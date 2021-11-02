@@ -66,7 +66,7 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
             assert newsfeedFragment.getFragmentManager() != null;
             newsfeedFragment.getFragmentManager().beginTransaction()
                     .addToBackStack("Replace newsfeed by comment")
-                    .replace(R.id.newsfeed_fragment_ctn, new CommentFragment())
+                    .replace(R.id.navHost_fragment, new CommentFragment())
                     .commit();
         });
     }
@@ -93,12 +93,11 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
         holder.commentButton.setOnClickListener(v -> {
             newsfeedFragment.getFragmentManager().beginTransaction()
                     .addToBackStack("Replace newsfeed by comment")
-                    .replace(R.id.newsfeed_fragment_ctn, new CommentFragment())
+                    .replace(R.id.navHost_fragment, new CommentFragment())
                     .commit();
         });
 
     }
-
 
 
     private void setUpCommentInNewsfeed(@NonNull NewsfeedAdapterRV.NewsFeedViewHolder holder, int position) {
@@ -152,7 +151,6 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
         }
 
     }
-
 
 
 }

@@ -8,15 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.flickr.view.activities.NotificationActivity;
-
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ItemViewHolder> {
     private ArrayList<Object> notificationList;
-    private NotificationActivity notificationActivity;
 
-
-    public NotificationAdapter(ArrayList<Object> notificationList, NotificationActivity notificationActivity) {
-        this.notificationActivity = notificationActivity;
+    public NotificationAdapter(ArrayList<Object> notificationList) {
         this.notificationList = notificationList;
     }
 

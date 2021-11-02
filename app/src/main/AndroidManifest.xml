@@ -11,31 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Flickr">
-        <!--        <activity-->
-        <!--            android:name=".view.activities.AddImageActivity"-->
-        <!--            android:exported="true" />-->
-        <!--        <activity-->
-        <!--            android:name=".view.activities.ProfileActivity"-->
-        <!--            android:exported="true" />-->
-        <!--        <activity-->
-        <!--            android:name=".view.activities.NotificationActivity"-->
-        <!--            android:exported="true" />-->
-        <!--        <activity-->
-        <!--            android:name=".view.activities.SearchActivity"-->
-        <!--            android:exported="true" />-->
         <activity
             android:name=".view.activities.LoginActivity"
             android:exported="true"
             android:noHistory="true">
-
-        </activity>
-        <activity
-            android:name=".view.activities.MainActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activities.MainActivity"
+            android:exported="true">
+
         </activity>
         <!--        <activity android:name=".view.activities.NewsfeedActivity" />-->
     </application>

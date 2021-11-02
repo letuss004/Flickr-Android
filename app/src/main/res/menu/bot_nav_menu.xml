@@ -12,16 +12,16 @@
         android:title="@string/search" />
 
     <item
-        android:id="@+id/camera_menuItem"
+        android:id="@+id/cameraFragment"
         android:icon="@drawable/ic_baseline_photo_camera_24"
         android:title="@string/camera" />
 
     <item
-        android:id="@+id/notification_menuItem"
+        android:id="@+id/notificationFragment"
         android:icon="@drawable/ic_baseline_notifications_none_24"
         android:title="@string/notification" />
     <item
-        android:id="@+id/profile_menuItem"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_baseline_perm_identity_24"
         android:title="@string/profile" />
 </menu>
