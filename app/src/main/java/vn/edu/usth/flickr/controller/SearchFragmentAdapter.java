@@ -2,6 +2,7 @@ package vn.edu.usth.flickr.controller;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import vn.edu.usth.flickr.view.fragments.SearchFragment;
  *
  */
 public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAdapter.SearchViewHolder> {
+    private static final String TAG = "SearchFragmentAdapter";
     private ArrayList<Drawable> imageList;
     private SearchFragment searchFragment;
     private Context context;
@@ -41,12 +43,6 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
         return new SearchViewHolder(view);
     }
 
-    /*
-   Glide.with(context)
-   .load("http://via.placeholder.com/300.png")
-   .override(300, 200)
-   .into(ivImg);
-    */
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         Glide.with(context).load(imageLinkList.get(position)).into(holder.firstImage);
@@ -54,7 +50,8 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     @Override
     public int getItemCount() {
-        return imageList.size();
+        Log.e(TAG, "getItemCount: " + imageLinkList.size());
+        return imageLinkList.size();
     }
 
 

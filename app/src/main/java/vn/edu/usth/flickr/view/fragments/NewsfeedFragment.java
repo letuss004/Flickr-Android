@@ -2,7 +2,6 @@ package vn.edu.usth.flickr.view.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
@@ -22,10 +20,6 @@ import vn.edu.usth.flickr.controller.NewsfeedAdapterRV;
 import vn.edu.usth.flickr.model.Post;
 import vn.edu.usth.flickr.model.User;
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.view.activities.NewsfeedActivity;
-import vn.edu.usth.flickr.view.activities.NotificationActivity;
-import vn.edu.usth.flickr.view.activities.ProfileActivity;
-import vn.edu.usth.flickr.view.activities.SearchActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,7 +84,7 @@ public class NewsfeedFragment extends Fragment {
         activityContext = view.getContext();
         setUpRecyclerView(view);
         setUpPostListInformation();
-        setUpNavItemOnClick(view);
+//        setUpNavItemOnClick(view);
 
         return view;
     }
@@ -164,39 +158,39 @@ public class NewsfeedFragment extends Fragment {
     }
 
     private void setUpNavItemOnClick(View view) {
-        ImageButton newsfeed, search, addImage, notification, profile;
-        newsfeed = view.findViewById(R.id.newsfeed_icon);
-        search = view.findViewById(R.id.search_icon);
-        addImage = view.findViewById(R.id.addImage_icon);
-        notification = view.findViewById(R.id.notification_icon);
-        profile = view.findViewById(R.id.profile_icon);
-
-        newsfeed.setOnClickListener(v -> {
-            Intent intent = new Intent(activityContext, NewsfeedActivity.class);
-            startActivity(intent);
-        });
-
-        search.setOnClickListener(v -> {
-            Intent intent = new Intent(activityContext, SearchActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
-        });
-
-        addImage.setOnClickListener(v -> {
-
-        });
-
-        notification.setOnClickListener(v -> {
-            Intent intent = new Intent(activityContext, NotificationActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
-        });
-
-        profile.setOnClickListener(v -> {
-            Intent intent = new Intent(activityContext, ProfileActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
-        });
+//        ImageButton newsfeed, search, addImage, notification, profile;
+//        newsfeed = view.findViewById(R.id.newsfeed_icon);
+//        search = view.findViewById(R.id.search_icon);
+//        addImage = view.findViewById(R.id.addImage_icon);
+//        notification = view.findViewById(R.id.notification_icon);
+//        profile = view.findViewById(R.id.profile_icon);
+//
+//        newsfeed.setOnClickListener(v -> {
+//            Intent intent = new Intent(activityContext, NewsfeedActivity.class);
+//            startActivity(intent);
+//        });
+//
+//        search.setOnClickListener(v -> {
+//            Intent intent = new Intent(activityContext, SearchActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//            startActivity(intent);
+//        });
+//
+//        addImage.setOnClickListener(v -> {
+//
+//        });
+//
+//        notification.setOnClickListener(v -> {
+//            Intent intent = new Intent(activityContext, NotificationActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//            startActivity(intent);
+//        });
+//
+//        profile.setOnClickListener(v -> {
+//            Intent intent = new Intent(activityContext, ProfileActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//            startActivity(intent);
+//        });
     }
 
     //

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/newsfeed_menuItem"
+        android:id="@+id/newsfeedFragment"
         android:icon="@drawable/ic_baseline_format_align_left_24"
         android:title="@string/newsfeed" />
     <item
-        android:id="@+id/search_menuItem"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search" />
 

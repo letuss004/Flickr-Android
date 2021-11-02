@@ -24,12 +24,10 @@ import vn.edu.usth.flickr.R;
  */
 public class SearchFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -45,7 +43,6 @@ public class SearchFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment SearchFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static SearchFragment newInstance(String param1, String param2) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
@@ -90,8 +87,6 @@ public class SearchFragment extends Fragment {
         imageLinkList.add("https://live.staticflickr.com/65535/51584802722_250f1ca962_z.jpg");
         imageLinkList.add("https://live.staticflickr.com/65535/51573212984_1b7d87cf34_z.jpg");
         imageLinkList.add("https://live.staticflickr.com/65535/51464174186_e538c1c44c_h.jpg");
-
-
     }
 
     private void setUpRecyclerView(View view) {
