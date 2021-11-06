@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.adapter;
+package vn.edu.usth.flickr.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table if not exists User (id integer primary key autoincrement, email text, password text)");
+        db.execSQL("create table if not exists User (id integer primary key autoincrement, email text not null unique, password text not null)");
     }
 
     @Override
@@ -32,7 +32,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean registerUser(Data data) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        boolean success = false;
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", data.getEmail());
@@ -40,15 +39,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long user = sqLiteDatabase.insert("User", null, contentValues);
         if (user != -1) {
             Log.e(TAG, "registerUser: User Register successful");
-            success = true;
-
+            return true;
         } else {
             Log.e(TAG, "registerUser: error in registering user");
-            success = false;
-
+            return false;
         }
-        return success;
-
     }
 
     public boolean loginUser(Data data) {
@@ -66,6 +61,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 success = false;
             }
         }
+        cursor.close();
+        sqLiteDatabase.close();
         return success;
     }
 }

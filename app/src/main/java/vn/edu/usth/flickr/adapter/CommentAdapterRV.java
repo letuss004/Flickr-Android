@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.flickr.repository.Post;
 import vn.edu.usth.flickr.R;
+import vn.edu.usth.flickr.repository.Post;
 
 /**
  *

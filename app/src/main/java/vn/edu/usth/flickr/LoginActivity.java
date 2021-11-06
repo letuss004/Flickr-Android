@@ -1,10 +1,8 @@
 package vn.edu.usth.flickr;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import vn.edu.usth.flickr.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

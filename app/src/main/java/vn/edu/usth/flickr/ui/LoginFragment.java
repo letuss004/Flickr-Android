@@ -2,9 +2,6 @@ package vn.edu.usth.flickr.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +9,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.repository.Data;
-import vn.edu.usth.flickr.adapter.DatabaseHelper;
 import vn.edu.usth.flickr.MainActivity;
+import vn.edu.usth.flickr.R;
+import vn.edu.usth.flickr.db.DatabaseHelper;
+import vn.edu.usth.flickr.repository.Data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,7 +79,6 @@ public class LoginFragment extends Fragment {
         setInvisible(view);
         signUpOnClick(view);
         nextOnclick(view);
-        login(view);
         // Inflate the layout for this fragment
         return view;
     }
@@ -93,7 +92,7 @@ public class LoginFragment extends Fragment {
         textView.setOnClickListener(v -> {
             assert getActivity() != null;
             getActivity().getSupportFragmentManager()
-                    .beginTransaction().replace(R.id.login_fragment, new SignUpFragment())
+                    .beginTransaction().replace(R.id.login_fragmentContainer, new SignUpFragment())
                     .addToBackStack("Login Fragment").commit();
         });
     }

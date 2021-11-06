@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -15,11 +11,15 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.URLSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.klinker.android.link_builder.Link;
@@ -28,8 +28,8 @@ import com.klinker.android.link_builder.LinkBuilder;
 import java.util.Objects;
 
 import vn.edu.usth.flickr.R;
+import vn.edu.usth.flickr.db.DatabaseHelper;
 import vn.edu.usth.flickr.repository.Data;
-import vn.edu.usth.flickr.adapter.DatabaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +41,8 @@ public class SignUpFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "SignUpFragment";
+    private TextInputEditText email, pass;
 
     private String mParam1;
     private String mParam2;
@@ -79,13 +81,13 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
-        setSpanHyperText(view);
-        setHyperLink(view);
+        setSpanHyperText(view); // can be replace (optional), this is old one
+        setHyperLink(view); // new one
         register(view);
         // Inflate the layout for this fragment
         return view;
     }
-    private TextInputEditText email, pass;
+
 
     private void register(View view) {
         Button button = view.findViewById(R.id.signUpButton);
@@ -98,8 +100,9 @@ public class SignUpFragment extends Fragment {
             String passValue = Objects.requireNonNull(pass.getText()).toString();
 
             boolean success = databaseHelper.registerUser(new Data(emailValue, passValue));
-            if (success && !emailValue.equals("") && !passValue.equals("")) {
-                getFragmentManager().beginTransaction().replace(R.id.login_fragment, LoginFragment.class, null);
+            if (success) {
+                Log.e(TAG, "register: Register successful");
+                getParentFragmentManager().popBackStack();
             } else {
                 pass.setError("Something wrong");
                 email.setError("Something wrong");
@@ -118,7 +121,7 @@ public class SignUpFragment extends Fragment {
                 .setUnderlined(false)
                 .setBold(false)
                 .setOnClickListener(clickedText -> {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.flickrhelp.com/hc/en-us"));
                     startActivity(browserIntent);
                 });
 
@@ -146,7 +149,7 @@ public class SignUpFragment extends Fragment {
         ClickableSpan loginHereClickable = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment, new LoginFragment()).commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragmentContainer, new LoginFragment()).commit();
             }
 
             @Override
