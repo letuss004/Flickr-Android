@@ -16,16 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.adapter.NewsfeedAdapterRV;
+import vn.edu.usth.flickr.adapter.NewsFeedAdapterRV;
 import vn.edu.usth.flickr.model.Post;
 import vn.edu.usth.flickr.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NewsfeedFragment#newInstance} factory method to
+ * Use the {@link NewsFeedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewsfeedFragment extends Fragment {
+public class NewsFeedFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +34,7 @@ public class NewsfeedFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public NewsfeedFragment() {
+    public NewsFeedFragment() {
         // Required empty public constructor
     }
 
@@ -46,8 +46,8 @@ public class NewsfeedFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment NewsfeedFragment.
      */
-    public static NewsfeedFragment newInstance(String param1, String param2) {
-        NewsfeedFragment fragment = new NewsfeedFragment();
+    public static NewsFeedFragment newInstance(String param1, String param2) {
+        NewsFeedFragment fragment = new NewsFeedFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -196,7 +196,7 @@ public class NewsfeedFragment extends Fragment {
         recViewLM = new LinearLayoutManager(activityContext);
         recyclerView.setLayoutManager(recViewLM);
 
-        adapter = new NewsfeedAdapterRV(postList, getContext(), this);
+        adapter = new NewsFeedAdapterRV(postList, getContext(), this);
         recyclerView.setAdapter(adapter);
     }
 

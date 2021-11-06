@@ -7,11 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import vn.edu.usth.flickr.ui.ProfileAlbumFragment;
-import vn.edu.usth.flickr.ui.ProfileCameraFragment;
-import vn.edu.usth.flickr.ui.ProfileGroupFragment;
-import vn.edu.usth.flickr.ui.ProfilePublicFragment;
-import vn.edu.usth.flickr.ui.ProfileStatsFragment;
+import vn.edu.usth.flickr.ui.profile.ProfileAlbumFragment;
+import vn.edu.usth.flickr.ui.profile.ProfileCameraFragment;
+import vn.edu.usth.flickr.ui.profile.ProfileGroupFragment;
+import vn.edu.usth.flickr.ui.profile.ProfilePublicFragment;
+import vn.edu.usth.flickr.ui.profile.ProfileStatsFragment;
 
 public class ProfileVpAdapter extends FragmentStateAdapter {
     private static final int NUM_PAGES = 5;

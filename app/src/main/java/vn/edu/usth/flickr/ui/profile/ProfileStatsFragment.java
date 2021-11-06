@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.ui;
+package vn.edu.usth.flickr.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +11,10 @@ import vn.edu.usth.flickr.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProfileAlbumFragment#newInstance} factory method to
+ * Use the {@link ProfileStatsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileAlbumFragment extends Fragment {
+public class ProfileStatsFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -23,7 +23,7 @@ public class ProfileAlbumFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProfileAlbumFragment() {
+    public ProfileStatsFragment() {
         // Required empty public constructor
     }
 
@@ -33,10 +33,10 @@ public class ProfileAlbumFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileAlbumFragment.
+     * @return A new instance of fragment ProfileStatsFragment.
      */
-    public static ProfileAlbumFragment newInstance(String param1, String param2) {
-        ProfileAlbumFragment fragment = new ProfileAlbumFragment();
+    public static ProfileStatsFragment newInstance(String param1, String param2) {
+        ProfileStatsFragment fragment = new ProfileStatsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,6 +57,6 @@ public class ProfileAlbumFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_album, container, false);
+        return inflater.inflate(R.layout.fragment_profile_stats, container, false);
     }
 }

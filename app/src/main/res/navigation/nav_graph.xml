@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/newsfeedFragment"
-        android:name="vn.edu.usth.flickr.ui.NewsfeedFragment"
+        android:name="vn.edu.usth.flickr.ui.NewsFeedFragment"
         android:label="fragment_newsfeed"
         tools:layout="@layout/fragment_newsfeed" >
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="vn.edu.usth.flickr.ui.ProfileFragment"
+        android:name="vn.edu.usth.flickr.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 

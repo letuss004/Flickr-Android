@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.ui;
+package vn.edu.usth.flickr.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

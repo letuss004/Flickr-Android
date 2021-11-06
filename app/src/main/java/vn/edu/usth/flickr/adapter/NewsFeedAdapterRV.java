@@ -15,26 +15,26 @@ import java.util.ArrayList;
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.model.Post;
 import vn.edu.usth.flickr.ui.CommentFragment;
-import vn.edu.usth.flickr.ui.NewsfeedFragment;
+import vn.edu.usth.flickr.ui.NewsFeedFragment;
 
 /**
  *
  */
-public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.NewsFeedViewHolder> {
+public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.NewsFeedViewHolder> {
     private ArrayList<Post> postList;
     private Context context;
-    private NewsfeedFragment newsfeedFragment;
+    private NewsFeedFragment newsfeedFragment;
 
-    public NewsfeedAdapterRV(ArrayList<Post> postList, Context context) {
+    public NewsFeedAdapterRV(ArrayList<Post> postList, Context context) {
         this.postList = postList;
         this.context = context;
     }
 
-    public NewsfeedAdapterRV(ArrayList<Post> postList, View view) {
+    public NewsFeedAdapterRV(ArrayList<Post> postList, View view) {
         context = view.getContext();
     }
 
-    public NewsfeedAdapterRV(ArrayList<Post> postList, Context context, NewsfeedFragment newsfeedFragment) {
+    public NewsFeedAdapterRV(ArrayList<Post> postList, Context context, NewsFeedFragment newsfeedFragment) {
         this.postList = postList;
         this.context = context;
         this.newsfeedFragment = newsfeedFragment;
@@ -43,13 +43,13 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
 
     @NonNull
     @Override
-    public NewsfeedAdapterRV.NewsFeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NewsFeedAdapterRV.NewsFeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newsfeed_post_row, parent, false);
-        return new NewsfeedAdapterRV.NewsFeedViewHolder(view);
+        return new NewsFeedAdapterRV.NewsFeedViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsfeedAdapterRV.NewsFeedViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
         holder.mainImage.setImageDrawable(postList.get(position).getImage());
         holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
         holder.postOwnerName.setText(postList.get(position).getOwnerName());
@@ -72,7 +72,7 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
     }
 
     // Don't touch this
-    private void extracted(@NonNull NewsfeedAdapterRV.NewsFeedViewHolder holder, int position) {
+    private void extracted(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
         holder.mainImage.setImageDrawable(postList.get(position).getImage());
         holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
         holder.postOwnerName.setText(postList.get(position).getOwnerName());
@@ -100,7 +100,7 @@ public class NewsfeedAdapterRV extends RecyclerView.Adapter<NewsfeedAdapterRV.Ne
     }
 
 
-    private void setUpCommentInNewsfeed(@NonNull NewsfeedAdapterRV.NewsFeedViewHolder holder, int position) {
+    private void setUpCommentInNewsfeed(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
         int size = postList.get(position).getCommentList().size();
         if (size != 0) {
             holder.userNameComment.setText(postList.get(position).getCommentList().get(size - 1).getUser().getName());
