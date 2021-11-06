@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.adapter.NewsfeedAdapterRV;
-import vn.edu.usth.flickr.repository.Post;
-import vn.edu.usth.flickr.repository.User;
+import vn.edu.usth.flickr.model.Post;
+import vn.edu.usth.flickr.model.User;
 
 /**
  * A simple {@link Fragment} subclass.

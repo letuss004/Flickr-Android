@@ -18,7 +18,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import vn.edu.usth.flickr.MainActivity;
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.db.DatabaseHelper;
-import vn.edu.usth.flickr.repository.Data;
+import vn.edu.usth.flickr.model.Data;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -9,7 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import vn.edu.usth.flickr.repository.Data;
+import vn.edu.usth.flickr.model.Data;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.repository;
+package vn.edu.usth.flickr.model;
 
 import androidx.lifecycle.ViewModel;
 

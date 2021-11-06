@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.adapter.CommentAdapterRV;
-import vn.edu.usth.flickr.repository.Post;
+import vn.edu.usth.flickr.model.Post;
 
 /**
  * A simple {@link Fragment} subclass.

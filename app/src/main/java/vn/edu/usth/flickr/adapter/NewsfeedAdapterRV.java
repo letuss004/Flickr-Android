@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.repository.Post;
+import vn.edu.usth.flickr.model.Post;
 import vn.edu.usth.flickr.ui.CommentFragment;
 import vn.edu.usth.flickr.ui.NewsfeedFragment;
 
