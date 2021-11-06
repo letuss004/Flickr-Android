@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view.fragments;
+package vn.edu.usth.flickr.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.controller.Data;
-import vn.edu.usth.flickr.controller.DatabaseHelper;
-import vn.edu.usth.flickr.view.activities.MainActivity;
+import vn.edu.usth.flickr.repository.Data;
+import vn.edu.usth.flickr.adapter.DatabaseHelper;
+import vn.edu.usth.flickr.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +31,6 @@ public class LoginFragment extends Fragment {
     private static final String ARG_PARAM1 = "LoginFragment ARG_PARAM1";
     private static final String ARG_PARAM2 = "LoginFragment ARG_PARAM2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -52,7 +51,6 @@ public class LoginFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment LoginFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static LoginFragment newInstance(String param1, String param2) {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();

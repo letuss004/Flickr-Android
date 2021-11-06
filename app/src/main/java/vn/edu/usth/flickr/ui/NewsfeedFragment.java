@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view.fragments;
+package vn.edu.usth.flickr.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,9 +16,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.flickr.controller.NewsfeedAdapterRV;
-import vn.edu.usth.flickr.model.Post;
-import vn.edu.usth.flickr.model.User;
+import vn.edu.usth.flickr.adapter.NewsfeedAdapterRV;
+import vn.edu.usth.flickr.repository.Post;
+import vn.edu.usth.flickr.repository.User;
 import vn.edu.usth.flickr.R;
 
 /**
@@ -28,12 +28,10 @@ import vn.edu.usth.flickr.R;
  */
 public class NewsfeedFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameter
     private String mParam1;
     private String mParam2;
 
@@ -49,7 +47,6 @@ public class NewsfeedFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment NewsfeedFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static NewsfeedFragment newInstance(String param1, String param2) {
         NewsfeedFragment fragment = new NewsfeedFragment();
         Bundle args = new Bundle();

@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view.activities;
+package vn.edu.usth.flickr;
 
 import androidx.appcompat.app.AppCompatActivity;
 

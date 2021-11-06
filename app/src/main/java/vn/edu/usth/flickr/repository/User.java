@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.model;
+package vn.edu.usth.flickr.repository;
 
 public class User {
     private String name;

@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view.fragments;
+package vn.edu.usth.flickr.ui;
 
 import android.os.Bundle;
 
@@ -12,21 +12,19 @@ import vn.edu.usth.flickr.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProfileStatsFragment#newInstance} factory method to
+ * Use the {@link ProfileGroupFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileStatsFragment extends Fragment {
+public class ProfileGroupFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public ProfileStatsFragment() {
+    public ProfileGroupFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +34,10 @@ public class ProfileStatsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileStatsFragment.
+     * @return A new instance of fragment ProfileGroupFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileStatsFragment newInstance(String param1, String param2) {
-        ProfileStatsFragment fragment = new ProfileStatsFragment();
+    public static ProfileGroupFragment newInstance(String param1, String param2) {
+        ProfileGroupFragment fragment = new ProfileGroupFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +58,6 @@ public class ProfileStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_stats, container, false);
+        return inflater.inflate(R.layout.fragment_profile_group, container, false);
     }
 }

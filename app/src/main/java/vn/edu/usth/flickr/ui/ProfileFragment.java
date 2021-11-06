@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view.fragments;
+package vn.edu.usth.flickr.ui;
 
 import android.os.Bundle;
 
@@ -12,10 +12,8 @@ import android.view.ViewGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.Objects;
-
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.controller.ProfileVpAdapter;
+import vn.edu.usth.flickr.adapter.ProfileVpAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

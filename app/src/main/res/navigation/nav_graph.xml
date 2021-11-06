@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/newsfeedFragment"
-        android:name="vn.edu.usth.flickr.view.fragments.NewsfeedFragment"
+        android:name="vn.edu.usth.flickr.ui.NewsfeedFragment"
         android:label="fragment_newsfeed"
         tools:layout="@layout/fragment_newsfeed" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="vn.edu.usth.flickr.view.fragments.SearchFragment"
+        android:name="vn.edu.usth.flickr.ui.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="vn.edu.usth.flickr.view.fragments.CameraFragment"
+        android:name="vn.edu.usth.flickr.ui.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" >
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="vn.edu.usth.flickr.view.fragments.NotificationFragment"
+        android:name="vn.edu.usth.flickr.ui.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" >
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="vn.edu.usth.flickr.view.fragments.ProfileFragment"
+        android:name="vn.edu.usth.flickr.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 

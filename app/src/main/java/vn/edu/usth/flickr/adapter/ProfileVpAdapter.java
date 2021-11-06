@@ -1,19 +1,17 @@
-package vn.edu.usth.flickr.controller;
+package vn.edu.usth.flickr.adapter;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import vn.edu.usth.flickr.view.fragments.ProfileAlbumFragment;
-import vn.edu.usth.flickr.view.fragments.ProfileCameraFragment;
-import vn.edu.usth.flickr.view.fragments.ProfileGroupFragment;
-import vn.edu.usth.flickr.view.fragments.ProfilePublicFragment;
-import vn.edu.usth.flickr.view.fragments.ProfileStatsFragment;
+import vn.edu.usth.flickr.ui.ProfileAlbumFragment;
+import vn.edu.usth.flickr.ui.ProfileCameraFragment;
+import vn.edu.usth.flickr.ui.ProfileGroupFragment;
+import vn.edu.usth.flickr.ui.ProfilePublicFragment;
+import vn.edu.usth.flickr.ui.ProfileStatsFragment;
 
 public class ProfileVpAdapter extends FragmentStateAdapter {
     private static final int NUM_PAGES = 5;

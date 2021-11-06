@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view.fragments;
+package vn.edu.usth.flickr.ui;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.flickr.controller.SearchFragmentAdapter;
+import vn.edu.usth.flickr.adapter.SearchFragmentAdapter;
 import vn.edu.usth.flickr.R;
 
 /**

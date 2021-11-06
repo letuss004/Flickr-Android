@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view.activities;
+package vn.edu.usth.flickr;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -21,16 +21,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navigationView = findViewById(R.id.botNav);
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navHost_fragment);
+        assert navHostFragment != null;
+        NavController navController = navHostFragment.getNavController();
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
+}
+
 
 //        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
 //                R.id.newsfeedFragment, R.id.searchFragment)
 //                .build();
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navHost_fragment);
-        NavController navController = navHostFragment.getNavController();
-
 //        NavController navController = Navigation.findNavController(this, R.id.navHost_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-    }
-}

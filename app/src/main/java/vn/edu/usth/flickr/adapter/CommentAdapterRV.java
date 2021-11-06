@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.controller;
+package vn.edu.usth.flickr.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.flickr.model.Post;
+import vn.edu.usth.flickr.repository.Post;
 import vn.edu.usth.flickr.R;
 
 /**

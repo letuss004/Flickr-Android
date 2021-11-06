@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.controller;
+package vn.edu.usth.flickr.repository;
 
 public class Data {
     private String email;

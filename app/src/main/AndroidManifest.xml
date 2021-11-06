@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flickr">
         <activity
-            android:name=".view.activities.LoginActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:noHistory="true">
             <intent-filter>
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activities.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
 
         </activity>

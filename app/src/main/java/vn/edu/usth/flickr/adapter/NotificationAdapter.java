@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.controller;
+package vn.edu.usth.flickr.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;

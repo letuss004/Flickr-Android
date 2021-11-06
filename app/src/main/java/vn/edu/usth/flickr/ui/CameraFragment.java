@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.view.fragments;
+package vn.edu.usth.flickr.ui;
 
 import android.os.Bundle;
 
@@ -12,21 +12,19 @@ import vn.edu.usth.flickr.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProfileCameraFragment#newInstance} factory method to
+ * Use the {@link CameraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileCameraFragment extends Fragment {
+public class CameraFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public ProfileCameraFragment() {
+    public CameraFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +34,10 @@ public class ProfileCameraFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileCameraFragment.
+     * @return A new instance of fragment CameraFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileCameraFragment newInstance(String param1, String param2) {
-        ProfileCameraFragment fragment = new ProfileCameraFragment();
+    public static CameraFragment newInstance(String param1, String param2) {
+        CameraFragment fragment = new CameraFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +58,6 @@ public class ProfileCameraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_camera, container, false);
+        return inflater.inflate(R.layout.fragment_camera, container, false);
     }
 }
