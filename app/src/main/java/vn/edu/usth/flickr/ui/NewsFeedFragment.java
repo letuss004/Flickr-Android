@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.adapter.NewsFeedAdapterRV;
 import vn.edu.usth.flickr.model.Post;
 import vn.edu.usth.flickr.model.User;
+import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,26 +28,24 @@ import vn.edu.usth.flickr.model.User;
  * create an instance of this fragment.
  */
 public class NewsFeedFragment extends Fragment {
-
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager recViewLM;
+    private Context activityContext;
+    private NewsFeedViewModel feedViewModel;
+
+    @Deprecated
+    private ArrayList<Post> postList = new ArrayList<>();
 
     public NewsFeedFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewsfeedFragment.
-     */
     public static NewsFeedFragment newInstance(String param1, String param2) {
         NewsFeedFragment fragment = new NewsFeedFragment();
         Bundle args = new Bundle();
@@ -65,26 +65,39 @@ public class NewsFeedFragment extends Fragment {
     }
 
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager recViewLM;
-    private ArrayList<Post> postList = new ArrayList<>();
-    private Context activityContext;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_newsfeed, container, false);
         activityContext = view.getContext();
-        setUpRecyclerView(view);
-        setUpPostListInformation();
-//        setUpNavItemOnClick(view);
-
+        setUpRecyclerViewData(view);
         return view;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private void setUpRecyclerViewData(View view) {
+        feedViewModel = new ViewModelProvider(requireActivity()).get(NewsFeedViewModel.class);
+        feedViewModel.getNewsFeedPosts().observe(getViewLifecycleOwner(), newsFeedPosts -> {
+            adapter.notifyDataSetChanged();
+            setUpRecyclerView(view);
+        });
+    }
+
+    //
+    private void setUpRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.rv_newsfeed);
+
+        recViewLM = new LinearLayoutManager(activityContext);
+        recyclerView.setLayoutManager(recViewLM);
+
+        adapter = new NewsFeedAdapterRV(feedViewModel.getNewsFeedPosts().getValue(), getContext(), this);
+        recyclerView.setAdapter(adapter);
+    }
+
+
+    // ---------------------------------------------Deprecated---------------------------------------------
+    @Deprecated
     @SuppressLint("UseCompatLoadingForDrawables")
     private void setUpPostListInformation() {
         Drawable image, avatarImage;
@@ -153,55 +166,9 @@ public class NewsFeedFragment extends Fragment {
 
     }
 
-    private void setUpNavItemOnClick(View view) {
-//        ImageButton newsfeed, search, addImage, notification, profile;
-//        newsfeed = view.findViewById(R.id.newsfeed_icon);
-//        search = view.findViewById(R.id.search_icon);
-//        addImage = view.findViewById(R.id.addImage_icon);
-//        notification = view.findViewById(R.id.notification_icon);
-//        profile = view.findViewById(R.id.profile_icon);
-//
-//        newsfeed.setOnClickListener(v -> {
-//            Intent intent = new Intent(activityContext, NewsfeedActivity.class);
-//            startActivity(intent);
-//        });
-//
-//        search.setOnClickListener(v -> {
-//            Intent intent = new Intent(activityContext, SearchActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//            startActivity(intent);
-//        });
-//
-//        addImage.setOnClickListener(v -> {
-//
-//        });
-//
-//        notification.setOnClickListener(v -> {
-//            Intent intent = new Intent(activityContext, NotificationActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//            startActivity(intent);
-//        });
-//
-//        profile.setOnClickListener(v -> {
-//            Intent intent = new Intent(activityContext, ProfileActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//            startActivity(intent);
-//        });
-    }
-
-    //
-    private void setUpRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.rv_newsfeed);
-
-        recViewLM = new LinearLayoutManager(activityContext);
-        recyclerView.setLayoutManager(recViewLM);
-
-        adapter = new NewsFeedAdapterRV(postList, getContext(), this);
-        recyclerView.setAdapter(adapter);
-    }
-
 
     // dont touch this
+    @Deprecated
     private void setUpPostList() {
         if (postList.size() == 0) {
             Drawable bird = AppCompatResources.getDrawable(activityContext, R.drawable.bird);

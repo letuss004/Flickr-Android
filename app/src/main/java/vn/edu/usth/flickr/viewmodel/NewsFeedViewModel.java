@@ -5,26 +5,26 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.edu.usth.flickr.api.NewsFeedApiGetter;
 import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.repository.NewsFeedRepository;
 
-public class NewsFeedFragmentVM {
+public class NewsFeedViewModel extends ViewModel {
     private MutableLiveData<ArrayList<NewsFeedPost>> newsFeedPosts;
-    private static NewsFeedFragmentVM instance;
+    private static NewsFeedViewModel instance;
     private final NewsFeedRepository newsFeedRepository;
 
-    private NewsFeedFragmentVM() {
+    private NewsFeedViewModel() {
         newsFeedRepository = NewsFeedRepository.getInstance();
         setNewsFeedPosts();
     }
 
-    public static NewsFeedFragmentVM getInstance() {
-        if (instance == null) instance = new NewsFeedFragmentVM();
+    public static NewsFeedViewModel getInstance() {
+        if (instance == null) instance = new NewsFeedViewModel();
         return instance;
     }
 

@@ -10,32 +10,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.model.Post;
-import vn.edu.usth.flickr.ui.CommentFragment;
+import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.ui.NewsFeedFragment;
 
 /**
  *
  */
 public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.NewsFeedViewHolder> {
-    private ArrayList<Post> postList;
     private Context context;
     private NewsFeedFragment newsfeedFragment;
+    private ArrayList<NewsFeedPost> newsFeedPosts;
 
-    public NewsFeedAdapterRV(ArrayList<Post> postList, Context context) {
-        this.postList = postList;
-        this.context = context;
-    }
-
-    public NewsFeedAdapterRV(ArrayList<Post> postList, View view) {
-        context = view.getContext();
-    }
-
-    public NewsFeedAdapterRV(ArrayList<Post> postList, Context context, NewsFeedFragment newsfeedFragment) {
-        this.postList = postList;
+    public NewsFeedAdapterRV(ArrayList<NewsFeedPost> value, Context context, NewsFeedFragment newsfeedFragment) {
+        this.newsFeedPosts = value;
         this.context = context;
         this.newsfeedFragment = newsfeedFragment;
     }
@@ -50,80 +42,28 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
 
     @Override
     public void onBindViewHolder(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
-        holder.mainImage.setImageDrawable(postList.get(position).getImage());
-        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
-        holder.postOwnerName.setText(postList.get(position).getOwnerName());
-        holder.postDescription.setText(postList.get(position).getDescription());
-        holder.likeQuantity.setText(String.valueOf(postList.get(position).getLikeQuantity()));
-        holder.commentQuantity.setText(String.valueOf(postList.get(position).getCommentQuantity()));
-        holder.textListOfLike.setText(postList.get(position).getTextLikeList());
-        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
-        holder.commentContent.setText(postList.get(position).getCommentContent());
-        holder.time.setText(postList.get(position).getTime());
-
-
-        holder.commentButton.setOnClickListener(v -> {
-            assert newsfeedFragment.getFragmentManager() != null;
-            newsfeedFragment.getFragmentManager().beginTransaction()
-                    .addToBackStack("Replace newsfeed by comment")
-                    .replace(R.id.navHost_fragment, new CommentFragment())
-                    .commit();
-        });
+        setUpDataForViewHolder(holder, position);
     }
 
-    // Don't touch this
-    private void extracted(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
-        holder.mainImage.setImageDrawable(postList.get(position).getImage());
-        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
-        holder.postOwnerName.setText(postList.get(position).getOwnerName());
-        holder.postDescription.setText(postList.get(position).getDescription());
-        holder.likeQuantity.setText(postList.get(position).getLikeList().size());
-        holder.commentQuantity.setText(postList.get(position).getCommentList().size());
-        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
-        holder.commentContent.setText(postList.get(position).getCommentContent());
-        holder.time.setText(postList.get(position).getTime());
-
-//        holder.textListOfLike.setText(getTextListOfLike(position));
-
-        //
-        setUpCommentInNewsfeed(holder, position);
-
-
-        // onclick
-        holder.commentButton.setOnClickListener(v -> {
-            newsfeedFragment.getFragmentManager().beginTransaction()
-                    .addToBackStack("Replace newsfeed by comment")
-                    .replace(R.id.navHost_fragment, new CommentFragment())
-                    .commit();
-        });
-
-    }
-
-
-    private void setUpCommentInNewsfeed(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
-        int size = postList.get(position).getCommentList().size();
-        if (size != 0) {
-            holder.userNameComment.setText(postList.get(position).getCommentList().get(size - 1).getUser().getName());
-            holder.commentContent.setText(postList.get(position).getCommentList().get(size - 1).getComment());
-        }
+    private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) {
+        Glide.with(context).load(newsFeedPosts.get(position).getLink()).into(holder.mainImage);
+//        holder.mainImage.setImageDrawable(postList.get(position).getImage());
+//        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
+//        holder.postOwnerName.setText(postList.get(position).getOwnerName());
+//        holder.postTitle.setText(postList.get(position).getDescription());
+//        holder.likeQuantity.setText(String.valueOf(postList.get(position).getLikeQuantity()));
+//        holder.commentQuantity.setText(String.valueOf(postList.get(position).getCommentQuantity()));
+//        holder.textListOfLike.setText(postList.get(position).getTextLikeList());
+//        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
+//        holder.commentContent.setText(postList.get(position).getCommentContent());
+//        holder.time.setText(postList.get(position).getTime());
     }
 
     @Override
     public int getItemCount() {
         //
-        return postList.size();
+        return newsFeedPosts.size();
     }
-
-//    private String getTextListOfLike(int position) {
-//        String res = "";
-//        for (int i = 0; i < postList.get(position).getLikeList().size(); i++) {
-//            res += postList.get(position).getLikeList().get(i).getUser().getName();
-//            if (i != postList.get(position).getLikeList().size() - 1) {
-//                res += ", ";
-//            }
-//        }
-//        return res;
-//    }
 
 
     /**
@@ -131,7 +71,7 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
      */
     public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
         private final ImageView mainImage, avaImage, likeButton, commentButton, shareButton;
-        private final TextView likeQuantity, commentQuantity, postOwnerName, postDescription, textListOfLike, userNameComment, commentContent, time;
+        private final TextView likeQuantity, commentQuantity, postOwnerName, postTitle, textListOfLike, userNameComment, commentContent, time;
 
         public NewsFeedViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,7 +80,7 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
             likeQuantity = itemView.findViewById(R.id.likeOfPost);
             commentQuantity = itemView.findViewById(R.id.commentOfPost);
             postOwnerName = itemView.findViewById(R.id.userName_newsfeed);
-            postDescription = itemView.findViewById(R.id.description);
+            postTitle = itemView.findViewById(R.id.title_newsFeed);
             textListOfLike = itemView.findViewById(R.id.listOfLike);
             userNameComment = itemView.findViewById(R.id.userName_comment_nf);
             commentContent = itemView.findViewById(R.id.commentContent_newsfeed);
@@ -154,3 +94,63 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
 
 
 }
+//@Deprecated
+//    private void oldSetUpBindView(@NonNull NewsFeedViewHolder holder, int position) {
+//        holder.mainImage.setImageDrawable(postList.get(position).getImage());
+//        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
+//        holder.postOwnerName.setText(postList.get(position).getOwnerName());
+//        holder.postDescription.setText(postList.get(position).getDescription());
+//        holder.likeQuantity.setText(String.valueOf(postList.get(position).getLikeQuantity()));
+//        holder.commentQuantity.setText(String.valueOf(postList.get(position).getCommentQuantity()));
+//        holder.textListOfLike.setText(postList.get(position).getTextLikeList());
+//        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
+//        holder.commentContent.setText(postList.get(position).getCommentContent());
+//        holder.time.setText(postList.get(position).getTime());
+//
+//
+//        holder.commentButton.setOnClickListener(v -> {
+//            assert newsfeedFragment.getFragmentManager() != null;
+//            newsfeedFragment.getFragmentManager().beginTransaction()
+//                    .addToBackStack("Replace newsfeed by comment")
+//                    .replace(R.id.navHost_fragment, new CommentFragment())
+//                    .commit();
+//        });
+//    }
+//
+//    // Don't touch this
+//    @Deprecated
+//    private void extracted(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
+//        holder.mainImage.setImageDrawable(postList.get(position).getImage());
+//        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
+//        holder.postOwnerName.setText(postList.get(position).getOwnerName());
+//        holder.postDescription.setText(postList.get(position).getDescription());
+//        holder.likeQuantity.setText(postList.get(position).getLikeList().size());
+//        holder.commentQuantity.setText(postList.get(position).getCommentList().size());
+//        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
+//        holder.commentContent.setText(postList.get(position).getCommentContent());
+//        holder.time.setText(postList.get(position).getTime());
+//
+////        holder.textListOfLike.setText(getTextListOfLike(position));
+//
+//        //
+//        setUpCommentInNewsfeed(holder, position);
+//
+//
+//        // onclick
+//        holder.commentButton.setOnClickListener(v -> {
+//            newsfeedFragment.getFragmentManager().beginTransaction()
+//                    .addToBackStack("Replace newsfeed by comment")
+//                    .replace(R.id.navHost_fragment, new CommentFragment())
+//                    .commit();
+//        });
+//
+//    }
+//
+//    @Deprecated
+//    private void setUpCommentInNewsfeed(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
+//        int size = postList.get(position).getCommentList().size();
+//        if (size != 0) {
+//            holder.userNameComment.setText(postList.get(position).getCommentList().get(size - 1).getUser().getName());
+//            holder.commentContent.setText(postList.get(position).getCommentList().get(size - 1).getComment());
+//        }
+//    }
