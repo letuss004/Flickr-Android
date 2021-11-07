@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,18 +76,22 @@ public class NewsFeedFragment extends Fragment {
         return view;
     }
 
-    private void setUpRecyclerViewData(View view) {
+    /*
+    * */
+    public void setUpRecyclerViewData(View view) {
         setRecyclerViewWaiter(view);
         //
         afterFinishGetDataOnBackGround(() -> {
             setRecyclerViewRealData();
-//            observeData();
+            observeData();
         });
     }
 
+
+    @SuppressLint("NotifyDataSetChanged")
     private void observeData() {
         feedViewModel.getNewsFeedPosts().observe(getViewLifecycleOwner(), newsFeedPosts1 -> {
-            adapter.notifyDataSetChanged();
+            Log.e(TAG, "observeData: method started");
 //            setRecyclerViewRealData();
         });
     }
@@ -97,13 +102,13 @@ public class NewsFeedFragment extends Fragment {
             @Override
             protected MutableLiveData<List<NewsFeedPost>> doInBackground(String... strings) {
                 feedViewModel = NewsFeedViewModel.getInstance(); //set up data
+                newsFeedPosts = feedViewModel.getNewsFeedPosts().getValue();
                 return null;
             }
 
             @Override
             protected void onPostExecute(MutableLiveData<List<NewsFeedPost>> listMutableLiveData) {
                 super.onPostExecute(listMutableLiveData);
-                newsFeedPosts = feedViewModel.getNewsFeedPosts().getValue();
                 callBackListener.finished();
             }
         };

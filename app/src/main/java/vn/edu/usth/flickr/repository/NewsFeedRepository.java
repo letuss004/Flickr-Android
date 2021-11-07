@@ -32,6 +32,7 @@ import vn.edu.usth.flickr.api.NewsFeedApiGetter;
 import vn.edu.usth.flickr.model.NewsFeed;
 import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.model.RequestUrl;
+import vn.edu.usth.flickr.ui.NewsFeedFragment;
 
 public class NewsFeedRepository {
     private FlickrApi flickrApi;
@@ -43,7 +44,7 @@ public class NewsFeedRepository {
     private PeopleInterface peopleInterface;
     private final CommentsInterface commentsInterface;
     private final PhotosInterface photosInterface;
-    private ArrayList<NewsFeedPost> list;
+    private ArrayList<NewsFeedPost> list = new ArrayList<>();
 
     private NewsFeedRepository() {
         flickrApi = FlickrApi.getInstance();
@@ -51,7 +52,6 @@ public class NewsFeedRepository {
         peopleInterface = flickrApi.getPeopleInterface();
         commentsInterface = flickrApi.getCommentsInterface();
         photosInterface = flickrApi.getPhotosInterface();
-        fetchNewsFeed();
     }
 
     public static NewsFeedRepository getInstance() {
@@ -60,7 +60,6 @@ public class NewsFeedRepository {
     }
 
     public MutableLiveData<ArrayList<NewsFeedPost>> fetchNewsFeed() {
-        list = new ArrayList<>();
         try {
             setUpDataForNewsFeedPosts();
         } catch (IOException | JSONException | ParseException | FlickrException e) {
@@ -70,7 +69,7 @@ public class NewsFeedRepository {
     }
 
     public MutableLiveData<ArrayList<NewsFeedPost>> updateNewsFeed() {
-        return null;
+        return new MutableLiveData<>(list);
     }
 
 
@@ -104,25 +103,21 @@ public class NewsFeedRepository {
             String photoId = getPhotoIdFromLink(link);
             getMediaList(mediaJO, media);
             //
-            list.add(new NewsFeedPost(author, authorId, description, link, tags,
-                    title, dateTaken, published, media));
-            fetchUserOnBackground(i, authorId);
-            fetchCommentOnBackground(i, photoId);
-            fetchPersonTagOnBackground(i, photoId);
+
             //
-//            if (false) {
-//                User user = peopleInterface.getInfo(authorId);
-//                ArrayList<Comment> comments = (ArrayList<Comment>) commentsInterface.getList(photoId);
-//                PersonTagList<PersonTag> personTags = peopleInterface.getList(photoId);
-//                list.add(new NewsFeedPost(author, authorId, description, link, tags,
-//                        title, dateTaken, published, media, user, comments, personTags));
-//            } else {
-//                list.add(new NewsFeedPost(author, authorId, description, link, tags,
-//                        title, dateTaken, published, media));
-//                fetchUserOnBackground(i, authorId);
-//                fetchCommentOnBackground(i, photoId);
-//                fetchPersonTagOnBackground(i, photoId);
-//            }
+            if (i < 4) {
+                User user = peopleInterface.getInfo(authorId);
+                ArrayList<Comment> comments = (ArrayList<Comment>) commentsInterface.getList(photoId);
+                PersonTagList<PersonTag> personTags = peopleInterface.getList(photoId);
+                list.add(new NewsFeedPost(author, authorId, description, link, tags,
+                        title, dateTaken, published, media, user, comments, personTags));
+            } else {
+                list.add(new NewsFeedPost(author, authorId, description, link, tags,
+                        title, dateTaken, published, media));
+                fetchUserOnBackground(i, authorId);
+                fetchCommentOnBackground(i, photoId);
+                fetchPersonTagOnBackground(i, photoId);
+            }
             //
             Log.e(TAG, "setUpDataForNewsFeedPosts: loop" + i + "end");
         }
