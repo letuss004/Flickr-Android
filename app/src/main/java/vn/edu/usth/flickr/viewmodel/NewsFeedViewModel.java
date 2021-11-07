@@ -14,30 +14,24 @@ import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.repository.NewsFeedRepository;
 
 public class NewsFeedViewModel extends ViewModel {
-    private MutableLiveData<ArrayList<NewsFeedPost>> newsFeedPosts;
+    private static MutableLiveData<ArrayList<NewsFeedPost>> newsFeedPosts;
     private static NewsFeedViewModel instance;
-    private final NewsFeedRepository newsFeedRepository;
+    private static NewsFeedRepository newsFeedRepository;
 
     private NewsFeedViewModel() {
-        newsFeedRepository = NewsFeedRepository.getInstance();
-        setNewsFeedPosts();
     }
 
     public static NewsFeedViewModel getInstance() {
-        if (instance == null) instance = new NewsFeedViewModel();
+        if (instance == null) {
+            instance = new NewsFeedViewModel();
+            newsFeedRepository = NewsFeedRepository.getInstance();
+            setNewsFeedPosts();
+        }
         return instance;
     }
 
-    private void setNewsFeedPosts() {
-        @SuppressLint("StaticFieldLeak")
-        AsyncTask<String, String, MutableLiveData<List<NewsFeedPost>>> asyncTask = new AsyncTask<String, String, MutableLiveData<List<NewsFeedPost>>>() {
-            @Override
-            protected MutableLiveData<List<NewsFeedPost>> doInBackground(String... strings) {
-                newsFeedPosts = newsFeedRepository.fetchNewsFeed();
-                return null;
-            }
-        };
-        asyncTask.execute();
+    public static void setNewsFeedPosts() {
+        newsFeedPosts = newsFeedRepository.fetchNewsFeed();
     }
 
     public LiveData<ArrayList<NewsFeedPost>> getNewsFeedPosts() {

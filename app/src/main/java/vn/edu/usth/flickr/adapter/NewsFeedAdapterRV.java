@@ -1,6 +1,8 @@
 package vn.edu.usth.flickr.adapter;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 
+import com.bumptech.glide.Glide;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import vn.edu.usth.flickr.R;
@@ -22,12 +28,15 @@ import vn.edu.usth.flickr.ui.NewsFeedFragment;
  *
  */
 public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.NewsFeedViewHolder> {
-    private Context context;
+    private static final String TAG = "NewsFeedAdapterRV";
+    private final Context context;
     private NewsFeedFragment newsfeedFragment;
     private ArrayList<NewsFeedPost> newsFeedPosts;
+    private final ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
 
-    public NewsFeedAdapterRV(ArrayList<NewsFeedPost> value, Context context, NewsFeedFragment newsfeedFragment) {
-        this.newsFeedPosts = value;
+
+    public NewsFeedAdapterRV(ArrayList<NewsFeedPost> newsFeedPosts, Context context, NewsFeedFragment newsfeedFragment) {
+        this.newsFeedPosts = newsFeedPosts;
         this.context = context;
         this.newsfeedFragment = newsfeedFragment;
     }
@@ -42,11 +51,17 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
 
     @Override
     public void onBindViewHolder(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
-        setUpDataForViewHolder(holder, position);
+        try {
+            setUpDataForViewHolder(holder, position);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) {
-        Glide.with(context).load(newsFeedPosts.get(position).getLink()).into(holder.mainImage);
+    private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) throws URISyntaxException {
+        String imageUri = getImageLinkFromDescription(position);
+        Glide.with(context).load(imageUri).into(holder.mainImage);
+        Log.e(TAG, "setUpDataForViewHolder: " + getImageLinkFromDescription(position));
 //        holder.mainImage.setImageDrawable(postList.get(position).getImage());
 //        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
 //        holder.postOwnerName.setText(postList.get(position).getOwnerName());
@@ -57,6 +72,12 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
 //        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
 //        holder.commentContent.setText(postList.get(position).getCommentContent());
 //        holder.time.setText(postList.get(position).getTime());
+    }
+
+    private String getImageLinkFromDescription(int position) {
+        String description = newsFeedPosts.get(position).getDescription();
+        String[] tmp = description.split("\"");
+        return tmp[7];
     }
 
     @Override
