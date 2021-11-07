@@ -1,5 +1,8 @@
 package vn.edu.usth.flickr.model;
 
+import com.flickr4java.flickr.people.PeopleInterface;
+import com.flickr4java.flickr.people.PersonTag;
+import com.flickr4java.flickr.people.PersonTagList;
 import com.flickr4java.flickr.people.User;
 import com.flickr4java.flickr.photos.comments.Comment;
 
@@ -11,9 +14,9 @@ public class NewsFeedPost {
     private Date published, dateTaken;
     private ArrayList<String> media;
     private User user;
+    private PersonTagList<PersonTag> personTags;
     private ArrayList<Comment> comments;
 
-    @Deprecated
     public NewsFeedPost(String author, String authorId, String description,
                         String link, String tag, String title,
                         Date dateTaken, Date published, ArrayList<String> media) {
@@ -46,7 +49,7 @@ public class NewsFeedPost {
     public NewsFeedPost(String author, String authorId, String description,
                         String link, String tags, String title, Date dateTaken,
                         Date published, ArrayList<String> media, User user,
-                        ArrayList<Comment> comments) {
+                        ArrayList<Comment> comments, PersonTagList<PersonTag> personTags) {
         this.author = author;
         this.authorId = authorId;
         this.description = description;
@@ -58,7 +61,9 @@ public class NewsFeedPost {
         this.media = media;
         this.user = user;
         this.comments = comments;
+        this.personTags = personTags;
     }
+
 
     public User getUser() {
         return user;
@@ -81,6 +86,22 @@ public class NewsFeedPost {
                 ", dateTaken=" + dateTaken +
                 ", media=" + media +
                 '}';
+    }
+
+    public PersonTagList<PersonTag> getPersonTags() {
+        return personTags;
+    }
+
+    public void setPersonTags(PersonTagList<PersonTag> personTags) {
+        this.personTags = personTags;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
     }
 
     public String getAuthor() {

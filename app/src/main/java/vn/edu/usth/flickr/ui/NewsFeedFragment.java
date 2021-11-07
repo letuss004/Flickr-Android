@@ -80,7 +80,7 @@ public class NewsFeedFragment extends Fragment {
         //
         afterFinishGetDataOnBackGround(() -> {
             setRecyclerViewRealData();
-            observeData();
+//            observeData();
         });
     }
 

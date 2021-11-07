@@ -66,24 +66,26 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
     }
 
     private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) throws URISyntaxException {
+        Log.e(TAG, "setUpDataForViewHolder: start");
         String imageUri = getImageLinkFromDescription(position);
         String avatarUri = newsFeedPosts.get(position).getUser().getSecureBuddyIconUrl();
         String author = getOwnerName(newsFeedPosts.get(position).getAuthor());
         String title = newsFeedPosts.get(position).getTitle();
-
+        String likeQuantity = String.valueOf(newsFeedPosts.get(position).getPersonTags().size());
+        String commentQuantity = String.valueOf(newsFeedPosts.get(position).getComments().size());
 
         Picasso.get().load(imageUri).into(holder.mainImage);
         Picasso.get().load(avatarUri).into(holder.avaImage);
-        holder.postOwnerName.setText(author);
-        holder.postTitle.setText(title);
-//        holder.likeQuantity.setText(String.valueOf(postList.get(position).getLikeQuantity()));
-//        holder.commentQuantity.setText(String.valueOf(postList.get(position).getCommentQuantity()));
+//        holder.postOwnerName.setText(author);
+//        holder.postTitle.setText(title);
+//        holder.likeQuantity.setText(likeQuantity);
+//        holder.commentQuantity.setText(commentQuantity);
 //        holder.textListOfLike.setText(postList.get(position).getTextLikeList());
 //        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
 //        holder.commentContent.setText(postList.get(position).getCommentContent());
         holder.time.setText(getTime(newsFeedPosts.get(position).getPublished()));
         Log.e(TAG, "setUpDataForViewHolder: " + getImageLinkFromDescription(position));
-
+        Log.e(TAG, "setUpDataForViewHolder: finished");
     }
 
     private String getTime(Date published) {
@@ -125,7 +127,7 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
 
 
     /**
-     *
+     * ------------------------------------------
      */
     public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
         private final ImageView mainImage, avaImage, likeButton, commentButton, shareButton;
