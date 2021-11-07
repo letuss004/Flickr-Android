@@ -1,5 +1,6 @@
 package vn.edu.usth.flickr.model;
 
+@Deprecated
 public class User {
     private String name;
 

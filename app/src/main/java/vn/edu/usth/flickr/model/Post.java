@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import java.util.ArrayList;
 import java.util.Date;
 
+@Deprecated
 public class Post {
     private ArrayList<Post.Like> likeList;
     private ArrayList<Post.Comment> commentList;

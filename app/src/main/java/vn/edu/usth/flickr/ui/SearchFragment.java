@@ -52,7 +52,7 @@ public class SearchFragment extends Fragment {
     }
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private SearchFragmentAdapter adapter;
     private RecyclerView.LayoutManager recViewLM;
     private ArrayList<Drawable> imageList = new ArrayList<>();
     private ArrayList<String> imageLinkList = new ArrayList<>();
