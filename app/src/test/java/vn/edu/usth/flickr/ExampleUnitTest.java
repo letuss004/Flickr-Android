@@ -1,8 +1,19 @@
 package vn.edu.usth.flickr;
 
-import static org.junit.Assert.assertEquals;
+
+import com.flickr4java.flickr.Flickr;
+import com.flickr4java.flickr.FlickrException;
+import com.flickr4java.flickr.REST;
+import com.flickr4java.flickr.groups.Group;
+import com.flickr4java.flickr.people.PeopleInterface;
+import com.flickr4java.flickr.people.User;
+import com.squareup.picasso.Picasso;
 
 import org.junit.Test;
+
+import java.util.Date;
+
+import vn.edu.usth.flickr.model.RequestUrl;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,9 +23,22 @@ import org.junit.Test;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        String a = "<p><a href=\\\"https:\\/\\/www.flickr.com\\/people\\/144312453@N08\\/\\\">Dackelpup<\\/a> posted a photo:<\\/p> <p><a href=\\\"https:\\/\\/www.flickr.com\\/photos\\/144312453@N08\\/51649045431\\/\\\" title=\\\"Theia\\\"><img src=\\\"https:\\/\\/live.staticflickr.com\\/65535\\/51649045431_234f6c5234_m.jpg\\\" width=\\\"240\\\" height=\\\"160\\\" alt=\\\"Theia\\\" \\/><\\/a><\\/p>";
-        String[] s = a.split("\"");
-        System.out.println(s[7]);
+        Flickr flickr = new Flickr("a8db956a048e0a962a1f88168d7ad545", "8a32f6762e1abc37", new REST());
+        String a = "https:\\/\\/www.flickr.com\\/photos\\/edsmartparts\\/51660157957\\/";
+        System.out.println(a.split("/")[5].split("\\\\")[0]);
 
+
+//        try {
+//            a = flickr.getUrlsInterface().getUserPhotos("194108707@N08");
+//            Group group = new Group();
+//            group.getBuddyIconUrl();
+//
+//            User person = iface.getInfo("nsid");
+//            System.out.println(person.getSecureBuddyIconUrl());
+//
+//        } catch (FlickrException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(a);
     }
 }

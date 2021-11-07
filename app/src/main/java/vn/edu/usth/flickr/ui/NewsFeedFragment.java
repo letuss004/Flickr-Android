@@ -3,11 +3,13 @@ package vn.edu.usth.flickr.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ import java.util.List;
 
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.adapter.NewsFeedAdapterRV;
+import vn.edu.usth.flickr.api.FlickrApi;
 import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
 
@@ -26,6 +29,7 @@ import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
  * Use the {@link NewsFeedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class NewsFeedFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";

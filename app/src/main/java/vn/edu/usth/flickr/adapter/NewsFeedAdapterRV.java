@@ -2,6 +2,7 @@ package vn.edu.usth.flickr.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -18,7 +20,10 @@ import com.squareup.picasso.Picasso;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.model.NewsFeedPost;
@@ -27,6 +32,8 @@ import vn.edu.usth.flickr.ui.NewsFeedFragment;
 /**
  *
  */
+@RequiresApi(api = Build.VERSION_CODES.O)
+
 public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.NewsFeedViewHolder> {
     private static final String TAG = "NewsFeedAdapterRV";
     private final Context context;
@@ -39,7 +46,6 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
         this.context = context;
         this.newsfeedFragment = newsfeedFragment;
         //
-
     }
 
 
@@ -61,19 +67,48 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
 
     private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) throws URISyntaxException {
         String imageUri = getImageLinkFromDescription(position);
-        Picasso.get().load(imageUri).into(holder.mainImage);
+        String avatarUri = newsFeedPosts.get(position).getUser().getSecureBuddyIconUrl();
+        String author = getOwnerName(newsFeedPosts.get(position).getAuthor());
+        String title = newsFeedPosts.get(position).getTitle();
 
-        Log.e(TAG, "setUpDataForViewHolder: " + getImageLinkFromDescription(position));
-//        holder.mainImage.setImageDrawable(postList.get(position).getImage());
-//        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());
-//        holder.postOwnerName.setText(postList.get(position).getOwnerName());
-//        holder.postTitle.setText(postList.get(position).getDescription());
+
+        Picasso.get().load(imageUri).into(holder.mainImage);
+        Picasso.get().load(avatarUri).into(holder.avaImage);
+        holder.postOwnerName.setText(author);
+        holder.postTitle.setText(title);
 //        holder.likeQuantity.setText(String.valueOf(postList.get(position).getLikeQuantity()));
 //        holder.commentQuantity.setText(String.valueOf(postList.get(position).getCommentQuantity()));
 //        holder.textListOfLike.setText(postList.get(position).getTextLikeList());
 //        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
 //        holder.commentContent.setText(postList.get(position).getCommentContent());
-//        holder.time.setText(postList.get(position).getTime());
+        holder.time.setText(getTime(newsFeedPosts.get(position).getPublished()));
+        Log.e(TAG, "setUpDataForViewHolder: " + getImageLinkFromDescription(position));
+
+    }
+
+    private String getTime(Date published) {
+        long time = new Date().getTime() - published.getTime() / 1000; // second
+        int second, minute, hour, day, month, year;
+        second = 1;
+        minute = second * 60;
+        hour = minute * 60;
+        day = hour * 24;
+        month = day * 30;
+        year = month * 365;
+        if (time < minute) {
+            return "now";
+        } else if (time > minute && time < hour) {
+            return time / minute + "m";
+        } else if (time > hour && time < day) {
+            return time / hour + "h";
+        } else if (time > day && time < month) {
+            return time / day + "d";
+        }
+        return "long ago";
+    }
+
+    private String getOwnerName(String author) {
+        return author.split("\"")[1];
     }
 
     private String getImageLinkFromDescription(int position) {

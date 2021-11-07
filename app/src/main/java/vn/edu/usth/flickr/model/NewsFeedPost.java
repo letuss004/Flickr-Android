@@ -1,5 +1,8 @@
 package vn.edu.usth.flickr.model;
 
+import com.flickr4java.flickr.people.User;
+import com.flickr4java.flickr.photos.comments.Comment;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,7 +10,10 @@ public class NewsFeedPost {
     private String author, authorId, description, link, tag, title;
     private Date published, dateTaken;
     private ArrayList<String> media;
+    private User user;
+    private ArrayList<Comment> comments;
 
+    @Deprecated
     public NewsFeedPost(String author, String authorId, String description,
                         String link, String tag, String title,
                         Date dateTaken, Date published, ArrayList<String> media) {
@@ -20,6 +26,46 @@ public class NewsFeedPost {
         this.published = published;
         this.dateTaken = dateTaken;
         this.media = media;
+    }
+
+    public NewsFeedPost(String author, String authorId, String description, String link,
+                        String tag, String title, Date published, Date dateTaken,
+                        ArrayList<String> media, User user) {
+        this.author = author;
+        this.authorId = authorId;
+        this.description = description;
+        this.link = link;
+        this.tag = tag;
+        this.title = title;
+        this.published = published;
+        this.dateTaken = dateTaken;
+        this.media = media;
+        this.user = user;
+    }
+
+    public NewsFeedPost(String author, String authorId, String description,
+                        String link, String tags, String title, Date dateTaken,
+                        Date published, ArrayList<String> media, User user,
+                        ArrayList<Comment> comments) {
+        this.author = author;
+        this.authorId = authorId;
+        this.description = description;
+        this.link = link;
+        this.tag = tags;
+        this.title = title;
+        this.published = published;
+        this.dateTaken = dateTaken;
+        this.media = media;
+        this.user = user;
+        this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
