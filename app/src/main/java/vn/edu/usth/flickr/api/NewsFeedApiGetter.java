@@ -13,8 +13,11 @@ import java.nio.charset.StandardCharsets;
 
 import vn.edu.usth.flickr.repository.NewsFeedRepository;
 
-public class NewsFeedApiGetter {
+public final class NewsFeedApiGetter {
     private static final String TAG = "NewsFeedApi";
+
+    private NewsFeedApiGetter() {
+    }
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();

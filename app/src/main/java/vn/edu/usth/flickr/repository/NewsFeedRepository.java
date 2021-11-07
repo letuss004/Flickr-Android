@@ -1,7 +1,6 @@
 package vn.edu.usth.flickr.repository;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -14,12 +13,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import vn.edu.usth.flickr.api.NewsFeedApiGetter;
 import vn.edu.usth.flickr.model.NewsFeed;
 import vn.edu.usth.flickr.model.NewsFeedPost;
-import vn.edu.usth.flickr.viewmodel.RequestUrl;
+import vn.edu.usth.flickr.model.RequestUrl;
 
 public class NewsFeedRepository {
     private JSONObject jsonObject;
@@ -45,6 +43,7 @@ public class NewsFeedRepository {
         return new MutableLiveData<>(list);
     }
 
+    @Deprecated
     public ArrayList<NewsFeedPost> fetchNewsFeedTest() {
         ArrayList<NewsFeedPost> list = new ArrayList<>();
         try {
@@ -67,7 +66,7 @@ public class NewsFeedRepository {
             String authorId = (String) tmp.get("author_id");
             String description = (String) tmp.get("description"); //
             String link = (String) tmp.get("link");
-            String tags = (String) tmp.get("tags");
+            String tags = ""; // Missing tag feature
             String title = (String) tmp.get("title");
             Date dateTaken = parseFlickrDate((String) tmp.get("date_taken"));
             Date published = parseFlickrDate((String) tmp.get("published"));

@@ -1,4 +1,4 @@
-package vn.edu.usth.flickr.model.singleton;
+package vn.edu.usth.flickr.model;
 
 import android.content.Context;
 
