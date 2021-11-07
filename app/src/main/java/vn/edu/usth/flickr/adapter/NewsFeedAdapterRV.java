@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -32,13 +32,14 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
     private final Context context;
     private NewsFeedFragment newsfeedFragment;
     private ArrayList<NewsFeedPost> newsFeedPosts;
-    private final ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
 
 
     public NewsFeedAdapterRV(ArrayList<NewsFeedPost> newsFeedPosts, Context context, NewsFeedFragment newsfeedFragment) {
         this.newsFeedPosts = newsFeedPosts;
         this.context = context;
         this.newsfeedFragment = newsfeedFragment;
+        //
+
     }
 
 
@@ -60,7 +61,8 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
 
     private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) throws URISyntaxException {
         String imageUri = getImageLinkFromDescription(position);
-        Glide.with(context).load(imageUri).into(holder.mainImage);
+        Picasso.get().load(imageUri).into(holder.mainImage);
+
         Log.e(TAG, "setUpDataForViewHolder: " + getImageLinkFromDescription(position));
 //        holder.mainImage.setImageDrawable(postList.get(position).getImage());
 //        holder.avaImage.setImageDrawable(postList.get(position).getAvatarImage());

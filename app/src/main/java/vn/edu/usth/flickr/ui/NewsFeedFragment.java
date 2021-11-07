@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +34,7 @@ public class NewsFeedFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager recViewLM;
+    private NewsFeedAdapterRV adapter;
     private Context activityContext;
     private NewsFeedViewModel feedViewModel;
     private ArrayList<NewsFeedPost> newsFeedPosts;
@@ -76,13 +74,20 @@ public class NewsFeedFragment extends Fragment {
     private void setUpRecyclerViewData(View view) {
         setRecyclerViewWaiter(view);
         //
-        getDataOnBackGround(() -> {
-            setRecyclerViewRealData(view);
+        afterFinishGetDataOnBackGround(() -> {
+            setRecyclerViewRealData();
+            observeData();
         });
-
     }
 
-    private void getDataOnBackGround(CallBackListener callBackListener) {
+    private void observeData() {
+        feedViewModel.getNewsFeedPosts().observe(getViewLifecycleOwner(), newsFeedPosts1 -> {
+            adapter.notifyDataSetChanged();
+//            setRecyclerViewRealData();
+        });
+    }
+
+    private void afterFinishGetDataOnBackGround(CallBackListener callBackListener) {
         @SuppressLint("StaticFieldLeak")
         AsyncTask<String, String, MutableLiveData<List<NewsFeedPost>>> asyncTask = new AsyncTask<String, String, MutableLiveData<List<NewsFeedPost>>>() {
             @Override
@@ -101,15 +106,6 @@ public class NewsFeedFragment extends Fragment {
         asyncTask.execute();
     }
 
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void observeNewsFeedPosts() {
-        feedViewModel.getNewsFeedPosts().observe(getViewLifecycleOwner(), newsFeedPosts -> {
-            adapter.notifyDataSetChanged();
-            Log.e(TAG, "observeNewsFeedPosts: " + "update");
-        });
-    }
-
     //
     private void setRecyclerViewWaiter(View view) {
         recyclerView = view.findViewById(R.id.rv_newsfeed);
@@ -123,7 +119,7 @@ public class NewsFeedFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void setRecyclerViewRealData(View view) {
+    private void setRecyclerViewRealData() {
         adapter = new NewsFeedAdapterRV(newsFeedPosts, activityContext, this);
         recyclerView.setAdapter(adapter);
     }
