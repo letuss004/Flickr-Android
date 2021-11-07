@@ -19,13 +19,13 @@ public class NewsFeedViewModel extends ViewModel {
     private static NewsFeedRepository newsFeedRepository;
 
     private NewsFeedViewModel() {
+        setNewsFeedPosts();
     }
 
     public static NewsFeedViewModel getInstance() {
         if (instance == null) {
             instance = new NewsFeedViewModel();
             newsFeedRepository = NewsFeedRepository.getInstance();
-            setNewsFeedPosts();
         }
         return instance;
     }
