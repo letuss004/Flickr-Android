@@ -59,15 +59,8 @@ public class NewsFeedRepository {
     }
 
     public MutableLiveData<ArrayList<NewsFeedPost>> fetchNewsFeed() {
-        AtomicInteger count = new AtomicInteger(0);
         try {
-            setUpDataForNewsFeedPosts(() -> {
-                count.getAndIncrement();
-                Log.e(TAG, "fetchNewsFeed: this method only call when count = 3, current count = " + count);
-                if (count.get() == 3) {
-                    NewsFeedRepository.getInstance().fetchNewsFeed();
-                }
-            });
+            setUpDataForNewsFeedPosts();
         } catch (IOException | JSONException | ParseException | FlickrException e) {
             e.printStackTrace();
         }
@@ -87,13 +80,13 @@ public class NewsFeedRepository {
      * @throws ParseException
      * @throws FlickrException
      */
-    private void setUpDataForNewsFeedPosts(CallBackListener callBackListener)
+    private void setUpDataForNewsFeedPosts()
             throws IOException, JSONException, ParseException, FlickrException {
         Log.e(TAG, "setUpDataForNewsFeedPosts: start");
-        jsonObject = NewsFeedApiGetter.getPublicFeedFriendStream(FlickrApi.NSID, 1, 1);
+        jsonObject = NewsFeedApiGetter.getPublicFeedFriendStream(FlickrApi.NSID, 0, 1);
         jsonArray = jsonObject.getJSONArray("items");
         //
-        for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < 5; i++) {
             Log.e(TAG, "setUpDataForNewsFeedPosts: loop" + i + "start");
             JSONObject tmp = (JSONObject) jsonArray.get(i);
             // Ugly but good =))
@@ -118,7 +111,6 @@ public class NewsFeedRepository {
             Log.e(TAG, "setUpDataForNewsFeedPosts: loop" + i + "end");
         }
         Log.e(TAG, "setUpDataForNewsFeedPosts: finished");
-
     }
 
     private String getPhotoIdFromLink(String link) {

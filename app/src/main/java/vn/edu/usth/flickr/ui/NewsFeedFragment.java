@@ -129,9 +129,6 @@ public class NewsFeedFragment extends Fragment {
     }
 
     private void setRecyclerViewRealData() {
-        if (newsFeedPosts.size() > 3) {
-            return;
-        }
         adapter = new NewsFeedAdapterRV(newsFeedPosts, activityContext, this);
         recyclerView.setAdapter(adapter);
     }
