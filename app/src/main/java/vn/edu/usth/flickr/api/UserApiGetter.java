@@ -17,7 +17,6 @@ public class UserApiGetter {
     }
 
     public static JSONObject getUserInformation(String user_id) throws IOException, JSONException {
-        Log.e(TAG, "getUserInformation: " + getGetInfoUrl(user_id));
         return ApiGetter.readJsonFromUrl(0, 0, getGetInfoUrl(user_id));
     }
 

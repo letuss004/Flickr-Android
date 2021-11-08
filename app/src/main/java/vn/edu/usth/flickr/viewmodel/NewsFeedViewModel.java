@@ -17,6 +17,7 @@ public class NewsFeedViewModel extends ViewModel {
     private static MutableLiveData<ArrayList<NewsFeedPost>> newsFeedPosts = new MutableLiveData<>();
     private static NewsFeedViewModel instance;
     private static NewsFeedRepository newsFeedRepository;
+    private static ArrayList<NewsFeedPost> list;
 
     private NewsFeedViewModel() {
     }
@@ -31,7 +32,18 @@ public class NewsFeedViewModel extends ViewModel {
     }
 
     public static void setNewsFeedPosts() {
-        newsFeedPosts = newsFeedRepository.fetchNewsFeed();
+        list = newsFeedRepository.fetchNewsFeed();
+        newsFeedPosts = new MutableLiveData<>(list);
+    }
+
+    /*
+     * updateNewsFeed = new value => append to list
+     * => list updated => onChanged => observed
+     * */
+    public static void updateNewsFeedPosts() {
+        ArrayList<NewsFeedPost> updateNewsFeed = newsFeedRepository.updateNewsFeed();
+        list.addAll(updateNewsFeed);
+        newsFeedPosts.setValue(list);
     }
 
     public LiveData<ArrayList<NewsFeedPost>> getNewsFeedPosts() {

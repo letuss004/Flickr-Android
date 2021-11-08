@@ -39,10 +39,11 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
     private ArrayList<NewsFeedPost> newsFeedPosts;
 
 
-    public NewsFeedAdapterRV(ArrayList<NewsFeedPost> newsFeedPosts, Context context, NewsFeedFragment newsfeedFragment) {
+    public NewsFeedAdapterRV(ArrayList<NewsFeedPost> newsFeedPosts,
+                             NewsFeedFragment newsfeedFragment) {
         this.newsFeedPosts = newsFeedPosts;
-        this.context = context;
         this.newsfeedFragment = newsfeedFragment;
+        this.context = newsfeedFragment.getContext();
         //
     }
 

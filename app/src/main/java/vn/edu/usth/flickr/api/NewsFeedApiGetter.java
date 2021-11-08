@@ -20,7 +20,6 @@ public final class NewsFeedApiGetter {
 
     public static JSONObject getPublicFeedFriendStream(String userId, int friend, int displayAll)
             throws IOException, JSONException {
-        Log.e(TAG, "getPublicFeedFriendStream: " + getFriendsUrl(userId, friend, displayAll));
         return ApiGetter.readJsonFromUrl(15, 1, getFriendsUrl(userId, friend, displayAll));
     }
 
@@ -51,7 +50,6 @@ public final class NewsFeedApiGetter {
 
 
     public static JSONObject getPostCommentsList(String photo_id) throws IOException, JSONException {
-        Log.e(TAG, "getPostCommentsList: " + getCommentsListUrl(photo_id));
         return ApiGetter.readJsonFromUrl(14, 1, getCommentsListUrl(photo_id));
     }
 

@@ -31,7 +31,6 @@ public class ApiGetter {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
             //
-            Log.e(TAG, "readJsonFromUrl: " + jsonText);
             if (start != 0 || end != 0) {
                 jsonText = jsonText.substring(start, jsonText.length() - end);
 

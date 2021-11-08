@@ -77,7 +77,7 @@ public class NewsFeedFragment extends Fragment {
     }
 
     /*
-    * */
+     * */
     public void setUpRecyclerViewData(View view) {
         setRecyclerViewWaiter(view);
         //
@@ -124,12 +124,12 @@ public class NewsFeedFragment extends Fragment {
         recyclerView.setLayoutManager(llm);
 
         ArrayList<NewsFeedPost> tmp = new ArrayList<>();
-        adapter = new NewsFeedAdapterRV(tmp, activityContext, this);
+        adapter = new NewsFeedAdapterRV(tmp, this);
         recyclerView.setAdapter(adapter);
     }
 
     private void setRecyclerViewRealData() {
-        adapter = new NewsFeedAdapterRV(newsFeedPosts, activityContext, this);
+        adapter = new NewsFeedAdapterRV(newsFeedPosts, this);
         recyclerView.setAdapter(adapter);
     }
 
