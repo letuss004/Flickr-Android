@@ -32,8 +32,6 @@ import vn.edu.usth.flickr.ui.NewsFeedFragment;
 /**
  *
  */
-@RequiresApi(api = Build.VERSION_CODES.O)
-
 public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.NewsFeedViewHolder> {
     private static final String TAG = "NewsFeedAdapterRV";
     private final Context context;
@@ -68,14 +66,14 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
     private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) throws URISyntaxException {
         Log.e(TAG, "setUpDataForViewHolder: start");
         String imageUri = getImageLinkFromDescription(position);
-        String avatarUri = newsFeedPosts.get(position).getUser().getSecureBuddyIconUrl();
+//        String avatarUri = newsFeedPosts.get(position).getUser().getSecureBuddyIconUrl();
         String author = getOwnerName(newsFeedPosts.get(position).getAuthor());
         String title = newsFeedPosts.get(position).getTitle();
-        String likeQuantity = String.valueOf(newsFeedPosts.get(position).getPersonTags().size());
-        String commentQuantity = String.valueOf(newsFeedPosts.get(position).getComments().size());
+//        String likeQuantity = String.valueOf(newsFeedPosts.get(position).getPersonTags().size());
+//        String commentQuantity = String.valueOf(newsFeedPosts.get(position).getComments().size());
 
         Picasso.get().load(imageUri).into(holder.mainImage);
-        Picasso.get().load(avatarUri).into(holder.avaImage);
+//        Picasso.get().load(avatarUri).into(holder.avaImage);
 //        holder.postOwnerName.setText(author);
 //        holder.postTitle.setText(title);
 //        holder.likeQuantity.setText(likeQuantity);

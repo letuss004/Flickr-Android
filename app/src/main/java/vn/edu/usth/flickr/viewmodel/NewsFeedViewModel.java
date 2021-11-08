@@ -14,18 +14,18 @@ import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.repository.NewsFeedRepository;
 
 public class NewsFeedViewModel extends ViewModel {
-    private static MutableLiveData<ArrayList<NewsFeedPost>> newsFeedPosts;
+    private static MutableLiveData<ArrayList<NewsFeedPost>> newsFeedPosts = new MutableLiveData<>();
     private static NewsFeedViewModel instance;
     private static NewsFeedRepository newsFeedRepository;
 
     private NewsFeedViewModel() {
-        setNewsFeedPosts();
     }
 
     public static NewsFeedViewModel getInstance() {
         if (instance == null) {
             instance = new NewsFeedViewModel();
             newsFeedRepository = NewsFeedRepository.getInstance();
+            setNewsFeedPosts();
         }
         return instance;
     }

@@ -24,24 +24,26 @@ import vn.edu.usth.flickr.api.UserApiGetter;
 public class SimpleTest {
     @Test
     public void test() throws IOException, JSONException {
-        System.out.println("start");
-        FlickrApi flickrApi = FlickrApi.getInstance();
-        List<Comment> personTags = null;
-        ArrayList<Comment> comments = null;
-        User user = null;
-        try {
-            personTags = flickrApi.getCommentsInterface().getList("51661120537");
-//            comments = (ArrayList<Comment>) flickrApi.getCommentsInterface().getList("51661120537");
-//            user = flickrApi.getPeopleInterface().getInfo("95314539@N05");
+        String a = "a" + null;
 
-        } catch (FlickrException e) {
-            e.printStackTrace();
-        }
-//        NewsFeedApiGetter.readJsonFromUrl("https://www.flickr.com/services/feeds/photos_public.gne?format=json");
-        System.out.println("end");
-//        System.out.println(personTags.size());
-//        System.out.println(comments.size());
-//        System.out.println(user);
+//        System.out.println("start");
+//        FlickrApi flickrApi = FlickrApi.getInstance();
+//        List<Comment> personTags = null;
+//        ArrayList<Comment> comments = null;
+//        User user = null;
+//        try {
+//            personTags = flickrApi.getCommentsInterface().getList("51661120537");
+////            comments = (ArrayList<Comment>) flickrApi.getCommentsInterface().getList("51661120537");
+////            user = flickrApi.getPeopleInterface().getInfo("95314539@N05");
+//
+//        } catch (FlickrException e) {
+//            e.printStackTrace();
+//        }
+////        NewsFeedApiGetter.readJsonFromUrl("https://www.flickr.com/services/feeds/photos_public.gne?format=json");
+//        System.out.println("end");
+////        System.out.println(personTags.size());
+////        System.out.println(comments.size());
+////        System.out.println(user);
 
     }
 }

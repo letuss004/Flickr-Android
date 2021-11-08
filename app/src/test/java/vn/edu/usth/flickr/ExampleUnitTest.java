@@ -24,8 +24,8 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         Flickr flickr = new Flickr("a8db956a048e0a962a1f88168d7ad545", "8a32f6762e1abc37", new REST());
-        String a = "https:\\/\\/www.flickr.com\\/photos\\/edsmartparts\\/51660157957\\/";
-        System.out.println(a.split("/")[5].split("\\\\")[0]);
+        String a = "jsonFlickrApi({\"person\":";
+        System.out.println(a.substring(14));
 
 
 //        try {

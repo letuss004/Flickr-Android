@@ -6,6 +6,8 @@ import com.flickr4java.flickr.people.PersonTagList;
 import com.flickr4java.flickr.people.User;
 import com.flickr4java.flickr.photos.comments.Comment;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,27 +15,17 @@ public class NewsFeedPost {
     private String author, authorId, description, link, tag, title;
     private Date published, dateTaken;
     private ArrayList<String> media;
-    private User user;
-    private PersonTagList<PersonTag> personTags;
-    private ArrayList<Comment> comments;
+    private JSONObject user;
+    private JSONObject faveList;
+    private JSONObject commentsList;
 
-    public NewsFeedPost(String author, String authorId, String description,
-                        String link, String tag, String title,
-                        Date dateTaken, Date published, ArrayList<String> media) {
-        this.author = author;
-        this.authorId = authorId;
-        this.description = description;
-        this.link = link;
-        this.tag = tag;
-        this.title = title;
-        this.published = published;
-        this.dateTaken = dateTaken;
-        this.media = media;
+    public NewsFeedPost() {
     }
 
     public NewsFeedPost(String author, String authorId, String description, String link,
                         String tag, String title, Date published, Date dateTaken,
-                        ArrayList<String> media, User user) {
+                        ArrayList<String> media, JSONObject user, JSONObject faveList,
+                        JSONObject commentsList) {
         this.author = author;
         this.authorId = authorId;
         this.description = description;
@@ -44,33 +36,8 @@ public class NewsFeedPost {
         this.dateTaken = dateTaken;
         this.media = media;
         this.user = user;
-    }
-
-    public NewsFeedPost(String author, String authorId, String description,
-                        String link, String tags, String title, Date dateTaken,
-                        Date published, ArrayList<String> media, User user,
-                        ArrayList<Comment> comments, PersonTagList<PersonTag> personTags) {
-        this.author = author;
-        this.authorId = authorId;
-        this.description = description;
-        this.link = link;
-        this.tag = tags;
-        this.title = title;
-        this.published = published;
-        this.dateTaken = dateTaken;
-        this.media = media;
-        this.user = user;
-        this.comments = comments;
-        this.personTags = personTags;
-    }
-
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        this.faveList = faveList;
+        this.commentsList = commentsList;
     }
 
     @Override
@@ -85,23 +52,10 @@ public class NewsFeedPost {
                 ", published=" + published +
                 ", dateTaken=" + dateTaken +
                 ", media=" + media +
+                ", user=" + user +
+                ", faveList=" + faveList +
+                ", commentsList=" + commentsList +
                 '}';
-    }
-
-    public PersonTagList<PersonTag> getPersonTags() {
-        return personTags;
-    }
-
-    public void setPersonTags(PersonTagList<PersonTag> personTags) {
-        this.personTags = personTags;
-    }
-
-    public ArrayList<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(ArrayList<Comment> comments) {
-        this.comments = comments;
     }
 
     public String getAuthor() {
@@ -174,5 +128,29 @@ public class NewsFeedPost {
 
     public void setMedia(ArrayList<String> media) {
         this.media = media;
+    }
+
+    public JSONObject getUser() {
+        return user;
+    }
+
+    public void setUser(JSONObject user) {
+        this.user = user;
+    }
+
+    public JSONObject getFaveList() {
+        return faveList;
+    }
+
+    public void setFaveList(JSONObject faveList) {
+        this.faveList = faveList;
+    }
+
+    public JSONObject getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(JSONObject commentsList) {
+        this.commentsList = commentsList;
     }
 }

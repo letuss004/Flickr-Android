@@ -1,41 +1,60 @@
 package vn.edu.usth.flickr.api;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-
-import vn.edu.usth.flickr.repository.NewsFeedRepository;
 
 public final class NewsFeedApiGetter {
     private static final String TAG = "NewsFeedApi";
+    private static final String PUBLIC_URL = "https://www.flickr.com/services/feeds/photos_public.gne/?format=json";
+    public static final String FRIENDS_URL = "https://www.flickr.com/services/feeds/photos_friends.gne/?format=json";
+    public static final String FAVE_LIST_URL = "https://www.flickr.com/services/rest/?method=flickr.photos.getFavorites&format=json";
+    public static final String COMMENT_LIST_URL = "https://www.flickr.com/services/rest/?method=flickr.photos.comments.getList&format=json";
 
     private NewsFeedApiGetter() {
     }
 
-    private static String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
+
+    public static JSONObject getPublicFeedFriendStream(String userId, int friend, int displayAll)
+            throws IOException, JSONException {
+        return ApiGetter.readJsonFromUrl(15, 1, getFriendsUrl(userId, friend, displayAll));
     }
 
-    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        try (InputStream is = new URL(url).openStream()) {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            String jsonText = readAll(rd);
-            String jsonText2 = jsonText.substring(15, jsonText.length() - 1);
-            is.close();
-            return new JSONObject(jsonText2);
-        }
+    public static JSONObject getPostFaveList(String photo_id) throws IOException, JSONException {
+        return ApiGetter.readJsonFromUrl(14, 1, getFaveListUrl(photo_id));
     }
 
+    private static String getFaveListUrl(String photo_id) {
+        return FAVE_LIST_URL + "&api_key=" + FlickrApi.API_KEY + "&photo_id=" + photo_id;
+    }
+
+
+    public static JSONObject getPublicFeed() throws IOException, JSONException {
+        return ApiGetter.readJsonFromUrl(15, 1, getPublicUrl());
+    }
+
+    private static String getPublicUrl() {
+        return PUBLIC_URL;
+    }
+
+    private static String getFriendsUrl(String id) {
+        return getFriendsUrl(id, 1, 1);
+    }
+
+    private static String getFriendsUrl(String userId, int friend, int displayAll) {
+        return FRIENDS_URL + "&user_id=" + userId + "&display_all=" + displayAll + "&friends=" + friend;
+    }
+
+
+    public static JSONObject getPostCommentsList(String photo_id) throws IOException, JSONException {
+        Log.e(TAG, "getPostCommentsList: " + getCommentsListUrl(photo_id));
+        return ApiGetter.readJsonFromUrl(14, 1, getCommentsListUrl(photo_id));
+    }
+
+    private static String getCommentsListUrl(String photo_id) {
+        return COMMENT_LIST_URL + "&api_key=" + FlickrApi.API_KEY + "&photo_id=" + photo_id;
+    }
 }
