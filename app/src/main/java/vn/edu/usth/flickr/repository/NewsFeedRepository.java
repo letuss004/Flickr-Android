@@ -64,10 +64,10 @@ public class NewsFeedRepository {
      * @throws ParseException
      * @throws FlickrException
      */
-    private  void setUpDataForNewsFeedPosts() throws IOException, JSONException, ParseException, FlickrException {
+    private synchronized void setUpDataForNewsFeedPosts()
+            throws IOException, JSONException, ParseException, FlickrException {
         Log.e(TAG, "setUpDataForNewsFeedPosts: start");
-        JSONObject jsonObject = NewsFeedApiGetter.getPublicFeed();
-        Log.e(TAG, "setUpDataForNewsFeedPosts: " + jsonObject);
+        JSONObject jsonObject = NewsFeedApiGetter.getPublicFeedFriendStream(FlickrApi.NSID, 0, 1);
         JSONArray jsonArray = jsonObject.getJSONArray("items");
         //
         for (int i = 0; i < 1; i++) {
@@ -98,7 +98,7 @@ public class NewsFeedRepository {
     }
 
 
-    private  ArrayList<NewsFeedPost> updateDataForNewsFeedPosts()
+    private synchronized ArrayList<NewsFeedPost> updateDataForNewsFeedPosts()
             throws IOException, JSONException, ParseException, FlickrException {
         Log.e(TAG, "updateDataForNewsFeedPosts: start");
         JSONObject jsonObject = NewsFeedApiGetter.getPublicFeed();

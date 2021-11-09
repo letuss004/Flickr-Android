@@ -80,11 +80,11 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
                     ready = true;
                 }
             };
-//            if (position == newsFeedPosts.size() - 10 && ready) {
-//                task.execute();
-//            } else if (newsFeedPosts.size() - 10 < 0 && ready) {
-//                task.execute();
-//            }
+            if (position == newsFeedPosts.size() - 10 && ready) {
+                task.execute();
+            } else if (newsFeedPosts.size() - 10 < 0 && ready) {
+                task.execute();
+            }
             //
             setUpDataForViewHolder(holder, position);
         } catch (URISyntaxException | JSONException e) {

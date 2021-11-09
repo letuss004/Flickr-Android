@@ -37,7 +37,7 @@ public class NewsFeedFragment extends Fragment {
     private Context activityContext;
     private NewsFeedViewModel feedViewModel;
     private ArrayList<NewsFeedPost> newsFeedPosts;
-
+    private int count = 0;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -52,6 +52,17 @@ public class NewsFeedFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (count != 0) {
+            Log.e(TAG, "setUpRecyclerViewData: the second time newsfeed oncreateview called" );
+            setRecyclerViewRealData();
+        }
+        count++;
+
     }
 
     public NewsFeedFragment() {
@@ -74,7 +85,12 @@ public class NewsFeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_newsfeed, container, false);
         activityContext = view.getContext();
         setUpRecyclerViewData(view);
-        if (feedViewModel != null) observeData();
+
+        if (feedViewModel != null) {
+            observeData();
+            Log.e(TAG, "onCreateView: fajsfjdsalkfjsadfjlas" );
+        }
+//        adapter.notifyDataSetChanged();
         return view;
     }
 
@@ -82,15 +98,22 @@ public class NewsFeedFragment extends Fragment {
      * */
     public void setUpRecyclerViewData(View view) {
         setRecyclerViewWaiter(view);
-        //
         afterFinishGetDataOnBackGround(() -> {
             setRecyclerViewRealData();
             NewsFeedAdapterRV.setReady(true);
             observeData();
         });
+//        if (count == 0) {
+//
+//            count++;
+//        } else {
+//            Log.e(TAG, "setUpRecyclerViewData: the second time newsfeed oncreateview called" );
+//            setRecyclerViewRealData();
+//        }
+        //
+
     }
 
-//    private int count = 0;
 
     /*
      * observe always call at the first time
@@ -101,8 +124,8 @@ public class NewsFeedFragment extends Fragment {
         feedViewModel.getNewsFeedPosts().observe(getViewLifecycleOwner(), newsFeedPosts1 -> {
             Log.e(TAG, "observeData: method started");
             adapter.notifyDataSetChanged();
-
         });
+
     }
 
     private void afterFinishGetDataOnBackGround(CallBackListener callBackListener) {
