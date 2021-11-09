@@ -46,15 +46,31 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:hint="Say something"
-        android:layout_height="60dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:hint="Say something">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_height="60dp" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:textSize="10dp"
+            android:text="Post" />
+    </LinearLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

@@ -166,7 +166,9 @@ public class NewsFeedFragment extends Fragment implements NewsFeedAdapterRV.OnRv
         newsFeedPosts.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
-        getParentFragmentManager().beginTransaction().replace(R.id.navHost_fragment, CommentFragment.class, bundle).commit();
+        CommentFragment fragment = new CommentFragment();
+        fragment.setArguments(bundle);
+        getParentFragmentManager().beginTransaction().replace(R.id.navHost_fragment, fragment).addToBackStack("newsfeed").commit();
     }
 
     private interface CallBackListener {

@@ -36,9 +36,7 @@ public class ApiGetter {
             //
             if (start != 0 || end != 0) {
                 jsonText = jsonText.substring(start, jsonText.length() - end);
-
             }
-
             is.close();
             return new JSONObject(jsonText);
         }

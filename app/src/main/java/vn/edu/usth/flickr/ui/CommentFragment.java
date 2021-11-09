@@ -2,6 +2,7 @@ package vn.edu.usth.flickr.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import vn.edu.usth.flickr.repository.NewsFeedRepository;
 public class CommentFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "CommentFragment";
 
     private String mParam1;
     private String mParam2;
@@ -30,9 +32,12 @@ public class CommentFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<NewsFeedPost> commentArrayList = new ArrayList<>();
+    private ArrayList<Post.Comment> commentArrayList = new ArrayList<>();
+    private ArrayList<NewsFeedPost> list = new ArrayList<>();
     private Context activityContext;
     private ImageView backButton;
+    private int position;
+
 
     public CommentFragment() {
     }
@@ -53,7 +58,9 @@ public class CommentFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        commentArrayList = NewsFeedRepository.getInstance().getList().get();
+        position = this.getArguments().getInt("position");
+        list = NewsFeedRepository.getInstance().getList();
+        Log.e(TAG, "onCreate: " + list.get(0));
     }
 
 
@@ -89,7 +96,6 @@ public class CommentFragment extends Fragment {
         }
     }
 
-    
 
 }
 

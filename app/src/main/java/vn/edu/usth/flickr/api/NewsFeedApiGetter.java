@@ -9,14 +9,13 @@ import java.io.IOException;
 
 public final class NewsFeedApiGetter {
     private static final String TAG = "NewsFeedApi";
-    private static final String PUBLIC_URL = "https://www.flickr.com/services/feeds/photos_public.gne/?format=json&tags=girls";
+    private static final String PUBLIC_URL = "https://www.flickr.com/services/feeds/photos_public.gne/?format=json&";
     public static final String FRIENDS_URL = "https://www.flickr.com/services/feeds/photos_friends.gne/?format=json";
     public static final String FAVE_LIST_URL = "https://www.flickr.com/services/rest/?method=flickr.photos.getFavorites&format=json";
     public static final String COMMENT_LIST_URL = "https://www.flickr.com/services/rest/?method=flickr.photos.comments.getList&format=json&per_page=1";
 
     private NewsFeedApiGetter() {
     }
-
 
     public static JSONObject getPublicFeedFriendStream(String userId, int friend, int displayAll)
             throws IOException, JSONException {

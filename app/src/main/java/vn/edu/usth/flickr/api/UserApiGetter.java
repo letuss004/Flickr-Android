@@ -11,7 +11,6 @@ public class UserApiGetter {
     private static final String TAG = "UserApiGetter";
 
     private UserApiGetter() {
-
     }
 
     public static String getAvatarPhoto(Integer icon_farm, String icon_server, String nsid) {
