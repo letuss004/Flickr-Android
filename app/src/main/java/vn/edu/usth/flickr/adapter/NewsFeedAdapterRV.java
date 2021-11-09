@@ -13,13 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.flickr4java.flickr.REST;
-import com.flickr4java.flickr.people.PeopleInterface;
-import com.flickr4java.flickr.people.User;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import vn.edu.usth.flickr.R;
-import vn.edu.usth.flickr.api.FlickrApi;
 import vn.edu.usth.flickr.api.UserApiGetter;
 import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.ui.NewsFeedFragment;
@@ -42,22 +36,31 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
     private final Context context;
     private NewsFeedFragment newsfeedFragment;
     private ArrayList<NewsFeedPost> newsFeedPosts;
-
+    private OnRvItemListener onItemListener;
 
     public NewsFeedAdapterRV(ArrayList<NewsFeedPost> newsFeedPosts,
-                             NewsFeedFragment newsfeedFragment) {
+                             NewsFeedFragment newsfeedFragment, OnRvItemListener onItemListener) {
         this.newsFeedPosts = newsFeedPosts;
         this.newsfeedFragment = newsfeedFragment;
         this.context = newsfeedFragment.getContext();
+        this.onItemListener = onItemListener;
         //
     }
+
+//    public NewsFeedAdapterRV(ArrayList<NewsFeedPost> newsFeedPosts,
+//                             NewsFeedFragment newsfeedFragment) {
+//        this.newsFeedPosts = newsFeedPosts;
+//        this.newsfeedFragment = newsfeedFragment;
+//        this.context = newsfeedFragment.getContext();
+//        //
+//    }
 
 
     @NonNull
     @Override
     public NewsFeedAdapterRV.NewsFeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newsfeed_post_row, parent, false);
-        return new NewsFeedAdapterRV.NewsFeedViewHolder(view);
+        return new NewsFeedAdapterRV.NewsFeedViewHolder(view, onItemListener);
     }
 
     private static boolean ready = false;
@@ -117,6 +120,7 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
         String likeQuantity = getLikeQuantity(position);
         String commentQuantity = getCommentQuantity(position);
         String textOfComment = getCommentText(position);
+        String userComment = getCommentUser(position);
         Log.e(TAG, "setUpDataForViewHolder: " + textOfComment);
         Picasso.get().load(imageUri).into(holder.mainImage);
         Picasso.get().load(avatarUri).into(holder.avaImage);
@@ -124,9 +128,27 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
         holder.postTitle.setText(title);
         holder.likeQuantity.setText(likeQuantity);
         holder.commentQuantity.setText(commentQuantity);
-//        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
+        holder.userNameComment.setText(userComment);
         holder.commentContent.setText(textOfComment);
         holder.time.setText(getTime(newsFeedPosts.get(position).getPublished()));
+        //
+        viewHolderItemOnClick(holder, position);
+    }
+
+    private void viewHolderItemOnClick(NewsFeedViewHolder holder, int position) {
+        holder.likeButton.setOnClickListener(v -> {
+
+        });
+    }
+
+    private String getCommentUser(int position) throws JSONException {
+        JSONObject photo = newsFeedPosts.get(position).getCommentsList().getJSONObject("comments");
+        Log.e(TAG, "getCommentUser: " + photo);
+        try {
+            return photo.getJSONArray("comment").getJSONObject(0).getString("authorname");
+        } catch (JSONException e) {
+            return "Be the first";
+        }
     }
 
     private String getCommentText(int position) throws JSONException {
@@ -206,11 +228,12 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
     /**
      * ------------------------------------------
      */
-    public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
+    public static class NewsFeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ImageView mainImage, avaImage, likeButton, commentButton, shareButton;
         private final TextView likeQuantity, commentQuantity, postOwnerName, postTitle, userNameComment, commentContent, time;
+        OnRvItemListener onItemListener;
 
-        public NewsFeedViewHolder(@NonNull View itemView) {
+        public NewsFeedViewHolder(@NonNull View itemView, OnRvItemListener onClickListener) {
             super(itemView);
             mainImage = itemView.findViewById(R.id.imagePost);
             avaImage = itemView.findViewById(R.id.avaImage);
@@ -224,8 +247,18 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
             commentButton = itemView.findViewById(R.id.commentButton_nf);
             shareButton = itemView.findViewById(R.id.shareButton_nf);
             time = itemView.findViewById(R.id.timeOfPost);
+            this.onItemListener = onClickListener;
+            commentButton.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            onItemListener.onItemClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnRvItemListener {
+        void onItemClick(int position);
     }
 
 

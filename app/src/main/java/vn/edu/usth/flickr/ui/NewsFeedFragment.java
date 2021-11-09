@@ -22,7 +22,6 @@ import java.util.List;
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.adapter.NewsFeedAdapterRV;
 import vn.edu.usth.flickr.model.NewsFeedPost;
-import vn.edu.usth.flickr.repository.NewsFeedRepository;
 import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
 
 /**
@@ -31,24 +30,24 @@ import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
  * create an instance of this fragment.
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class NewsFeedFragment extends Fragment {
+public class NewsFeedFragment extends Fragment implements NewsFeedAdapterRV.OnRvItemListener {
     private RecyclerView recyclerView;
     private NewsFeedAdapterRV adapter;
     private Context activityContext;
     private NewsFeedViewModel feedViewModel;
     private ArrayList<NewsFeedPost> newsFeedPosts;
-    private int count = 0;
+    private int countCreate = 0;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "NewsFeedFragment";
-    private String mParam1;
+    private int mParam1 = 1;
     private String mParam2;
 
     public static NewsFeedFragment newInstance(String param1, String param2) {
         NewsFeedFragment fragment = new NewsFeedFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putInt(ARG_PARAM1, 1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -57,12 +56,6 @@ public class NewsFeedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (count != 0) {
-            Log.e(TAG, "setUpRecyclerViewData: the second time newsfeed oncreateview called" );
-            setRecyclerViewRealData();
-        }
-        count++;
-
     }
 
     public NewsFeedFragment() {
@@ -72,7 +65,7 @@ public class NewsFeedFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            countCreate = getArguments().getInt(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -85,10 +78,10 @@ public class NewsFeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_newsfeed, container, false);
         activityContext = view.getContext();
         setUpRecyclerViewData(view);
+        Log.e(TAG, "onCreateView: fajsfjdsalkfjsadfjlas");
 
         if (feedViewModel != null) {
             observeData();
-            Log.e(TAG, "onCreateView: fajsfjdsalkfjsadfjlas" );
         }
 //        adapter.notifyDataSetChanged();
         return view;
@@ -97,20 +90,23 @@ public class NewsFeedFragment extends Fragment {
     /*
      * */
     public void setUpRecyclerViewData(View view) {
-        setRecyclerViewWaiter(view);
-        afterFinishGetDataOnBackGround(() -> {
-            setRecyclerViewRealData();
-            NewsFeedAdapterRV.setReady(true);
-            observeData();
-        });
-//        if (count == 0) {
-//
-//            count++;
-//        } else {
-//            Log.e(TAG, "setUpRecyclerViewData: the second time newsfeed oncreateview called" );
-//            setRecyclerViewRealData();
-//        }
-        //
+        if (countCreate == 0) {
+            setRecyclerViewWaiter(view);
+            afterFinishGetDataOnBackGround(() -> {
+                setRecyclerViewRealData();
+                NewsFeedAdapterRV.setReady(true);
+                observeData();
+            });
+            countCreate = 1;
+            Log.e(TAG, "setUpRecyclerViewData: --------------------only 1 and count =" + countCreate);
+        } else {
+            feedViewModel = NewsFeedViewModel.getInstance(); //set up data
+            newsFeedPosts = feedViewModel.getNewsFeedPosts().getValue();
+            adapter = new NewsFeedAdapterRV(newsFeedPosts, this, this);
+            recyclerView.setAdapter(adapter);
+            Log.e(TAG, "setUpRecyclerViewData: more than 2 -------------------");
+        }
+
 
     }
 
@@ -156,13 +152,21 @@ public class NewsFeedFragment extends Fragment {
         recyclerView.setLayoutManager(llm);
 
         ArrayList<NewsFeedPost> tmp = new ArrayList<>();
-        adapter = new NewsFeedAdapterRV(tmp, this);
+        adapter = new NewsFeedAdapterRV(tmp, this, this);
         recyclerView.setAdapter(adapter);
     }
 
     private void setRecyclerViewRealData() {
-        adapter = new NewsFeedAdapterRV(newsFeedPosts, this);
+        adapter = new NewsFeedAdapterRV(newsFeedPosts, this, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        newsFeedPosts.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        getParentFragmentManager().beginTransaction().replace(R.id.navHost_fragment, CommentFragment.class, bundle).commit();
     }
 
     private interface CallBackListener {

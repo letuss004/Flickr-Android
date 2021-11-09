@@ -25,6 +25,10 @@ public class NewsFeedRepository {
     private static NewsFeedRepository instance;
     private ArrayList<NewsFeedPost> list = new ArrayList<>();
 
+    public ArrayList<NewsFeedPost> getList() {
+        return list;
+    }
+
     private NewsFeedRepository() {
     }
 
