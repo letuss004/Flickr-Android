@@ -1,22 +1,16 @@
 package vn.edu.usth.flickr.api;
 
+import android.util.Log;
+
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
-import vn.edu.usth.flickr.model.VolleySingleton;
+import vn.edu.usth.flickr.model.VolleyQueueSingleton;
 
 public class ApiGetter {
     private static final String TAG = "ApiGetter";
@@ -53,9 +47,8 @@ public class ApiGetter {
                 response -> object = response,
                 Throwable::printStackTrace);
         // Access the RequestQueue through your singleton class.
-        VolleySingleton.getInstance().addToRequestQueue(jsonObjectRequest);
-
-
+        VolleyQueueSingleton.getInstance().addToRequestQueue(jsonObjectRequest);
+        Log.e(TAG, "readJsonFromUrl: " + object);
         return object;
     }
 

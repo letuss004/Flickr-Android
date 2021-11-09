@@ -32,20 +32,18 @@ import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class NewsFeedFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final String TAG = "NewsFeedFragment";
-    private String mParam1;
-    private String mParam2;
-
     private RecyclerView recyclerView;
     private NewsFeedAdapterRV adapter;
     private Context activityContext;
     private NewsFeedViewModel feedViewModel;
     private ArrayList<NewsFeedPost> newsFeedPosts;
 
-    public NewsFeedFragment() {
-    }
+
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "NewsFeedFragment";
+    private String mParam1;
+    private String mParam2;
 
     public static NewsFeedFragment newInstance(String param1, String param2) {
         NewsFeedFragment fragment = new NewsFeedFragment();
@@ -54,6 +52,9 @@ public class NewsFeedFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public NewsFeedFragment() {
     }
 
     @Override
@@ -89,7 +90,7 @@ public class NewsFeedFragment extends Fragment {
         });
     }
 
-    private int count = 0;
+//    private int count = 0;
 
     /*
      * observe always call at the first time
@@ -109,8 +110,7 @@ public class NewsFeedFragment extends Fragment {
         AsyncTask<String, String, MutableLiveData<List<NewsFeedPost>>> asyncTask = new AsyncTask<String, String, MutableLiveData<List<NewsFeedPost>>>() {
             @Override
             protected MutableLiveData<List<NewsFeedPost>> doInBackground(String... strings) {
-
-                        feedViewModel = NewsFeedViewModel.getInstance(); //set up data
+                feedViewModel = NewsFeedViewModel.getInstance(); //set up data
                 newsFeedPosts = feedViewModel.getNewsFeedPosts().getValue();
                 return null;
             }

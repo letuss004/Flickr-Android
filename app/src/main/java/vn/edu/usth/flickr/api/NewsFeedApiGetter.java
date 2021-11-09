@@ -28,7 +28,7 @@ public final class NewsFeedApiGetter {
     }
 
     public static JSONObject getPostFaveList(String photo_id, String per_page) throws IOException, JSONException {
-        return ApiGetter.readJsonFromUrl( getFaveListUrl(photo_id, per_page));
+        return ApiGetter.readJsonFromUrl(getFaveListUrl(photo_id, per_page));
     }
 
     private static String getFaveListUrl(String photo_id, String per_page) {
@@ -54,7 +54,9 @@ public final class NewsFeedApiGetter {
     }
 
     private static String getFriendsUrl(String userId, int friend, int displayAll) {
+        Log.e(TAG, "getFriendsUrl: " + FRIENDS_URL + "&user_id=" + userId + "&display_all=" + displayAll + "&friends=" + friend);
         return FRIENDS_URL + "&user_id=" + userId + "&display_all=" + displayAll + "&friends=" + friend;
+
     }
 
 

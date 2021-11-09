@@ -7,10 +7,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import vn.edu.usth.flickr.model.VolleySingleton;
+import vn.edu.usth.flickr.model.VolleyQueueSingleton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(navigationView, navController);
         //
-        VolleySingleton.getInstance(this);
+        VolleyQueueSingleton.getInstance(this);
     }
 }
 
