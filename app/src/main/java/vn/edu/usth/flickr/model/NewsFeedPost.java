@@ -1,11 +1,5 @@
 package vn.edu.usth.flickr.model;
 
-import com.flickr4java.flickr.people.PeopleInterface;
-import com.flickr4java.flickr.people.PersonTag;
-import com.flickr4java.flickr.people.PersonTagList;
-import com.flickr4java.flickr.people.User;
-import com.flickr4java.flickr.photos.comments.Comment;
-
 import org.json.JSONObject;
 
 import java.util.ArrayList;

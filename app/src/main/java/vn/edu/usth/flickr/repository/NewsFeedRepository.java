@@ -23,7 +23,7 @@ import vn.edu.usth.flickr.model.NewsFeedPost;
 public class NewsFeedRepository {
     private static final String TAG = "NewsFeedRepository";
     private static NewsFeedRepository instance;
-    private ArrayList<NewsFeedPost> list = null;
+    private ArrayList<NewsFeedPost> list = new ArrayList<>();
 
     private NewsFeedRepository() {
     }
@@ -43,9 +43,9 @@ public class NewsFeedRepository {
     }
 
     /*
-    * return a new list of post in Flickr
-    * Note: this.list != list
-    * */
+     * return a new list of post in Flickr
+     * Note: this.list != list
+     * */
     public ArrayList<NewsFeedPost> updateNewsFeed() {
         try {
             return updateDataForNewsFeedPosts();
@@ -53,37 +53,6 @@ public class NewsFeedRepository {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private ArrayList<NewsFeedPost> updateDataForNewsFeedPosts()
-            throws IOException, JSONException, ParseException, FlickrException {
-        JSONObject jsonObject = NewsFeedApiGetter.getPublicFeed();
-        JSONArray jsonArray = jsonObject.getJSONArray("items");
-        ArrayList<NewsFeedPost> list = null;
-        //
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject tmp = (JSONObject) jsonArray.get(i);
-            // Ugly but good =))
-            JSONObject mediaJO = (JSONObject) tmp.get("media");
-            ArrayList<String> media = new ArrayList<>();
-            String author = (String) tmp.get("author");
-            String authorId = (String) tmp.get("author_id");
-            String description = (String) tmp.get("description"); //
-            String link = (String) tmp.get("link");
-            String tags = ""; //Todo: Missing tag feature
-            String title = (String) tmp.get("title");
-            Date dateTaken = parseFlickrDate((String) tmp.get("date_taken"));
-            Date published = parseFlickrDate((String) tmp.get("published"));
-            String photoId = getPhotoIdFromLink(link);
-            JSONObject user = UserApiGetter.getUserInformation(authorId);
-            JSONObject faveList = NewsFeedApiGetter.getPostFaveList(photoId);
-            JSONObject commentsList = NewsFeedApiGetter.getPostCommentsList(photoId);
-            //
-            getMediaList(mediaJO, media);
-            list.add(new NewsFeedPost(author, authorId, description, link, tags,
-                    title, dateTaken, published, media, user, faveList, commentsList));
-        }
-        return list;
     }
 
 
@@ -95,13 +64,13 @@ public class NewsFeedRepository {
      * @throws ParseException
      * @throws FlickrException
      */
-    private void setUpDataForNewsFeedPosts()
+    private synchronized void setUpDataForNewsFeedPosts()
             throws IOException, JSONException, ParseException, FlickrException {
         Log.e(TAG, "setUpDataForNewsFeedPosts: start");
         JSONObject jsonObject = NewsFeedApiGetter.getPublicFeedFriendStream(FlickrApi.NSID, 0, 1);
         JSONArray jsonArray = jsonObject.getJSONArray("items");
         //
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             Log.e(TAG, "setUpDataForNewsFeedPosts: loop" + i + "start");
             JSONObject tmp = (JSONObject) jsonArray.get(i);
             // Ugly but good =))
@@ -128,6 +97,47 @@ public class NewsFeedRepository {
         Log.e(TAG, "setUpDataForNewsFeedPosts: finished");
     }
 
+
+    private synchronized ArrayList<NewsFeedPost> updateDataForNewsFeedPosts()
+            throws IOException, JSONException, ParseException, FlickrException {
+        Log.e(TAG, "updateDataForNewsFeedPosts: start");
+        JSONObject jsonObject = NewsFeedApiGetter.getPublicFeed();
+        JSONArray jsonArray = jsonObject.getJSONArray("items");
+        ArrayList<NewsFeedPost> list = new ArrayList<>();
+        int count = 5;
+        //
+        for (int i = 0; i < count; i++) {
+            Log.e(TAG, "updateDataForNewsFeedPosts: loop" + i + " start");
+            ///
+            JSONObject tmp = (JSONObject) jsonArray.get(i);
+            // Ugly but good =))
+            JSONObject mediaJO = (JSONObject) tmp.get("media");
+            ArrayList<String> media = new ArrayList<>();
+            String author = (String) tmp.get("author");
+            String authorId = (String) tmp.get("author_id");
+            String description = (String) tmp.get("description"); //
+            String link = (String) tmp.get("link");
+            String tags = ""; //Todo: Missing tag feature
+            String title = (String) tmp.get("title");
+            Date dateTaken = parseFlickrDate((String) tmp.get("date_taken"));
+            Date published = parseFlickrDate((String) tmp.get("published"));
+            String photoId = getPhotoIdFromLink(link);
+            JSONObject user = UserApiGetter.getUserInformation(authorId);
+            JSONObject faveList = NewsFeedApiGetter.getPostFaveList(photoId);
+            JSONObject commentsList = NewsFeedApiGetter.getPostCommentsList(photoId);
+            //
+            getMediaList(mediaJO, media);
+            list.add(new NewsFeedPost(author, authorId, description, link, tags,
+                    title, dateTaken, published, media, user, faveList, commentsList));
+//            if (count < 15) {
+//                count = count + 5;
+//            }
+            Log.e(TAG, "updateDataForNewsFeedPosts: loop" + i + " end");
+        }
+        Log.e(TAG, "updateDataForNewsFeedPosts: end");
+        return list;
+    }
+
     private String getPhotoIdFromLink(String link) {
         return link.split("/")[5].split("\\\\")[0];
     }
@@ -145,7 +155,4 @@ public class NewsFeedRepository {
     }
 
 
-    private interface CallBackListener {
-        void finished();
-    }
 }

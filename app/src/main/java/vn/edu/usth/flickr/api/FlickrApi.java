@@ -3,7 +3,6 @@ package vn.edu.usth.flickr.api;
 
 import com.flickr4java.flickr.Flickr;
 import com.flickr4java.flickr.REST;
-import com.flickr4java.flickr.Transport;
 
 public class FlickrApi extends Flickr {
     public static final String API_KEY = "a8db956a048e0a962a1f88168d7ad545";

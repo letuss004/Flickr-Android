@@ -1,8 +1,8 @@
 package vn.edu.usth.flickr.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +11,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.bumptech.glide.Glide;
+import com.flickr4java.flickr.REST;
+import com.flickr4java.flickr.people.PeopleInterface;
+import com.flickr4java.flickr.people.User;
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.URISyntaxException;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 
 import vn.edu.usth.flickr.R;
+import vn.edu.usth.flickr.api.FlickrApi;
+import vn.edu.usth.flickr.api.UserApiGetter;
 import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.ui.NewsFeedFragment;
+import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
 
 /**
  *
@@ -55,36 +60,109 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
         return new NewsFeedAdapterRV.NewsFeedViewHolder(view);
     }
 
+    private static boolean ready = false;
+
     @Override
-    public void onBindViewHolder(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, int position) {
+    @SuppressLint("StaticFieldLeak")
+    public synchronized void onBindViewHolder(@NonNull NewsFeedAdapterRV.NewsFeedViewHolder holder, @SuppressLint("RecyclerView") int position) {
         try {
+            AsyncTask<String, String, String> task = new AsyncTask<String, String, String>() {
+                @Override
+                protected String doInBackground(String... strings) {
+                    ready = false;
+                    NewsFeedViewModel.updateNewsFeedPosts();
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(String s) {
+                    super.onPostExecute(s);
+                    ready = true;
+                }
+            };
+            if (position == newsFeedPosts.size() - 10 && ready) {
+                task.execute();
+            } else if (newsFeedPosts.size() - 10 < 0 && ready) {
+                task.execute();
+            }
+            //
             setUpDataForViewHolder(holder, position);
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) throws URISyntaxException {
-        Log.e(TAG, "setUpDataForViewHolder: start");
+    public void setNewsFeedPosts(ArrayList<NewsFeedPost> newsFeedPosts) {
+        this.newsFeedPosts.addAll(newsFeedPosts);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public static boolean isReady() {
+        return ready;
+    }
+
+    public static void setReady(boolean ready) {
+        NewsFeedAdapterRV.ready = ready;
+    }
+
+    private void setUpDataForViewHolder(NewsFeedViewHolder holder, int position) throws URISyntaxException, JSONException {
         String imageUri = getImageLinkFromDescription(position);
-//        String avatarUri = newsFeedPosts.get(position).getUser().getSecureBuddyIconUrl();
+        String avatarUri = getImageLinkFromDescription(position);
         String author = getOwnerName(newsFeedPosts.get(position).getAuthor());
         String title = newsFeedPosts.get(position).getTitle();
-//        String likeQuantity = String.valueOf(newsFeedPosts.get(position).getPersonTags().size());
-//        String commentQuantity = String.valueOf(newsFeedPosts.get(position).getComments().size());
-
+        String likeQuantity = getLikeQuantity(position);
+        String commentQuantity = getCommentQuantity(position);
+        String textOfComment = getCommentText(position);
+        Log.e(TAG, "setUpDataForViewHolder: " + textOfComment);
         Picasso.get().load(imageUri).into(holder.mainImage);
-//        Picasso.get().load(avatarUri).into(holder.avaImage);
-//        holder.postOwnerName.setText(author);
-//        holder.postTitle.setText(title);
-//        holder.likeQuantity.setText(likeQuantity);
-//        holder.commentQuantity.setText(commentQuantity);
-//        holder.textListOfLike.setText(postList.get(position).getTextLikeList());
+        Picasso.get().load(avatarUri).into(holder.avaImage);
+        holder.postOwnerName.setText(author);
+        holder.postTitle.setText(title);
+        holder.likeQuantity.setText(likeQuantity);
+        holder.commentQuantity.setText(commentQuantity);
 //        holder.userNameComment.setText(postList.get(position).getCommenterUserName());
-//        holder.commentContent.setText(postList.get(position).getCommentContent());
+        holder.commentContent.setText(textOfComment);
         holder.time.setText(getTime(newsFeedPosts.get(position).getPublished()));
-        Log.e(TAG, "setUpDataForViewHolder: " + getImageLinkFromDescription(position));
-        Log.e(TAG, "setUpDataForViewHolder: finished");
+    }
+
+    private String getCommentText(int position) throws JSONException {
+        JSONObject photo = newsFeedPosts.get(position).getCommentsList().getJSONObject("comments");
+        try {
+            return photo.getJSONArray("comment").getJSONObject(0).getString("_content");
+        } catch (JSONException e) {
+            return "";
+        }
+    }
+
+
+    private String getCommentQuantity(int position) throws JSONException {
+        JSONObject photo = newsFeedPosts.get(position).getCommentsList().getJSONObject("comments");
+        try {
+            return String.valueOf(photo.getJSONArray("comment").length());
+        } catch (JSONException e) {
+            return "0";
+        }
+    }
+//        Log.e(TAG, "getLikeQuantity: " + newsFeedPosts.get(position).getFaveList());
+
+    private String getLikeQuantity(int position) throws JSONException {
+        JSONObject photo = newsFeedPosts.get(position).getFaveList().getJSONObject("photo");
+        return String.valueOf(photo.getInt("pages"));
+    }
+
+    @NonNull
+    private String getAvatarPhoto(int position) throws JSONException { // secure failure
+        JSONObject user = newsFeedPosts.get(position).getUser();
+        JSONObject person = user.getJSONObject("person");
+        Integer user_farm = person.getInt("iconfarm");
+        String user_server = person.getString("iconserver");
+        String user_nsid = person.getString("nsid");
+        Log.e(TAG, "getAvatarPhoto: " + UserApiGetter.getAvatarPhoto(user_farm, user_server, user_nsid));
+        return UserApiGetter.getAvatarPhoto(user_farm, user_server, user_nsid);
     }
 
     private String getTime(Date published) {
@@ -130,7 +208,7 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
      */
     public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
         private final ImageView mainImage, avaImage, likeButton, commentButton, shareButton;
-        private final TextView likeQuantity, commentQuantity, postOwnerName, postTitle, textListOfLike, userNameComment, commentContent, time;
+        private final TextView likeQuantity, commentQuantity, postOwnerName, postTitle, userNameComment, commentContent, time;
 
         public NewsFeedViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,7 +218,6 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
             commentQuantity = itemView.findViewById(R.id.commentOfPost);
             postOwnerName = itemView.findViewById(R.id.userName_newsfeed);
             postTitle = itemView.findViewById(R.id.title_newsFeed);
-            textListOfLike = itemView.findViewById(R.id.listOfLike);
             userNameComment = itemView.findViewById(R.id.userName_comment_nf);
             commentContent = itemView.findViewById(R.id.commentContent_newsfeed);
             likeButton = itemView.findViewById(R.id.likeButton_nf);

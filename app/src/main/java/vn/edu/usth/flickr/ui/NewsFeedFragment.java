@@ -21,8 +21,8 @@ import java.util.List;
 
 import vn.edu.usth.flickr.R;
 import vn.edu.usth.flickr.adapter.NewsFeedAdapterRV;
-import vn.edu.usth.flickr.api.FlickrApi;
 import vn.edu.usth.flickr.model.NewsFeedPost;
+import vn.edu.usth.flickr.repository.NewsFeedRepository;
 import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
 
 /**
@@ -73,6 +73,7 @@ public class NewsFeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_newsfeed, container, false);
         activityContext = view.getContext();
         setUpRecyclerViewData(view);
+        if (feedViewModel != null) observeData();
         return view;
     }
 
@@ -83,16 +84,23 @@ public class NewsFeedFragment extends Fragment {
         //
         afterFinishGetDataOnBackGround(() -> {
             setRecyclerViewRealData();
+            NewsFeedAdapterRV.setReady(true);
             observeData();
         });
     }
 
+    private int count = 0;
 
-    @SuppressLint("NotifyDataSetChanged")
+    /*
+     * observe always call at the first time
+     * => update right here only 1
+     * => after that only set notification*/
+    @SuppressLint({"NotifyDataSetChanged", "StaticFieldLeak"})
     private void observeData() {
         feedViewModel.getNewsFeedPosts().observe(getViewLifecycleOwner(), newsFeedPosts1 -> {
             Log.e(TAG, "observeData: method started");
-//            setRecyclerViewRealData();
+            adapter.notifyDataSetChanged();
+
         });
     }
 
@@ -101,7 +109,8 @@ public class NewsFeedFragment extends Fragment {
         AsyncTask<String, String, MutableLiveData<List<NewsFeedPost>>> asyncTask = new AsyncTask<String, String, MutableLiveData<List<NewsFeedPost>>>() {
             @Override
             protected MutableLiveData<List<NewsFeedPost>> doInBackground(String... strings) {
-                feedViewModel = NewsFeedViewModel.getInstance(); //set up data
+
+                        feedViewModel = NewsFeedViewModel.getInstance(); //set up data
                 newsFeedPosts = feedViewModel.getNewsFeedPosts().getValue();
                 return null;
             }

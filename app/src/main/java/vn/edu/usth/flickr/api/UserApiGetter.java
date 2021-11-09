@@ -1,7 +1,5 @@
 package vn.edu.usth.flickr.api;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,8 +14,12 @@ public class UserApiGetter {
 
     }
 
+    public static String getAvatarPhoto(Integer icon_farm, String icon_server, String nsid) {
+        return "http://farm" + icon_farm + ".staticflickr.com/" + icon_server + "/buddyicons/" + nsid + ".jpg" + "&api_key=a8db956a048e0a962a1f88168d7ad545&auth_token=72157720820879664-28f918ba7e67f57d";
+    }
+
     public static JSONObject getUserInformation(String user_id) throws IOException, JSONException {
-        return ApiGetter.readJsonFromUrl(0, 0, getGetInfoUrl(user_id));
+        return ApiGetter.readJsonFromUrl(getGetInfoUrl(user_id));
     }
 
 

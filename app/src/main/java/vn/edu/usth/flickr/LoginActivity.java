@@ -1,15 +1,8 @@
 package vn.edu.usth.flickr;
 
-import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
-
-import vn.edu.usth.flickr.model.NewsFeedPost;
-import vn.edu.usth.flickr.repository.NewsFeedRepository;
 
 public class LoginActivity extends AppCompatActivity {
 
