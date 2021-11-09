@@ -3,11 +3,14 @@ package vn.edu.usth.flickr.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,36 +29,43 @@ import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
  * Use the {@link NewsFeedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewsFeedFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final String TAG = "NewsFeedFragment";
-    private String mParam1;
-    private String mParam2;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
+public class NewsFeedFragment extends Fragment implements NewsFeedAdapterRV.OnRvItemListener {
     private RecyclerView recyclerView;
     private NewsFeedAdapterRV adapter;
     private Context activityContext;
     private NewsFeedViewModel feedViewModel;
     private ArrayList<NewsFeedPost> newsFeedPosts;
+    private int countCreate = 0;
 
-    public NewsFeedFragment() {
-    }
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "NewsFeedFragment";
+    private int mParam1 = 1;
+    private String mParam2;
 
     public static NewsFeedFragment newInstance(String param1, String param2) {
         NewsFeedFragment fragment = new NewsFeedFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putInt(ARG_PARAM1, 1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    public NewsFeedFragment() {
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            countCreate = getArguments().getInt(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -68,23 +78,50 @@ public class NewsFeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_newsfeed, container, false);
         activityContext = view.getContext();
         setUpRecyclerViewData(view);
+        Log.e(TAG, "onCreateView: fajsfjdsalkfjsadfjlas");
+
+        if (feedViewModel != null) {
+            observeData();
+        }
+//        adapter.notifyDataSetChanged();
         return view;
     }
 
-    private void setUpRecyclerViewData(View view) {
-        setRecyclerViewWaiter(view);
-        //
-        afterFinishGetDataOnBackGround(() -> {
-            setRecyclerViewRealData();
-            observeData();
-        });
+    /*
+     * */
+    public void setUpRecyclerViewData(View view) {
+        if (countCreate == 0) {
+            setRecyclerViewWaiter(view);
+            afterFinishGetDataOnBackGround(() -> {
+                setRecyclerViewRealData();
+                NewsFeedAdapterRV.setReady(true);
+                observeData();
+            });
+            countCreate = 1;
+            Log.e(TAG, "setUpRecyclerViewData: --------------------only 1 and count =" + countCreate);
+        } else {
+            feedViewModel = NewsFeedViewModel.getInstance(); //set up data
+            newsFeedPosts = feedViewModel.getNewsFeedPosts().getValue();
+            adapter = new NewsFeedAdapterRV(newsFeedPosts, this, this);
+            recyclerView.setAdapter(adapter);
+            Log.e(TAG, "setUpRecyclerViewData: more than 2 -------------------");
+        }
+
+
     }
 
+
+    /*
+     * observe always call at the first time
+     * => update right here only 1
+     * => after that only set notification*/
+    @SuppressLint({"NotifyDataSetChanged", "StaticFieldLeak"})
     private void observeData() {
         feedViewModel.getNewsFeedPosts().observe(getViewLifecycleOwner(), newsFeedPosts1 -> {
+            Log.e(TAG, "observeData: method started");
             adapter.notifyDataSetChanged();
-//            setRecyclerViewRealData();
         });
+
     }
 
     private void afterFinishGetDataOnBackGround(CallBackListener callBackListener) {
@@ -93,13 +130,13 @@ public class NewsFeedFragment extends Fragment {
             @Override
             protected MutableLiveData<List<NewsFeedPost>> doInBackground(String... strings) {
                 feedViewModel = NewsFeedViewModel.getInstance(); //set up data
+                newsFeedPosts = feedViewModel.getNewsFeedPosts().getValue();
                 return null;
             }
 
             @Override
             protected void onPostExecute(MutableLiveData<List<NewsFeedPost>> listMutableLiveData) {
                 super.onPostExecute(listMutableLiveData);
-                newsFeedPosts = feedViewModel.getNewsFeedPosts().getValue();
                 callBackListener.finished();
             }
         };
@@ -115,13 +152,21 @@ public class NewsFeedFragment extends Fragment {
         recyclerView.setLayoutManager(llm);
 
         ArrayList<NewsFeedPost> tmp = new ArrayList<>();
-        adapter = new NewsFeedAdapterRV(tmp, activityContext, this);
+        adapter = new NewsFeedAdapterRV(tmp, this, this);
         recyclerView.setAdapter(adapter);
     }
 
     private void setRecyclerViewRealData() {
-        adapter = new NewsFeedAdapterRV(newsFeedPosts, activityContext, this);
+        adapter = new NewsFeedAdapterRV(newsFeedPosts, this, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        newsFeedPosts.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        getParentFragmentManager().beginTransaction().replace(R.id.navHost_fragment, CommentFragment.class, bundle).commit();
     }
 
     private interface CallBackListener {

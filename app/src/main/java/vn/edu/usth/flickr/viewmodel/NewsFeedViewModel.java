@@ -1,22 +1,19 @@
 package vn.edu.usth.flickr.viewmodel;
 
-import android.annotation.SuppressLint;
-import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import vn.edu.usth.flickr.model.NewsFeedPost;
 import vn.edu.usth.flickr.repository.NewsFeedRepository;
 
 public class NewsFeedViewModel extends ViewModel {
-    private static MutableLiveData<ArrayList<NewsFeedPost>> newsFeedPosts;
+    private static MutableLiveData<ArrayList<NewsFeedPost>> newsFeedPosts = new MutableLiveData<>();
     private static NewsFeedViewModel instance;
     private static NewsFeedRepository newsFeedRepository;
+    private static ArrayList<NewsFeedPost> list;
 
     private NewsFeedViewModel() {
     }
@@ -31,7 +28,18 @@ public class NewsFeedViewModel extends ViewModel {
     }
 
     public static void setNewsFeedPosts() {
-        newsFeedPosts = newsFeedRepository.fetchNewsFeed();
+        list = newsFeedRepository.fetchNewsFeed(); // get value
+        newsFeedPosts = new MutableLiveData<>(list);
+    }
+
+    /*
+     * updateNewsFeed = new value => append to list
+     * => list updated => onChanged => observed
+     * */
+    public static void updateNewsFeedPosts() {
+        ArrayList<NewsFeedPost> updateNewsFeed = newsFeedRepository.updateNewsFeed(); // get val
+        list.addAll(updateNewsFeed);
+        newsFeedPosts.postValue(list);
     }
 
     public LiveData<ArrayList<NewsFeedPost>> getNewsFeedPosts() {

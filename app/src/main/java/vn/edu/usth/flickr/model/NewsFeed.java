@@ -1,11 +1,7 @@
 package vn.edu.usth.flickr.model;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import org.json.JSONArray;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class NewsFeed {

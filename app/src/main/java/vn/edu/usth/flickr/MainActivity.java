@@ -1,6 +1,7 @@
 package vn.edu.usth.flickr;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -8,6 +9,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONObject;
+
+import vn.edu.usth.flickr.api.NewsFeedApiGetter;
+import vn.edu.usth.flickr.model.VolleyQueueSingleton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(navigationView, navController);
+        //
+
+
     }
 }
 

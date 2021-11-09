@@ -1,5 +1,7 @@
 package vn.edu.usth.flickr.model;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,10 +9,17 @@ public class NewsFeedPost {
     private String author, authorId, description, link, tag, title;
     private Date published, dateTaken;
     private ArrayList<String> media;
+    private JSONObject user;
+    private JSONObject faveList;
+    private JSONObject commentsList;
 
-    public NewsFeedPost(String author, String authorId, String description,
-                        String link, String tag, String title,
-                        Date dateTaken, Date published, ArrayList<String> media) {
+    public NewsFeedPost() {
+    }
+
+    public NewsFeedPost(String author, String authorId, String description, String link,
+                        String tag, String title, Date published, Date dateTaken,
+                        ArrayList<String> media, JSONObject user, JSONObject faveList,
+                        JSONObject commentsList) {
         this.author = author;
         this.authorId = authorId;
         this.description = description;
@@ -20,6 +29,9 @@ public class NewsFeedPost {
         this.published = published;
         this.dateTaken = dateTaken;
         this.media = media;
+        this.user = user;
+        this.faveList = faveList;
+        this.commentsList = commentsList;
     }
 
     @Override
@@ -34,6 +46,9 @@ public class NewsFeedPost {
                 ", published=" + published +
                 ", dateTaken=" + dateTaken +
                 ", media=" + media +
+                ", user=" + user +
+                ", faveList=" + faveList +
+                ", commentsList=" + commentsList +
                 '}';
     }
 
@@ -107,5 +122,29 @@ public class NewsFeedPost {
 
     public void setMedia(ArrayList<String> media) {
         this.media = media;
+    }
+
+    public JSONObject getUser() {
+        return user;
+    }
+
+    public void setUser(JSONObject user) {
+        this.user = user;
+    }
+
+    public JSONObject getFaveList() {
+        return faveList;
+    }
+
+    public void setFaveList(JSONObject faveList) {
+        this.faveList = faveList;
+    }
+
+    public JSONObject getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(JSONObject commentsList) {
+        this.commentsList = commentsList;
     }
 }
