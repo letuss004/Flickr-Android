@@ -30,7 +30,9 @@ import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
  * create an instance of this fragment.
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class NewsFeedFragment extends Fragment implements NewsFeedAdapterRV.OnRvItemListener {
+public class NewsFeedFragment extends Fragment
+        implements NewsFeedAdapterRV.OnRvItemListener {
+    //
     private RecyclerView recyclerView;
     private NewsFeedAdapterRV adapter;
     private Context activityContext;

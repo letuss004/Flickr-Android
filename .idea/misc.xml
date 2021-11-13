@@ -19,7 +19,7 @@
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout-land/fragment_newsfeed.xml" value="0.6342342342342342" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/activity_add_image.xml" value="0.36666666666666664" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/activity_main.xml" value="0.2934232715008432" />
+        <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/activity_navigation.xml" value="0.22760416666666666" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/activity_newsfeed.xml" value="0.33948863636363635" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/activity_notification.xml" value="0.36102564102564105" />
@@ -30,7 +30,7 @@
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/fragment_camera.xml" value="0.26458333333333334" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/fragment_comment.xml" value="0.33" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/fragment_newsfeed.xml" value="0.36666666666666664" />
+        <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/fragment_newsfeed.xml" value="0.1" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/fragment_notification.xml" value="0.26458333333333334" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/ProgrammingProject/Android/Flickr/app/src/main/res/layout/fragment_profile_album.xml" value="0.36666666666666664" />
