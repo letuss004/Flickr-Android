@@ -298,7 +298,7 @@ public void setUpRecyclerViewDataFromViewModel(View view){
 <img src="image/newsfeed.png" alt="s" width="270" height="555" />
 
 >
-<img src="image/newsfeed_land.png" alt="s" />
+<img src="image/newsfeed_land.png" alt="s" width="555" height="270" />
 
 ### 5. Search <a name="results5"></a>
 
