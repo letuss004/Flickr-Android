@@ -35,7 +35,7 @@ Phạm Tuấn Thành
     + [2. Approaches](#intro2)
     + [3. Preparations](#intro3)
         * [a) Software and tools](#intro31)
-        * [b) Modules](#intro32)
+        * [b) Library](#intro32)
 
 - [II/ Implementation](#implementation)
     + [1. Planing](#implementation1)
@@ -43,21 +43,20 @@ Phạm Tuấn Thành
         * [a) Relationship between tables](#implementation21)
         * [b) Tables functions](#implementation22)
     + [3. Project Architecture](#implementation3)
-    + [4. Modules, Classes and Packages](#implementation4)
-        * [a) Database Script](#implementation4a)
-        * [b) Database Information Scripts](#implementation4b)
-        * [c) Hotel Management](#implementation4c)
+    + [4. Classes and Packages](#implementation4)
 
 - [III/ Results](#results)
-    + [1. Main Frame](#results1)
-    + [2. Check in](#results2)
-    + [3. Room manage](#results3)
-    + [4. Room order](#results4)
-    + [5. Check out](#results5)
-    + [6. History](#results6)
-    + [7. Themes](#results7)
+    + [1. Login](#results1)
+    + [2. Sign Up](#results2)
+    + [3. Hyper Link](#results3)
+    + [4. Newsfeed](#results4)
+    + [5. Search](#results5)
+    + [6. Profile](#results6)
 
 - [IV/ Conclusion](#conclusion)
+  + [1. Contribution](#con1)
+  + [2. What we have not done](#con2)
+  + [3. What we have done](#con3)
 
 ## I/ Introduction <a name="intro"></a>
 
@@ -65,22 +64,26 @@ Phạm Tuấn Thành
 
 &ensp;&ensp;&ensp;Flickr is a photo-centric platform that allows professionals and amateur photographers to showcase
 their work while also admiring the work of others. It devotes more attention to the art of photography than any other
-major social media platform.
+major social media platform. There are amount of features of Flickr:
+
++ Profile: You obtain a profile on Flickr, just like any other social network, where you may post a user photo and write
+  a brief bio.
++ Albums: To keep your photo collections nice and neat, organize them into albums. You can share entire albums with
+  friends.
++ Groups: Groups are based around a central topic or idea and allow users to freely join. Members of a group can share
+  their photos and participate in group discussions.
++ Organize: Use Flickr's unique Organizr tool to edit your photos and arrange them just the way you want.
 
 ### 2. Approaches <a name="intro2"></a>
 
-&ensp;&ensp;&ensp;First, the program is designed with a convenient and easy-to-use interface, easy to look up,
-minimizing unnecessary risks that manual room registration encounters, such as wrong check-in date, wrong service, etc.
-One of the reasons that make our program valuable is our service. We are friendly, responsible and quick to respond.
-Additionally, our program has open source that is free to use.
+&ensp;&ensp;&ensp;First the program is designed with a convenient and easy-to-use interface, easy to look up. Flickr is
+one of the big names when it comes to image and video sharing platforms. Flickr encourages numerous activities that the
+users can take part in, including photo sharing, video sharing, photo and video hosting, browsing through its wide
+collection of photos and videos and more.
 
-&ensp;&ensp;&ensp;Implementing the idea, our team developed a system to simplify the work of a manager. We have also
-written functions that help managers handle customer transactions such as check-in, customer information entry, room
-management, service order entry, payment entry and record keeping of incoming guests.
-
-&ensp;&ensp;&ensp;The main aim of the entire activity is to automate the process of day to day activities of hotels like
-room activities, admission of a new customer, assign a room according to customer's demand, checkout of a computer and
-releasing the room and finally compute the bill etc.
+&ensp;&ensp;&ensp;Flickr is a well-known photo-sharing and storage site that offers a variety of complex and powerful
+features. It encourages users to share and examine one other's images, resulting in a vibrant and involved community.
+Without spending a dollar, you can share and host hundreds of your own photos on Flickr.
 
 ### 3. Preparations <a name="intro3"></a>
 
@@ -329,12 +332,42 @@ public void setUpRecyclerViewDataFromViewModel(View view){
 
 ## IV/ Conclusions <a name="conclusion"></a>
 
-### 1. What we have done<a name="con1"></a>
+### 1. Contribution<a name="con1"></a>
+
+1. Le Anh Tu: 25%
+2. Do Manh Thang: 25%
+3. Pham Tuan Thanh: 25%
+4. Le Duy: 25%
 
 ### 2. What we have not done<a name="con2"></a>
 
-### 3. Contribution<a name="con3"></a>
+1. Optimization
+    + Poor thread
+2. Feature missing
+    + Camera
+    + Notification
+    + Profile
+3. Bugs
+    + Crash
 
+> We came up with many idea and feature as you can see at part II.1, but we didn't finish because of skills limitation and
+> some difficulties.
+
+### 3. What we have done<a name="con3"></a>
+
+1. 60% in progress
+    + Thread
+    + Singleton
+    + Callback
+2. Try our best
+    + Recommend technique
+    + Correct idea
+3. Clean Architecture
+4. Real API connection
+
+> Even 60% of project, we still learn many things because we were trying the best. Trying to implement recommend technique
+> by Google at https://developer.android.com/guide/ and the idea we build project from crash is correct and simulate
+> professional working environment. Flick Android is quite a success project. 
 
 
 
