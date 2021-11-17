@@ -17,14 +17,14 @@ May 2021
 ## **Group members**
 
 ```
-Lê Anh Tú
+Lê Anh Tú  BA9-067
 
-Lê Duy
+Lê Duy  BA9-075
 
-Phạm Tuấn Thành 
+Phạm Tuấn Thành  BA9-057
 
-Đỗ Mạnh Thắng
-``` 
+Đỗ Mạnh Thắng  BA9-056
+```  
 
  </div>
 
