@@ -39,9 +39,6 @@ public class CommentAdapterRV extends RecyclerView.Adapter<CommentAdapterRV.Comm
         holder.avaUserComment.setImageDrawable(commentArrayList.get(position).getAvatar());
         holder.userName.setText(commentArrayList.get(position).getUserName());
         holder.userComment.setText(commentArrayList.get(position).getComment());
-
-
-
     }
 
     @Override

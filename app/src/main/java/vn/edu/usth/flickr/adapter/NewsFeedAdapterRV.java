@@ -228,12 +228,12 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
     /**
      * ------------------------------------------
      */
-    public static class NewsFeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
         private final ImageView mainImage, avaImage, likeButton, commentButton, shareButton;
         private final TextView likeQuantity, commentQuantity, postOwnerName, postTitle, userNameComment, commentContent, time;
-        OnRvItemListener onItemListener;
+        private final OnRvItemListener onItemListener;
 
-        public NewsFeedViewHolder(@NonNull View itemView, OnRvItemListener onClickListener) {
+        public NewsFeedViewHolder(@NonNull View itemView, OnRvItemListener itemListener) {
             super(itemView);
             mainImage = itemView.findViewById(R.id.imagePost);
             avaImage = itemView.findViewById(R.id.avaImage);
@@ -247,20 +247,21 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
             commentButton = itemView.findViewById(R.id.commentButton_nf);
             shareButton = itemView.findViewById(R.id.shareButton_nf);
             time = itemView.findViewById(R.id.timeOfPost);
-            this.onItemListener = onClickListener;
-            commentButton.setOnClickListener(this);
+            //
+            this.onItemListener = itemListener;
+            commentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemListener.onItemClick(getAdapterPosition());
+                }
+            });
         }
 
-        @Override
-        public void onClick(View v) {
-            onItemListener.onItemClick(getAdapterPosition());
-        }
     }
 
     public interface OnRvItemListener {
         void onItemClick(int position);
     }
-
 
 }
 //@Deprecated

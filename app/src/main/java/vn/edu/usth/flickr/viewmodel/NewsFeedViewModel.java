@@ -46,6 +46,4 @@ public class NewsFeedViewModel extends ViewModel {
         getInstance();
         return newsFeedPosts;
     }
-
-
 }

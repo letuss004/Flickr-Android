@@ -30,7 +30,9 @@ import vn.edu.usth.flickr.viewmodel.NewsFeedViewModel;
  * create an instance of this fragment.
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class NewsFeedFragment extends Fragment implements NewsFeedAdapterRV.OnRvItemListener {
+public class NewsFeedFragment extends Fragment
+        implements NewsFeedAdapterRV.OnRvItemListener {
+    //
     private RecyclerView recyclerView;
     private NewsFeedAdapterRV adapter;
     private Context activityContext;
@@ -43,6 +45,18 @@ public class NewsFeedFragment extends Fragment implements NewsFeedAdapterRV.OnRv
     private static final String TAG = "NewsFeedFragment";
     private int mParam1 = 1;
     private String mParam2;
+
+    private final NewsFeedAdapterRV.OnRvItemListener itemListener = new NewsFeedAdapterRV.OnRvItemListener() {
+        @Override
+        public void onItemClick(int position) {
+            newsFeedPosts.get(position);
+            Bundle bundle = new Bundle();
+            bundle.putInt("position", position);
+            CommentFragment fragment = new CommentFragment();
+            fragment.setArguments(bundle);
+            getParentFragmentManager().beginTransaction().replace(R.id.navHost_fragment, fragment).addToBackStack("newsfeed").commit();
+        }
+    };
 
     public static NewsFeedFragment newInstance(String param1, String param2) {
         NewsFeedFragment fragment = new NewsFeedFragment();
@@ -110,6 +124,17 @@ public class NewsFeedFragment extends Fragment implements NewsFeedAdapterRV.OnRv
 
     }
 
+    /*
+     * */
+    public void setUpRecyclerViewDataFromViewModel(View view) {
+        setRecyclerViewWaiter(view);
+        afterFinishGetDataOnBackGround(() -> {
+            setRecyclerViewRealData();
+            NewsFeedAdapterRV.setReady(true);
+            observeData();
+        });
+    }
+
 
     /*
      * observe always call at the first time
@@ -166,7 +191,9 @@ public class NewsFeedFragment extends Fragment implements NewsFeedAdapterRV.OnRv
         newsFeedPosts.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
-        getParentFragmentManager().beginTransaction().replace(R.id.navHost_fragment, CommentFragment.class, bundle).commit();
+        CommentFragment fragment = new CommentFragment();
+        fragment.setArguments(bundle);
+        getParentFragmentManager().beginTransaction().replace(R.id.navHost_fragment, fragment).addToBackStack("newsfeed").commit();
     }
 
     private interface CallBackListener {

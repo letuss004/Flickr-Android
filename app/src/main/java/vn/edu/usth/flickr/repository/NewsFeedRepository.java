@@ -74,7 +74,7 @@ public class NewsFeedRepository {
         JSONObject jsonObject = NewsFeedApiGetter.getPublicFeedFriendStream(FlickrApi.NSID, 0, 1);
         JSONArray jsonArray = jsonObject.getJSONArray("items");
         //
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             Log.e(TAG, "setUpDataForNewsFeedPosts: loop" + i + "start");
             JSONObject tmp = (JSONObject) jsonArray.get(i);
             // Ugly but good =))
@@ -110,7 +110,7 @@ public class NewsFeedRepository {
         ArrayList<NewsFeedPost> list = new ArrayList<>();
         int count = 5;
         //
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < 4; i++) {
             Log.e(TAG, "updateDataForNewsFeedPosts: loop" + i + " start");
             ///
             JSONObject tmp = (JSONObject) jsonArray.get(i);
