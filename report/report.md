@@ -107,7 +107,7 @@ releasing the room and finally compute the bill etc.
 ### 1. Planing <a name="implementation1"></a>
 
 &ensp;&ensp;&ensp;To implement this project, we came up with the idea of creating 6 functions that perform different
-tasks of the hotel management system:
+tasks of the flickr:
 
 ```
 Login:
@@ -278,61 +278,62 @@ public void setUpRecyclerViewDataFromViewModel(View view){
 
 ### 1. Login <a name="results1"></a>
 
-> Login Fragment is a content of Fragment View Container that contain many component as input to connect and perform query from database
+> Login Fragment is a content of Fragment View Container that contain many component as input to connect and perform query from database.
+> <br>
+> In this image EditText is doing his work when alert people when they are wrong.
 
 <img src="image/login.png" alt="s" width="270" height="555" />
 
 ### 2. Sign Up <a name="results2"></a>
 
+> Sign up fragment is also like Login. It contains 5 EditText that input user value into a filter then push everything
+> up to database as an account for login.
 >
 <img src="image/signup.png" alt="s" width="270" height="555" />
 
 ### 3. Hyper Link <a name="results3"></a>
 
+> As you can see in the two previous images. There is many hyperlink around such as "Term of Service", "Privacy Policy", ...
+> That will lead user to Flickr web policy
 >
 <img alt="s" src="image/web.png" width="270" height="555" />
 
 ### 4. Newsfeed <a name="results4"></a>
 
+> The most important part is newsfeed, newsfeed simply an infinity list of newsfeed post.
+> <br>
+> Newsfeed post is a structure of two main image: avatar and main image then flow by the owner name and title
 >
 <img src="image/newsfeed.png" alt="s" width="270" height="555" />
 
+> An interest point here is when user rotate device, the device will kill all things in it life cycle
+> but with MVVM above data saved from life cycle event.
 >
 <img src="image/newsfeed_land.png" alt="s" width="555" height="270" />
 
 ### 5. Search <a name="results5"></a>
 
-<img src="image/" alt="s" width="270" height="555" />
+> As mention above Flickr provide search feature that help user can perform interest things such as: tags, people,
+> events, ...
+>
+<img src="image/search.png" alt="s" width="270" height="555" />
 
 ### 6. Profile <a name="results6"></a>
 
-<img src="image/" alt="s" width="270" height="555" />
+> In profile, you can change your profile photo to set as your primary Flickr picture. Your Flickr profile photo is
+> the primary icon that displays when others view your account.
+> <br>
+> But we didn't have enough time and skills to perform this feature yet.
+>
+<img src="image/profile.png" alt="s" width="270" height="555" />
 
+## IV/ Conclusions <a name="conclusion"></a>
 
+### 1. What we have done<a name="con1"></a>
 
+### 2. What we have not done<a name="con2"></a>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 3. Contribution<a name="con3"></a>
 
 
 
