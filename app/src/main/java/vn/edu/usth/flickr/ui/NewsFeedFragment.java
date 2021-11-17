@@ -46,6 +46,18 @@ public class NewsFeedFragment extends Fragment
     private int mParam1 = 1;
     private String mParam2;
 
+    private final NewsFeedAdapterRV.OnRvItemListener itemListener = new NewsFeedAdapterRV.OnRvItemListener() {
+        @Override
+        public void onItemClick(int position) {
+            newsFeedPosts.get(position);
+            Bundle bundle = new Bundle();
+            bundle.putInt("position", position);
+            CommentFragment fragment = new CommentFragment();
+            fragment.setArguments(bundle);
+            getParentFragmentManager().beginTransaction().replace(R.id.navHost_fragment, fragment).addToBackStack("newsfeed").commit();
+        }
+    };
+
     public static NewsFeedFragment newInstance(String param1, String param2) {
         NewsFeedFragment fragment = new NewsFeedFragment();
         Bundle args = new Bundle();
@@ -110,6 +122,17 @@ public class NewsFeedFragment extends Fragment
         }
 
 
+    }
+
+    /*
+     * */
+    public void setUpRecyclerViewDataFromViewModel(View view) {
+        setRecyclerViewWaiter(view);
+        afterFinishGetDataOnBackGround(() -> {
+            setRecyclerViewRealData();
+            NewsFeedAdapterRV.setReady(true);
+            observeData();
+        });
     }
 
 

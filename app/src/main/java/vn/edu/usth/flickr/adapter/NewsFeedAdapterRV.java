@@ -228,8 +228,7 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
     /**
      * ------------------------------------------
      */
-    public static class NewsFeedViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    public static class NewsFeedViewHolder extends RecyclerView.ViewHolder {
         private final ImageView mainImage, avaImage, likeButton, commentButton, shareButton;
         private final TextView likeQuantity, commentQuantity, postOwnerName, postTitle, userNameComment, commentContent, time;
         private final OnRvItemListener onItemListener;
@@ -250,13 +249,14 @@ public class NewsFeedAdapterRV extends RecyclerView.Adapter<NewsFeedAdapterRV.Ne
             time = itemView.findViewById(R.id.timeOfPost);
             //
             this.onItemListener = itemListener;
-            commentButton.setOnClickListener(this);
+            commentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemListener.onItemClick(getAdapterPosition());
+                }
+            });
         }
 
-        @Override
-        public void onClick(View v) {
-            onItemListener.onItemClick(getAdapterPosition());
-        }
     }
 
     public interface OnRvItemListener {
