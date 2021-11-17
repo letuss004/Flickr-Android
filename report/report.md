@@ -280,25 +280,34 @@ public void setUpRecyclerViewDataFromViewModel(View view){
 
 > Login Fragment is a content of Fragment View Container that contain many component as input to connect and perform query from database
 
-![](image/login.png)
+<img src="image/login.png" alt="s" width="270" height="555" />
 
-### 2. Check In <a name="results2"></a>
+### 2. Sign Up <a name="results2"></a>
 
 >
-![](image/signup.png = 100x)
+<img src="image/signup.png" alt="s" width="270" height="555" />
 
 ### 3. Hyper Link <a name="results3"></a>
 
 >
 <img alt="s" src="image/web.png" width="270" height="555" />
 
-### 4. Room Order <a name="results4"></a>
+### 4. Newsfeed <a name="results4"></a>
 
-### 5. Check Out <a name="results5"></a>
+>
+<img src="image/newsfeed.png" alt="s" width="270" height="555" />
 
-### 6. History <a name="results6"></a>
+>
+<img src="image/newsfeed_land.png" alt="s" />
 
-### 7. Themes <a name="results7"></a>
+### 5. Search <a name="results5"></a>
+
+<img src="image/" alt="s" width="270" height="555" />
+
+### 6. Profile <a name="results6"></a>
+
+<img src="image/" alt="s" width="270" height="555" />
+
 
 
 
